@@ -6,10 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
     tools:context=".Activitys.UpdateUserActivity">
     <RelativeLayout
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_35">
+        android:layout_height="@dimen/dp_45">
         <ImageView
             android:src="@mipmap/icon_arrow_left"
             android:id="@+id/UserProtocol_img_back"
@@ -36,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_148">
             <com.zhkj.syyj.CustView.CircleImageView
+                android:id="@+id/update_user_img_head"
                 android:src="@mipmap/spyj_logo"
                 android:layout_marginTop="@dimen/dp_18"
                 android:layout_centerHorizontal="true"

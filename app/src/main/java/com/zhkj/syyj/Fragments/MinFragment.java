@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.zhkj.syyj.Activitys.MemberActivity;
 import com.zhkj.syyj.Activitys.MyBalanceActivity;
 import com.zhkj.syyj.Activitys.MyOrderActivity;
+import com.zhkj.syyj.Activitys.PerSonalDataActivity;
 import com.zhkj.syyj.R;
 
 /**
@@ -43,6 +44,7 @@ public class MinFragment extends Fragment implements View.OnClickListener {
        inflate.findViewById(R.id.fm_min_rel_my_order).setOnClickListener(this);
        inflate.findViewById(R.id.fm_min_my_balance).setOnClickListener(this);
        inflate.findViewById(R.id.fm_min_ll_member).setOnClickListener(this);
+       inflate.findViewById(R.id.fm_min_img_head).setOnClickListener(this);
     }
 
     @Override
@@ -56,6 +58,9 @@ public class MinFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fm_min_ll_member:
                 startActivity(new Intent(mContext, MemberActivity.class));
+                break;
+            case R.id.fm_min_img_head:
+                startActivity(new Intent(mContext, PerSonalDataActivity.class));
                 break;
                 default:
                     break;

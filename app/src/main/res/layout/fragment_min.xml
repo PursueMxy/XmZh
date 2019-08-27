@@ -27,6 +27,7 @@
                android:layout_height="@dimen/dp_35" />
        </RelativeLayout>
        <com.zhkj.syyj.CustView.CircleImageView
+           android:id="@+id/fm_min_img_head"
            android:layout_marginTop="@dimen/dp_15"
            android:src="@mipmap/spyj_logo"
            android:layout_gravity="center"
