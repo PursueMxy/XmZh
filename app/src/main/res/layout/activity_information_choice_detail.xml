@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@mipmap/icon_topbg"
+    android:background="@color/colorPrimaryDark"
     tools:context=".Activitys.InformationChoiceDetailActivity">
     <RelativeLayout
         android:layout_width="match_parent"
