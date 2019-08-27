@@ -7,9 +7,9 @@
     android:orientation="vertical"
     tools:context=".Activitys.InformationChoiceActivity">
     <RelativeLayout
-        android:background="@mipmap/icon_topbg"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_35">
+        android:layout_height="@dimen/dp_45">
         <ImageView
             android:src="@mipmap/icon_arrow_left"
             android:id="@+id/UserProtocol_img_back"
