@@ -1,6 +1,8 @@
 package com.zhkj.syyj.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.zhkj.syyj.Activitys.OrderDetailActivity;
 import com.zhkj.syyj.Beans.OrderBean;
 import com.zhkj.syyj.Beans.ShoppingCarDataBean;
 import com.zhkj.syyj.R;
@@ -25,26 +28,12 @@ import butterknife.InjectView;
 public class MyOrderAdapter extends BaseExpandableListAdapter {
 
     private final Context context;
-    private final LinearLayout llSelectAll;
-    private final ImageView ivSelectAll;
-    private final Button btnOrder;
-    private final Button btnDelete;
-    private final RelativeLayout rlTotalPrice;
-    private final TextView tvTotalPrice;
     private List<ShoppingCarDataBean.DatasBean> data;
     private boolean isSelectAll = false;
     private double total_price;
 
-    public MyOrderAdapter(Context context, LinearLayout llSelectAll,
-                              ImageView ivSelectAll, Button btnOrder, Button btnDelete,
-                              RelativeLayout rlTotalPrice, TextView tvTotalPrice) {
+    public MyOrderAdapter(Context context) {
         this.context = context;
-        this.llSelectAll = llSelectAll;
-        this.ivSelectAll = ivSelectAll;
-        this.btnOrder = btnOrder;
-        this.btnDelete = btnDelete;
-        this.rlTotalPrice = rlTotalPrice;
-        this.tvTotalPrice = tvTotalPrice;
 
     }
 
@@ -103,7 +92,7 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         GroupViewHolder groupViewHolder;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.myorder_item_top, null);
@@ -113,11 +102,18 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("点击事件",groupPosition+"");
+                context.startActivity(new Intent(context,OrderDetailActivity.class));
+            }
+        });
         return convertView;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ChildViewHolder childViewHolder;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.myorder_item_detail, null);
@@ -133,6 +129,12 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
         }else {
             childViewHolder.myorder_item_bottom_rl.setVisibility(View.GONE);
         }
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context,OrderDetailActivity.class));;
+            }
+        });
         return convertView;
     }
 

@@ -101,8 +101,12 @@
             android:layout_width="match_parent"
             android:layout_height="0.3dp" />
         <ListView
+
+            android:background="@color/white"
+            android:scrollbars="none"
+            android:id="@+id/my_balance_list"
             android:dividerHeight="0.3dp"
-            android:divider="@color/colorBackground"
+            android:divider="@color/colorLineDefault"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></ListView>
     </LinearLayout>

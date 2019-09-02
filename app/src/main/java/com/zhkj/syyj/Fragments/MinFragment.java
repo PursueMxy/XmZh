@@ -11,10 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zhkj.syyj.Activitys.CollectActivity;
+import com.zhkj.syyj.Activitys.CouponActivity;
 import com.zhkj.syyj.Activitys.MemberActivity;
 import com.zhkj.syyj.Activitys.MyBalanceActivity;
 import com.zhkj.syyj.Activitys.MyOrderActivity;
 import com.zhkj.syyj.Activitys.PerSonalDataActivity;
+import com.zhkj.syyj.Activitys.ShoppingAddressActivity;
 import com.zhkj.syyj.R;
 
 /**
@@ -45,6 +48,9 @@ public class MinFragment extends Fragment implements View.OnClickListener {
        inflate.findViewById(R.id.fm_min_my_balance).setOnClickListener(this);
        inflate.findViewById(R.id.fm_min_ll_member).setOnClickListener(this);
        inflate.findViewById(R.id.fm_min_img_head).setOnClickListener(this);
+       inflate.findViewById(R.id.fm_min_shopping_address).setOnClickListener(this);
+       inflate.findViewById(R.id.fm_min_rl_collect).setOnClickListener(this);
+       inflate.findViewById(R.id.fm_min_rl_coupon).setOnClickListener(this);
     }
 
     @Override
@@ -61,6 +67,15 @@ public class MinFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fm_min_img_head:
                 startActivity(new Intent(mContext, PerSonalDataActivity.class));
+                break;
+            case R.id.fm_min_shopping_address:
+                startActivity(new Intent(mContext, ShoppingAddressActivity.class));
+                break;
+            case R.id.fm_min_rl_collect:
+                startActivity(new Intent(mContext, CollectActivity.class));
+                break;
+            case R.id.fm_min_rl_coupon:
+                startActivity(new Intent(mContext, CouponActivity.class));
                 break;
                 default:
                     break;

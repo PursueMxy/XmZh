@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.zhkj.syyj" >
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    package="com.zhkj.syyj">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/spyj_logo"
@@ -12,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activitys.ShoppingBrokerActivity"></activity>
+        <activity android:name=".Activitys.CouponActivity" />
+        <activity android:name=".Activitys.CollectActivity" />
+        <activity android:name=".Activitys.ShoppingAddressUpdateActivity" />
+        <activity android:name=".Activitys.ShoppingAddressAddActivity" />
+        <activity android:name=".Activitys.LogisticsDetailActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -20,15 +28,12 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/boxing_file_provider"/>
+                android:resource="@xml/boxing_file_provider" />
         </provider>
 
-        <activity android:name=".Activitys.EvaluateActivity" >
-        </activity>
-        <activity android:name=".Activitys.UpdateUserActivity" >
-        </activity>
-        <activity android:name=".Activitys.PerSonalDataActivity" >
-        </activity>
+        <activity android:name=".Activitys.EvaluateActivity" />
+        <activity android:name=".Activitys.UpdateUserActivity" />
+        <activity android:name=".Activitys.PerSonalDataActivity" />
         <activity android:name=".Activitys.ShoppingAddressActivity" />
         <activity android:name=".Activitys.MemberActivity" />
         <activity android:name=".Activitys.CashOutActivity" />
@@ -48,7 +53,7 @@
         <activity android:name=".Activitys.EnrollActivity" />
         <activity android:name=".Activitys.BindInformationActivity" />
         <activity android:name=".Activitys.ReSettingActivity" />
-        <activity android:name=".Activitys.LunchActivity" >
+        <activity android:name=".Activitys.LunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,10 +61,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activitys.LoginActivity" />
-        <activity android:name=".MainActivity" />
-
-
-        <!--注意这里的android:theme="@style/AppTheme" AppTheme一定要是NoActionbar类型的主题-->
+        <activity android:name=".MainActivity" /> <!-- 注意这里的android:theme="@style/AppTheme" AppTheme一定要是NoActionbar类型的主题 -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
@@ -72,7 +74,6 @@
             android:name="com.winfo.photoselector.PreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name="com.winfo.photoselector.RvPreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

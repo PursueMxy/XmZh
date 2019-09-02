@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Activitys.ShoppingAddressActivity">
+    tools:context=".Activitys.CollectActivity">
     <RelativeLayout
         android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_high">
         <ImageView
-            android:id="@+id/shopping_address_img_back"
+            android:id="@+id/collect_img_back"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_centerVertical="true"
             android:src="@mipmap/icon_arrow_left"
@@ -27,7 +26,7 @@
             android:layout_height="match_parent" />
 
         <TextView
-            android:id="@+id/shopping_address_tv_add"
+            android:id="@+id/collect_tv_update"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_15"
             android:layout_width="wrap_content"
@@ -52,7 +51,7 @@
         android:layout_height="match_parent">
         <com.zhouyou.recyclerview.XRecyclerView
             android:background="#FFF4F4F4"
-            android:id="@+id/shopping_address_recyclerView"
+            android:id="@+id/collect_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </com.zhouyou.recyclerview.XRecyclerView>

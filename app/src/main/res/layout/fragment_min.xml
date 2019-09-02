@@ -278,6 +278,7 @@
                 android:layout_height="0.3dp" />
 
             <RelativeLayout
+                android:id="@+id/fm_min_shopping_address"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_width="match_parent"
@@ -309,6 +310,7 @@
                 android:layout_height="0.3dp" />
 
             <RelativeLayout
+                android:id="@+id/fm_min_rl_collect"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_width="match_parent"
@@ -371,6 +373,7 @@
                 android:layout_height="0.3dp" />
 
             <RelativeLayout
+                android:id="@+id/fm_min_rl_coupon"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_width="match_parent"

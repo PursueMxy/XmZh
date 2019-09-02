@@ -12,60 +12,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.zhkj.syyj.Adapters.MyOrderAdapter;
-import com.zhkj.syyj.Adapters.ShoppingCarAdapter;
-import com.zhkj.syyj.Beans.OrderBean;
 import com.zhkj.syyj.Beans.ShoppingCarDataBean;
 import com.zhkj.syyj.CustView.RoundCornerDialog;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.ToastUtils;
-import com.zhouyou.recyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 
 public class MyOrderActivity extends AppCompatActivity {
 
 
-    @InjectView(R.id.tv_titlebar_center)
-    TextView tvTitlebarCenter;
-    @InjectView(R.id.tv_titlebar_right)
-    TextView tvTitlebarRight;
-    @InjectView(R.id.elv_shopping_car)
-    ExpandableListView elvShoppingCar;
-    @InjectView(R.id.iv_select_all)
-    ImageView ivSelectAll;
-    @InjectView(R.id.ll_select_all)
-    LinearLayout llSelectAll;
-    @InjectView(R.id.btn_order)
-    Button btnOrder;
-    @InjectView(R.id.btn_delete)
-    Button btnDelete;
-    @InjectView(R.id.tv_total_price)
-    TextView tvTotalPrice;
-    @InjectView(R.id.rl_total_price)
-    RelativeLayout rlTotalPrice;
-    @InjectView(R.id.rl)
-    RelativeLayout rl;
     @InjectView(R.id.iv_no_contant)
     ImageView ivNoContant;
     @InjectView(R.id.rl_no_contant)
     RelativeLayout rlNoContant;
-    @InjectView(R.id.tv_titlebar_left)
-    TextView tvTitlebarLeft;
 
     //模拟的购物车数据（实际开发中使用后台返回的数据）
     private String shoppingCarData = "{\n" +
@@ -135,8 +108,13 @@ public class MyOrderActivity extends AppCompatActivity {
             "}";
     private List<ShoppingCarDataBean.DatasBean> datas;
     private Context mContext;
-//    private ShoppingCarAdapter shoppingCarAdapter;
     private MyOrderAdapter myOrderAdapter;
+    private RadioButton radiobutton_whole;
+    private RadioButton radiobutton_confirm;
+    private RadioButton radiobutton_to_bo_received;
+    private RadioButton radiobutton_to_bo_shipped;
+    private RadioButton radiobutton_obligation;
+    private ExpandableListView elvShoppingCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,36 +123,89 @@ public class MyOrderActivity extends AppCompatActivity {
         mContext = this;
         InitUI();
         ButterKnife.inject(this);
-
         initExpandableListView();
         initData();
     }
 
     private void InitUI() {
-    }
-    @OnClick({R.id.tv_titlebar_left, R.id.tv_titlebar_right})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_titlebar_left://刷新数据
-                initData();
-                break;
-            case R.id.tv_titlebar_right://编辑
-                String edit = tvTitlebarRight.getText().toString().trim();
-                if (edit.equals("编辑")) {
-                    tvTitlebarRight.setText("完成");
-                    rlTotalPrice.setVisibility(View.GONE);
-                    btnOrder.setVisibility(View.GONE);
-                    btnDelete.setVisibility(View.VISIBLE);
-                } else {
-                    tvTitlebarRight.setText("编辑");
-                    rlTotalPrice.setVisibility(View.VISIBLE);
-                    btnOrder.setVisibility(View.VISIBLE);
-                    btnDelete.setVisibility(View.GONE);
+        elvShoppingCar = findViewById(R.id.elv_shopping_car);
+        RadioGroup my_order_radioGroup= findViewById(R.id.my_order_radioGroup);
+        radiobutton_whole = findViewById(R.id.my_order_radiobutton_whole);
+        radiobutton_obligation = findViewById(R.id.my_order_radiobutton_obligation);
+        radiobutton_to_bo_shipped = findViewById(R.id.my_order_radiobutton_to_bo_shipped);
+        radiobutton_to_bo_received = findViewById(R.id.my_order_radiobutton_to_bo_received);
+        radiobutton_confirm = findViewById(R.id.my_order_radiobutton_confirm);
+
+        my_order_radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.my_order_radiobutton_obligation:
+                        radiobutton_whole.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_whole.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_obligation.setBackgroundResource(R.drawable.myorder_choosed_color);
+                        radiobutton_obligation.setTextColor(getResources().getColor(R.color.text_efb134));
+                        radiobutton_to_bo_shipped.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_shipped.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_received.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_received.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_confirm.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_confirm.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        break;
+                    case R.id.my_order_radiobutton_to_bo_shipped:
+                        radiobutton_whole.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_whole.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_obligation.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_obligation.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_shipped.setBackgroundResource(R.drawable.myorder_choosed_color);
+                        radiobutton_to_bo_shipped.setTextColor(getResources().getColor(R.color.text_efb134));
+                        radiobutton_to_bo_received.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_received.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_confirm.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_confirm.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        break;
+                    case R.id.my_order_radiobutton_to_bo_received:
+                        radiobutton_whole.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_whole.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_obligation.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_obligation.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_shipped.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_shipped.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_received.setBackgroundResource(R.drawable.myorder_choosed_color);
+                        radiobutton_to_bo_received.setTextColor(getResources().getColor(R.color.text_efb134));
+                        radiobutton_confirm.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_confirm.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        break;
+                    case R.id.my_order_radiobutton_whole:
+                        radiobutton_whole.setBackgroundResource(R.drawable.myorder_choosed_color);
+                        radiobutton_whole.setTextColor(getResources().getColor(R.color.text_efb134));
+                        radiobutton_obligation.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_obligation.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_shipped.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_shipped.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_received.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_received.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_confirm.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_confirm.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        break;
+                    case R.id.my_order_radiobutton_confirm:
+                        radiobutton_whole.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_whole.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_obligation.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_obligation.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_shipped.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_shipped.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_received.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_received.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_confirm.setBackgroundResource(R.drawable.myorder_choosed_color);
+                        radiobutton_confirm.setTextColor(getResources().getColor(R.color.text_efb134));
+                        break;
+                        default:
+                            break;
+
                 }
-                break;
-            default:
-                break;
-        }
+            }
+        });
     }
 
     /**
@@ -199,40 +230,16 @@ public class MyOrderActivity extends AppCompatActivity {
      */
     private void initExpandableListView() {
 //        shoppingCarAdapter = new ShoppingCarAdapter(mContext, llSelectAll, ivSelectAll, btnOrder, btnDelete, rlTotalPrice, tvTotalPrice);
-        myOrderAdapter = new MyOrderAdapter(mContext, llSelectAll, ivSelectAll, btnOrder, btnDelete, rlTotalPrice, tvTotalPrice);
+        myOrderAdapter = new MyOrderAdapter(mContext);
 
         elvShoppingCar.setAdapter(myOrderAdapter);
         elvShoppingCar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(mContext,OrderDetailActivity.class));
+                Log.e("点击事件",position+"加"+id);
+//                startActivity(new Intent(mContext,OrderDetailActivity.class));
             }
         });
-//        //删除的回调
-//        shoppingCarAdapter.setOnDeleteListener(new ShoppingCarAdapter.OnDeleteListener() {
-//            @Override
-//            public void onDelete() {
-//                initDelete();
-//                /**
-//                 * 实际开发中，在此请求删除接口，删除成功后，
-//                 * 通过initExpandableListViewData（）方法刷新购物车数据。
-//                 * 注：通过bean类中的DatasBean的isSelect_shop属性，判断店铺是否被选中；
-//                 *                  GoodsBean的isSelect属性，判断商品是否被选中，
-//                 *                  （true为选中，false为未选中）
-//                 */
-//            }
-//        });
-
-//        //修改商品数量的回调
-//        shoppingCarAdapter.setOnChangeCountListener(new ShoppingCarAdapter.OnChangeCountListener() {
-//            @Override
-//            public void onChangeCount(String goods_id) {
-//                /**
-//                 * 实际开发中，在此请求修改商品数量的接口，商品数量修改成功后，
-//                 * 通过initExpandableListViewData（）方法刷新购物车数据。
-//                 */
-//            }
-//        });
     }
 
     /**
@@ -251,30 +258,22 @@ public class MyOrderActivity extends AppCompatActivity {
                 elvShoppingCar.expandGroup(i);
             }
 
-            //使组点击无效果
+            //使组点击无效果（true）
             elvShoppingCar.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
                 @Override
                 public boolean onGroupClick(ExpandableListView parent, View v,
                                             int groupPosition, long id) {
-
+//                    Log.e("点击事件",groupPosition+"加"+id);
                     return true;
                 }
             });
 
-            tvTitlebarRight.setVisibility(View.VISIBLE);
-            tvTitlebarRight.setText("编辑");
             rlNoContant.setVisibility(View.GONE);
             elvShoppingCar.setVisibility(View.VISIBLE);
-            rl.setVisibility(View.VISIBLE);
-            rlTotalPrice.setVisibility(View.VISIBLE);
-            btnOrder.setVisibility(View.VISIBLE);
-            btnDelete.setVisibility(View.GONE);
         } else {
-            tvTitlebarRight.setVisibility(View.GONE);
             rlNoContant.setVisibility(View.VISIBLE);
             elvShoppingCar.setVisibility(View.GONE);
-            rl.setVisibility(View.GONE);
         }
     }
 

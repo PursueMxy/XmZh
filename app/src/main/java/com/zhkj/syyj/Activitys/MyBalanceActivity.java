@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.zhkj.syyj.R;
 
@@ -20,6 +24,8 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
     @InjectView(R.id.my_balance_btn_cash_out)
     Button btn_cash_out;
     private Context mContext;
+    private ListView balance_list;
+    private MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,13 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
         ButterKnife.inject(this);
         btn_recharge.setOnClickListener(this);
         btn_cash_out.setOnClickListener(this);
+        InitUI();
+    }
+
+    private void InitUI() {
+        balance_list = findViewById(R.id.my_balance_list);
+        myAdapter = new MyAdapter();
+        balance_list.setAdapter(myAdapter);
     }
 
 
@@ -43,6 +56,29 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
                 break;
                 default:
                     break;
+        }
+    }
+
+    public class MyAdapter extends BaseAdapter{
+        @Override
+        public int getCount() {
+            return 5;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View inflate = LayoutInflater.from(mContext).inflate(R.layout.list_balance, null);
+            return inflate ;
         }
     }
 }
