@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 
 import com.zhkj.syyj.Activitys.CollectActivity;
 import com.zhkj.syyj.Activitys.CouponActivity;
+import com.zhkj.syyj.Activitys.IntegralActivity;
 import com.zhkj.syyj.Activitys.MemberActivity;
 import com.zhkj.syyj.Activitys.MyBalanceActivity;
 import com.zhkj.syyj.Activitys.MyOrderActivity;
+import com.zhkj.syyj.Activitys.NewsActivity;
 import com.zhkj.syyj.Activitys.PerSonalDataActivity;
 import com.zhkj.syyj.Activitys.ShoppingAddressActivity;
 import com.zhkj.syyj.R;
@@ -51,6 +53,8 @@ public class MinFragment extends Fragment implements View.OnClickListener {
        inflate.findViewById(R.id.fm_min_shopping_address).setOnClickListener(this);
        inflate.findViewById(R.id.fm_min_rl_collect).setOnClickListener(this);
        inflate.findViewById(R.id.fm_min_rl_coupon).setOnClickListener(this);
+       inflate.findViewById(R.id.fm_min_integarl).setOnClickListener(this);
+       inflate.findViewById(R.id.fm_min_rl_news).setOnClickListener(this);
     }
 
     @Override
@@ -76,6 +80,12 @@ public class MinFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fm_min_rl_coupon:
                 startActivity(new Intent(mContext, CouponActivity.class));
+                break;
+            case R.id.fm_min_integarl:
+                startActivity(new Intent(mContext, IntegralActivity.class));
+                break;
+            case R.id.fm_min_rl_news:
+                startActivity(new Intent(mContext, NewsActivity.class));
                 break;
                 default:
                     break;

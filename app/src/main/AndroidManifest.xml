@@ -14,7 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activitys.ShoppingBrokerActivity"></activity>
+        <activity android:name=".Activitys.MessageDetailActivity"></activity>
+        <activity android:name=".Activitys.SystemMessageActivity" />
+        <activity android:name=".Activitys.NewsActivity" />
+        <activity android:name=".Activitys.IntegralActivity" />
+        <activity android:name=".Activitys.CouponDetailActivity" />
+        <activity android:name=".Activitys.ShoppingBrokerActivity" />
         <activity android:name=".Activitys.CouponActivity" />
         <activity android:name=".Activitys.CollectActivity" />
         <activity android:name=".Activitys.ShoppingAddressUpdateActivity" />

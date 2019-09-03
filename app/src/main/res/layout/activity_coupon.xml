@@ -27,7 +27,8 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
     <ImageView
-        android:src="@color/colorPrimaryDark"
+        android:id="@+id/coupon_img_shopping_broker"
+        android:src="@mipmap/icon_home_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_169" />
 
@@ -85,8 +86,7 @@
     </RadioGroup>
 
     <com.zhouyou.recyclerview.XRecyclerView
-        android:layout_marginLeft="@dimen/dp_15"
-        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_6"
         android:id="@+id/coupon_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

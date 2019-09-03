@@ -6,35 +6,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.zhkj.syyj.Adapters.CouponAdapter;
+import com.zhkj.syyj.Adapters.CollectAdapter;
+import com.zhkj.syyj.Adapters.SystemMessageAdapter;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.MxyUtils;
 import com.zhouyou.recyclerview.XRecyclerView;
-import com.zhouyou.recyclerview.adapter.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CouponActivity extends AppCompatActivity implements View.OnClickListener {
+public class SystemMessageActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Context mContext;
     private XRecyclerView mRecyclerView;
     private List<String> list=new ArrayList<>();
+    private Context mContext;
     private LinearLayoutManager mLayoutManager;
-    private CouponAdapter couponAdapter;
-    private ImageView img_shopping_broker;
+    private SystemMessageAdapter systemMessageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coupon);
+        setContentView(R.layout.activity_system_message);
         mContext = getApplicationContext();
         InitUI();
     }
@@ -45,13 +42,11 @@ public class CouponActivity extends AppCompatActivity implements View.OnClickLis
         list.add("112");
         list.add("112");
         list.add("112");
-        findViewById(R.id.coupon_img_back).setOnClickListener(this);
-        img_shopping_broker = findViewById(R.id.coupon_img_shopping_broker);
-        img_shopping_broker.setOnClickListener(this);
-        mRecyclerView = findViewById(R.id.coupon_recyclerView);
+        findViewById(R.id.system_message_img_back).setOnClickListener(this);
+        mRecyclerView = findViewById(R.id.system_message_recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mLayoutManager = new LinearLayoutManager(mContext);
-        couponAdapter = new CouponAdapter(this);
+        systemMessageAdapter = new SystemMessageAdapter(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
@@ -66,8 +61,8 @@ public class CouponActivity extends AppCompatActivity implements View.OnClickLis
                 mRecyclerView.setNoMore(true);//数据加载完成
             }
         });
-        mRecyclerView.setAdapter(couponAdapter);
-        couponAdapter.setListAll(list);
+        mRecyclerView.setAdapter(systemMessageAdapter);
+        systemMessageAdapter.setListAll(list);
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
@@ -78,32 +73,23 @@ public class CouponActivity extends AppCompatActivity implements View.OnClickLis
                         , MxyUtils.dpToPx(mContext, MxyUtils.getDimens(mContext, R.dimen.dp_10)));
             }
         });
-        couponAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, Object item, int position) {
-                startActivity(new Intent(mContext,CouponDetailActivity.class));
-            }
-        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.coupon_img_back:
+            case R.id.system_message_img_back:
                 finish();
-                break;
-            case R.id.coupon_img_shopping_broker:
-                startActivity(new Intent(mContext,ShoppingBrokerActivity.class));
                 break;
                 default:
                     break;
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)){
+        if (keyCode==KeyEvent.KEYCODE_BACK){
             finish();
-            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
