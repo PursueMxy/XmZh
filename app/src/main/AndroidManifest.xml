@@ -14,7 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activitys.MessageDetailActivity"></activity>
+        <activity android:name=".Activitys.MyExchangeActivity"></activity>
+        <activity android:name=".Activitys.IntegralDetailActivity" />
+        <activity android:name=".Activitys.PlaceOrderIntegralActivity" />
+        <activity android:name=".Activitys.IntegralGoodsDetailActivity" />
+        <activity android:name=".Activitys.UpdateMobileActivity" />
+        <activity android:name=".Activitys.ServicesMessageActivity" />
+        <activity android:name=".Activitys.MessageDetailActivity" />
         <activity android:name=".Activitys.SystemMessageActivity" />
         <activity android:name=".Activitys.NewsActivity" />
         <activity android:name=".Activitys.IntegralActivity" />

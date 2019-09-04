@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -15,7 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class RechargeActivity extends AppCompatActivity {
+public class RechargeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context mContext;
 
@@ -24,7 +25,30 @@ public class RechargeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge);
         mContext = getApplicationContext();
+        InitUI();
+    }
+
+    private void InitUI() {
+        findViewById(R.id.re_charge_img_back).setOnClickListener(this);
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.re_charge_img_back:
+                finish();
+                break;
+                default:
+                    break;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.zhkj.syyj.Adapters.IntegralAdapter;
@@ -18,11 +20,12 @@ import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.MxyUtils;
 import com.zhkj.syyj.Utils.ToastUtils;
 import com.zhouyou.recyclerview.XRecyclerView;
+import com.zhouyou.recyclerview.adapter.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IntegralActivity extends AppCompatActivity {
+public class IntegralActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView top_recyclerView;
     private List<String> list=new ArrayList<>();
@@ -51,6 +54,9 @@ public class IntegralActivity extends AppCompatActivity {
         list.add("分类8");
         list.add("分类9");
         list.add("分类10");
+        findViewById(R.id.integral_img_back).setOnClickListener(this);
+        findViewById(R.id.integral_tv_detail).setOnClickListener(this);
+        findViewById(R.id.integral_tv_exchange).setOnClickListener(this);
         top_recyclerView = findViewById(R.id.integral_top_recyclerView);
         intergralTopAdapter = new IntergralTopAdapter(this, list);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -94,5 +100,37 @@ public class IntegralActivity extends AppCompatActivity {
                         , MxyUtils.dpToPx(mContext, MxyUtils.getDimens(mContext, R.dimen.dp_15)));
             }
         });
+
+        integralAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, Object item, int position) {
+                startActivity(new Intent(mContext, IntegralGoodsDetailActivity.class));
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.integral_img_back:
+                finish();
+                break;
+            case R.id.integral_tv_detail:
+                startActivity(new Intent(mContext,IntegralDetailActivity.class));
+                break;
+            case R.id.integral_tv_exchange:
+                startActivity(new Intent(mContext,MyExchangeActivity.class));
+                break;
+                default:
+                    break;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

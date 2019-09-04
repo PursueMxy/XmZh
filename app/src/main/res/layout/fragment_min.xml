@@ -6,6 +6,7 @@
     tools:context=".Fragments.MinFragment">
 
     <ScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <LinearLayout
@@ -120,7 +121,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_marginTop="@dimen/dp_10"
-            android:background="@drawable/btn_top_white"
+            android:background="@drawable/bg_top_white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
              <LinearLayout
@@ -238,7 +239,7 @@
                          android:layout_centerInParent="true"
                          android:layout_marginTop="@dimen/dp_10"
                          android:layout_below="@+id/fm_min_img_orderover"
-                         android:text="我的订单"
+                         android:text="已完成"
                          android:textColor="#ff949397"
                          android:textSize="12sp"
                          android:layout_width="wrap_content"

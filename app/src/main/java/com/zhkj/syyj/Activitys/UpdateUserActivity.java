@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -36,11 +37,10 @@ public class UpdateUserActivity extends AppCompatActivity {
         ButterKnife.inject(this);
     }
 
-    @OnClick({R.id.update_user_img_head})
+    @OnClick({R.id.update_user_img_head,R.id.update_user_img_back})
     public void onViewClicked(View view){
         switch (view.getId()){
             case R.id.update_user_img_head:
-                //多选(最多9张)
                 //单选后剪裁 裁剪的话都是针对一张图片所以要设置setSingle(true)
                 PhotoSelector.builder()
                         .setShowCamera(true)//显示拍照
@@ -53,6 +53,9 @@ public class UpdateUserActivity extends AppCompatActivity {
                         .setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent))
                         .start(this,REQUEST_CODE);
                 break;
+             case  R.id.update_user_img_back:
+                 finish();
+             break;
                 default:
                     break;
         }
@@ -72,5 +75,12 @@ public class UpdateUserActivity extends AppCompatActivity {
                         break;
             }
         }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

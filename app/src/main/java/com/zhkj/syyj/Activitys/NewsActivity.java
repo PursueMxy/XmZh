@@ -25,6 +25,7 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
     private void InitUI() {
         findViewById(R.id.news_img_back).setOnClickListener(this);
         findViewById(R.id.news_rl_system_message).setOnClickListener(this);
+        findViewById(R.id.news_rl_services_message).setOnClickListener(this);
     }
 
     @Override
@@ -35,6 +36,9 @@ public class NewsActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.news_rl_system_message:
                 startActivity(new Intent(mContext,SystemMessageActivity.class));
+                break;
+            case R.id.news_rl_services_message:
+                startActivity(new Intent(mContext,ServicesMessageActivity.class));
                 break;
                 default:
                     break;

@@ -39,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.zhouyou.recyclerview.XRecyclerView
+            android:background="@color/bg_fafafa"
             android:id="@+id/system_message_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></com.zhouyou.recyclerview.XRecyclerView>

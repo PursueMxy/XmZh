@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void InitUI() {
+        findViewById(R.id.my_balance_img_back).setOnClickListener(this);
         balance_list = findViewById(R.id.my_balance_list);
         myAdapter = new MyAdapter();
         balance_list.setAdapter(myAdapter);
@@ -53,6 +55,9 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.my_balance_btn_cash_out:
                 startActivity(new Intent(mContext,CashOutActivity.class));
+                break;
+            case R.id.my_balance_img_back:
+                finish();
                 break;
                 default:
                     break;
@@ -80,5 +85,12 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
             View inflate = LayoutInflater.from(mContext).inflate(R.layout.list_balance, null);
             return inflate ;
         }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

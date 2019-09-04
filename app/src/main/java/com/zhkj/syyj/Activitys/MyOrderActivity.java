@@ -32,7 +32,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MyOrderActivity extends AppCompatActivity {
+public class MyOrderActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     @InjectView(R.id.iv_no_contant)
@@ -128,6 +128,7 @@ public class MyOrderActivity extends AppCompatActivity {
     }
 
     private void InitUI() {
+        findViewById(R.id.my_order_img_back).setOnClickListener(this);
         elvShoppingCar = findViewById(R.id.elv_shopping_car);
         RadioGroup my_order_radioGroup= findViewById(R.id.my_order_radioGroup);
         radiobutton_whole = findViewById(R.id.my_order_radiobutton_whole);
@@ -365,6 +366,27 @@ public class MyOrderActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.my_order_img_back:
+                finish();
+                break;
+                default:
+                    break;
+        }
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     public class myAdaper extends BaseAdapter{
         @Override
         public int getCount() {
