@@ -88,6 +88,7 @@
         android:textSize="@dimen/sp_12" />
 
     <Button
+        android:id="@+id/list_home_task_btn_forward"
         android:layout_marginBottom="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_24"
         android:layout_below="@+id/list_task_img"

@@ -1,55 +1,54 @@
 package com.zhkj.syyj.Activitys;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.zhkj.syyj.Adapters.InformationChoiceAdapter;
-import com.zhkj.syyj.Adapters.ShopChoiceAdapter;
-import com.zhkj.syyj.Beans.Products;
+import com.zhkj.syyj.Adapters.AppraiseAdapter;
 import com.zhkj.syyj.R;
+import com.zhkj.syyj.Utils.MxyUtils;
 import com.zhouyou.recyclerview.XRecyclerView;
-import com.zhouyou.recyclerview.adapter.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InformationChoiceActivity extends AppCompatActivity implements View.OnClickListener {
+public class AppraiseActivity extends AppCompatActivity implements View.OnClickListener {
 
     private XRecyclerView mRecyclerView;
+    private List<String> list=new ArrayList<>();
     private Context mContext;
     private LinearLayoutManager mLayoutManager;
-    private InformationChoiceAdapter informationChoiceAdapter;
-    private static List<Products> list= new ArrayList<>();
+    private AppraiseAdapter appraiseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_information_choice);
+        setContentView(R.layout.activity_appraise);
         mContext = getApplicationContext();
         InitUI();
     }
 
     private void InitUI() {
-        findViewById(R.id.information_img_back).setOnClickListener(this);
-        Products products = new Products("1");
-        Products products2 = new Products("2");
-        Products products3 = new Products("3");
-        list.add(products);
-        list.add(products2);
-        list.add(products3);
-        mRecyclerView = findViewById(R.id.information_XRecyclerView);
+        list.add("112");
+        list.add("112");
+        list.add("112");
+        list.add("112");
+        list.add("112");
+        findViewById(R.id.appraise_img_back).setOnClickListener(this);
+        mRecyclerView= findViewById(R.id.appraise_recycleView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mLayoutManager = new LinearLayoutManager(mContext);
-        informationChoiceAdapter = new InformationChoiceAdapter(mContext);
+        appraiseAdapter = new AppraiseAdapter(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -63,12 +62,16 @@ public class InformationChoiceActivity extends AppCompatActivity implements View
                 mRecyclerView.setNoMore(true);//数据加载完成
             }
         });
-        mRecyclerView.setAdapter(informationChoiceAdapter);
-        informationChoiceAdapter.setListAll(list);
-        informationChoiceAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
+        mRecyclerView.setAdapter( appraiseAdapter);
+        appraiseAdapter.setListAll(list);
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
-            public void onItemClick(View view, Object item, int position) {
-                startActivity(new Intent(mContext,InformationChoiceDetailActivity.class));
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                outRect.set(0
+                        , 0
+                        , 0
+                        , MxyUtils.dpToPx(mContext, MxyUtils.getDimens(mContext, R.dimen.dp_10)));
             }
         });
     }
@@ -76,7 +79,7 @@ public class InformationChoiceActivity extends AppCompatActivity implements View
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.information_img_back:
+            case R.id.appraise_img_back:
                 finish();
                 break;
                 default:
@@ -86,8 +89,9 @@ public class InformationChoiceActivity extends AppCompatActivity implements View
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode==KeyEvent.KEYCODE_BACK){
+        if ((keyCode == KeyEvent.KEYCODE_BACK)){
             finish();
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }

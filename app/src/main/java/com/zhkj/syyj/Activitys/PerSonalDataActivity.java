@@ -16,6 +16,9 @@ import com.bumptech.glide.Glide;
 import com.winfo.photoselector.PhotoSelector;
 import com.zhkj.syyj.R;
 
+import java.io.File;
+import java.util.zip.ZipFile;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -79,6 +82,8 @@ public class PerSonalDataActivity extends AppCompatActivity {
                     //获取到裁剪后的图片的Uri进行处理
                     Uri resultUri = PhotoSelector.getCropImageUri(data);
                     Glide.with(this).load(resultUri).into(img_head);
+                    Uri uri = data.getData();
+                    String path = uri.getPath();
                     break;
                 default:
                     break;

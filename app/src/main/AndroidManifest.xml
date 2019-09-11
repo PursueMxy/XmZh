@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activitys.MyExchangeActivity"></activity>
+        <activity android:name=".Activitys.ReMindActivity"></activity>
+        <activity android:name=".Activitys.ForwardActivity" />
+        <activity android:name=".Activitys.AppraiseActivity" />
+        <activity android:name=".Activitys.MyExchangeActivity" />
         <activity android:name=".Activitys.IntegralDetailActivity" />
         <activity android:name=".Activitys.PlaceOrderIntegralActivity" />
         <activity android:name=".Activitys.IntegralGoodsDetailActivity" />

@@ -23,4 +23,6 @@
     <!--灰色  未选中下划线 -->
     <color name="colorLineDefault">#FFAAAAAA</color>
     <dimen name="top_high">@dimen/dp_45</dimen>
+    <dimen name="left">@dimen/dp_15</dimen>
+    <dimen name="right">@dimen/dp_15</dimen>
 </resources>

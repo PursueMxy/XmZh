@@ -5,36 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.TextView;
 
 import com.zhkj.syyj.R;
 
-import butterknife.InjectView;
-
-public class InformationChoiceDetailActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private TextView tv_title;
-    private TextView tv_time;
-    private TextView tv_connect;
+public class ReMindActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_information_choice_detail);
+        setContentView(R.layout.activity_re_mind);
         InitUI();
     }
 
     private void InitUI() {
-        findViewById(R.id.information_choice_detail_img_back).setOnClickListener(this);
-        tv_title = findViewById(R.id.information_choice_detail_tv_title);
-        tv_time = findViewById(R.id.information_choice_detail_tv_time);
-        tv_connect = findViewById(R.id.information_choice_detail_tv_connect);
+        findViewById(R.id.remind_img_back).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.information_choice_detail_img_back:
+            case R.id.remind_img_back:
                 finish();
                 break;
                 default:
