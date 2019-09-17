@@ -82,8 +82,6 @@ public class PerSonalDataActivity extends AppCompatActivity {
                     //获取到裁剪后的图片的Uri进行处理
                     Uri resultUri = PhotoSelector.getCropImageUri(data);
                     Glide.with(this).load(resultUri).into(img_head);
-                    Uri uri = data.getData();
-                    String path = uri.getPath();
                     break;
                 default:
                     break;

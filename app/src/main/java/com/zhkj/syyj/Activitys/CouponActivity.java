@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.zhkj.syyj.Adapters.CouponAdapter;
 import com.zhkj.syyj.R;
@@ -30,6 +32,10 @@ public class CouponActivity extends AppCompatActivity implements View.OnClickLis
     private LinearLayoutManager mLayoutManager;
     private CouponAdapter couponAdapter;
     private ImageView img_shopping_broker;
+    private RadioButton radiobutton_whole;
+    private RadioButton radiobutton_obligation;
+    private RadioButton radiobutton_to_bo_shipped;
+    private RadioButton radiobutton_to_bo_received;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +88,59 @@ public class CouponActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onItemClick(View view, Object item, int position) {
                 startActivity(new Intent(mContext,CouponDetailActivity.class));
+            }
+        });
+       RadioGroup coupon_radioGroup= findViewById(R.id.coupon_radioGroup);
+        radiobutton_whole = findViewById(R.id.coupon_radiobutton_whole);
+        radiobutton_obligation = findViewById(R.id.coupon_radiobutton_obligation);
+        radiobutton_to_bo_shipped = findViewById(R.id.coupon_radiobutton_to_bo_shipped);
+        radiobutton_to_bo_received = findViewById(R.id.coupon_radiobutton_to_bo_received);
+        coupon_radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.coupon_radiobutton_obligation:
+                        radiobutton_whole.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_whole.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_obligation.setBackgroundResource(R.drawable.myorder_choosed_color);
+                        radiobutton_obligation.setTextColor(getResources().getColor(R.color.text_efb134));
+                        radiobutton_to_bo_shipped.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_shipped.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_received.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_received.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        break;
+                    case R.id.coupon_radiobutton_to_bo_shipped:
+                        radiobutton_whole.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_whole.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_obligation.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_obligation.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_shipped.setBackgroundResource(R.drawable.myorder_choosed_color);
+                        radiobutton_to_bo_shipped.setTextColor(getResources().getColor(R.color.text_efb134));
+                        radiobutton_to_bo_received.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_received.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        break;
+                    case R.id.coupon_radiobutton_to_bo_received:
+                        radiobutton_whole.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_whole.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_obligation.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_obligation.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_shipped.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_shipped.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_received.setBackgroundResource(R.drawable.myorder_choosed_color);
+                        radiobutton_to_bo_received.setTextColor(getResources().getColor(R.color.text_efb134));
+                        break;
+                    case R.id.coupon_radiobutton_whole:
+                        radiobutton_whole.setBackgroundResource(R.drawable.myorder_choosed_color);
+                        radiobutton_whole.setTextColor(getResources().getColor(R.color.text_efb134));
+                        radiobutton_obligation.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_obligation.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_shipped.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_shipped.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        radiobutton_to_bo_received.setBackgroundResource(R.drawable.myorder_nochoosed_color);
+                        radiobutton_to_bo_received.setTextColor(getResources().getColor(R.color.text_fdfdfd));
+                        break;
+
+                }
             }
         });
     }

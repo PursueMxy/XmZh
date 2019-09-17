@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activitys.ReMindActivity"></activity>
+        <activity android:name=".Activitys.OrderTypeActivity"></activity>
+        <activity android:name=".Activitys.ReMindActivity" />
         <activity android:name=".Activitys.ForwardActivity" />
         <activity android:name=".Activitys.AppraiseActivity" />
         <activity android:name=".Activitys.MyExchangeActivity" />

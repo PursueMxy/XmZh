@@ -21,6 +21,7 @@ import com.zhkj.syyj.Activitys.GoodsDetailActivity;
 import com.zhkj.syyj.Activitys.HomeActivity;
 import com.zhkj.syyj.Activitys.InformationChoiceActivity;
 import com.zhkj.syyj.Activitys.InformationChoiceDetailActivity;
+import com.zhkj.syyj.Activitys.ReMindActivity;
 import com.zhkj.syyj.Adapters.ShopChoiceAdapter;
 import com.zhkj.syyj.Beans.Products;
 import com.zhkj.syyj.CustView.NoScrollListView;
@@ -161,6 +162,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(mContext, ForwardActivity.class));
+                }
+            });
+            inflate.findViewById(R.id.list_home_task_btn_setReMind).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(mContext, ReMindActivity.class));
                 }
             });
             return inflate;

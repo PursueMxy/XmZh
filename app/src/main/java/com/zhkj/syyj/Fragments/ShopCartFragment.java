@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,9 +49,18 @@ public class ShopCartFragment extends Fragment {
 
     private void InitUI() {
         mRecyclerView = inflate.findViewById(R.id.fm_shop_cart_recyclerView);
-        Products products = new Products("1");
-        Products products2 = new Products("2");
-        Products products3 = new Products("3");
+        final Products products = new Products("1");
+        final Products products2 = new Products("2");
+        final Products products3 = new Products("3");
+        list.add(products);
+        list.add(products2);
+        list.add(products3);
+        list.add(products);
+        list.add(products2);
+        list.add(products3);
+        list.add(products);
+        list.add(products2);
+        list.add(products3);
         list.add(products);
         list.add(products2);
         list.add(products3);
@@ -58,6 +68,7 @@ public class ShopCartFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(mContext);
         shopCartAdapter = new ShopCartAdapter(mContext);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setFootViewText("拼命加载中","已经全部");
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -66,6 +77,10 @@ public class ShopCartFragment extends Fragment {
 
             @Override
             public void onLoadMore() {
+//                list.add(products);
+//                list.add(products2);
+//                list.add(products3);
+//                shopCartAdapter.setListAll(list);
                 //加载更多
                 mRecyclerView.loadMoreComplete();//加载动画完成
                 mRecyclerView.setNoMore(true);//数据加载完成

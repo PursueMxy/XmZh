@@ -56,9 +56,12 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60">
         <CheckBox
+            android:layout_marginLeft="@dimen/left"
+            style="@style/MyCheckBox"
             android:layout_centerVertical="true"
             android:textColor="@color/text_black"
             android:textSize="@dimen/sp_18"
+            android:paddingLeft="@dimen/dp_10"
             android:text="全选"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

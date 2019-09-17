@@ -40,6 +40,7 @@
             android:textSize="14sp"
             />
         <EditText
+            android:id="@+id/re_setting_edt_mobile"
             android:background="@null"
             android:hint="请输入手机号码"
             android:layout_marginTop="@dimen/dp_13"
@@ -69,6 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:layout_toLeftOf="@+id/re_setting_send_verification_code"
+                android:id="@+id/re_setting_edt_verification_code"
                 android:background="@null"
                 android:hint="请输入验证码"
                 android:layout_marginTop="@dimen/dp_13"
@@ -79,6 +82,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/re_setting_send_verification_code"
                 android:layout_marginTop="@dimen/dp_13"
                 android:textSize="14sp"
                 android:layout_marginRight="@dimen/dp_14"
@@ -105,6 +109,7 @@
             android:textSize="14sp"
             />
         <EditText
+            android:id="@+id/re_setting_edt_password"
             android:background="@null"
             android:hint="请输入密码"
             android:layout_marginTop="@dimen/dp_13"
@@ -130,6 +135,7 @@
             android:textSize="14sp"
             />
         <EditText
+            android:id="@+id/re_setting_edt_define_password"
             android:background="@null"
             android:hint="请再次输入密码"
             android:layout_marginTop="@dimen/dp_13"
@@ -153,7 +159,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <Button
-            android:id="@+id/login_btn_login"
+            android:id="@+id/re_setting_btn_login"
             android:text="登 录"
             android:textSize="@dimen/sp_15"
             android:textColor="@color/text_white"

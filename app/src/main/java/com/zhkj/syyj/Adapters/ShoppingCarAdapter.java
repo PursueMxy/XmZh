@@ -410,10 +410,8 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         });
 
         if (childPosition == data.get(groupPosition).getGoods().size() - 1) {
-            childViewHolder.view.setVisibility(View.GONE);
             childViewHolder.viewLast.setVisibility(View.VISIBLE);
         } else {
-            childViewHolder.view.setVisibility(View.VISIBLE);
             childViewHolder.viewLast.setVisibility(View.GONE);
         }
 
@@ -437,8 +435,6 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
         TextView tvEditBuyNumber;
         @InjectView(R.id.iv_edit_add)
         ImageView ivEditAdd;
-        @InjectView(R.id.view)
-        View view;
         @InjectView(R.id.view_last)
         View viewLast;
         @InjectView(R.id.view_bottom_rl)

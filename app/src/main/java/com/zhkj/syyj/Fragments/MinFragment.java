@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ThemedSpinnerAdapter;
 
 import com.zhkj.syyj.Activitys.CollectActivity;
 import com.zhkj.syyj.Activitys.CouponActivity;
@@ -18,6 +19,7 @@ import com.zhkj.syyj.Activitys.MemberActivity;
 import com.zhkj.syyj.Activitys.MyBalanceActivity;
 import com.zhkj.syyj.Activitys.MyOrderActivity;
 import com.zhkj.syyj.Activitys.NewsActivity;
+import com.zhkj.syyj.Activitys.OrderTypeActivity;
 import com.zhkj.syyj.Activitys.PerSonalDataActivity;
 import com.zhkj.syyj.Activitys.ShoppingAddressActivity;
 import com.zhkj.syyj.R;
@@ -55,6 +57,10 @@ public class MinFragment extends Fragment implements View.OnClickListener {
        inflate.findViewById(R.id.fm_min_rl_coupon).setOnClickListener(this);
        inflate.findViewById(R.id.fm_min_integarl).setOnClickListener(this);
        inflate.findViewById(R.id.fm_min_rl_news).setOnClickListener(this);
+       inflate.findViewById(R.id.fm_min_rel_obligation).setOnClickListener(this);
+       inflate.findViewById(R.id.fm_min_rel_tobe_shipped).setOnClickListener(this);
+        inflate.findViewById(R.id.fm_min_rel_tobe_received).setOnClickListener(this);
+        inflate.findViewById(R.id.fm_min_rel_orderDone).setOnClickListener(this);
     }
 
     @Override
@@ -62,6 +68,26 @@ public class MinFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.fm_min_rel_my_order:
                 startActivity(new Intent(mContext, MyOrderActivity.class));
+                break;
+            case R.id.fm_min_rel_obligation:
+                Intent intent = new Intent(mContext, OrderTypeActivity.class);
+                intent.putExtra("title","待付款");
+                startActivity(intent);
+                break;
+            case R.id.fm_min_rel_tobe_shipped:
+                Intent intent1 = new Intent(mContext, OrderTypeActivity.class);
+                intent1.putExtra("title","待发货");
+                startActivity(intent1);
+                break;
+            case R.id.fm_min_rel_tobe_received:
+                Intent intent2 = new Intent(mContext, OrderTypeActivity.class);
+                intent2.putExtra("title","待收货");
+                startActivity(intent2);
+                break;
+            case R.id.fm_min_rel_orderDone:
+                Intent intent3 = new Intent(mContext, OrderTypeActivity.class);
+                intent3.putExtra("title","已完成");
+                startActivity(intent3);
                 break;
             case R.id.fm_min_my_balance:
                 startActivity(new Intent(mContext, MyBalanceActivity.class));

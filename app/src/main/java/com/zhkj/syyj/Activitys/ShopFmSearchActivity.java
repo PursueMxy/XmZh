@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class ShopFmSearchActivity extends AppCompatActivity implements View.OnCl
         list.add(products);
         list.add(products2);
         list.add(products3);
+        findViewById(R.id.ShopFmSearch_img_back).setOnClickListener(this);
         findViewById(R.id.ShopFmSearch_tv_search).setOnClickListener(this);
         shop_xRecyclerView = findViewById(R.id.ShopFmSearch_xRecyclerView);
         tv_search_null = findViewById(R.id.ShopFmSearch_tv_search_null);
@@ -74,8 +76,19 @@ public class ShopFmSearchActivity extends AppCompatActivity implements View.OnCl
                 shop_xRecyclerView.setVisibility(View.VISIBLE);
 //                tv_search_null.setVisibility(View.VISIBLE);
                 break;
+            case R.id.ShopFmSearch_img_back:
+                finish();
+                break;
                 default:
                     break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

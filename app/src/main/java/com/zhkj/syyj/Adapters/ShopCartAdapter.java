@@ -1,6 +1,8 @@
 package com.zhkj.syyj.Adapters;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.CheckBox;
 
 import com.zhkj.syyj.Beans.Products;
 import com.zhkj.syyj.R;
@@ -17,9 +19,14 @@ public class ShopCartAdapter extends HelperRecyclerViewAdapter<Products> {
     @Override
     protected void HelperBindData(HelperRecyclerViewHolder viewHolder, int position, Products item) {
         Products data = getData(position);
-//        TextView tv_proname = viewHolder.getView(R.id.fh_goods_tv_proname);
-//        TextView tv_costprice= viewHolder.getView(R.id.fh_goods_tv_costprice);
-//        tv_proname.setText(data.getProductName());
-//        tv_costprice.setText(data.getCostPrice()+"");
+        final CheckBox cb_shopcart= viewHolder.getView(R.id.list_fm_shopcart_cb);
+        //复用会重复
+        cb_shopcart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cb_shopcart.setBackgroundResource(R.mipmap.icon_round_select);
+            }
+        });
+
     }
 }

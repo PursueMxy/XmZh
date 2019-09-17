@@ -26,6 +26,7 @@ public class CollectActivity extends AppCompatActivity implements View.OnClickLi
     private LinearLayoutManager mLayoutManager;
     private CollectAdapter collectAdapter;
     private Context mContext;
+    private List<String> addlist=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +37,21 @@ public class CollectActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void InitUI() {
+        list.add("102");
         list.add("112");
-        list.add("112");
-        list.add("112");
-        list.add("112");
-        list.add("112");
+        list.add("122");
+        list.add("132");
+        list.add("142");
+        list.add("152");
+        list.add("162");
+        list.add("172");
         findViewById(R.id.collect_img_back).setOnClickListener(this);
         mRecyclerView = findViewById(R.id.collect_recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mLayoutManager = new LinearLayoutManager(mContext);
         collectAdapter = new CollectAdapter(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setFootViewText("拼命加载中","已经全部");
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -55,9 +60,19 @@ public class CollectActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onLoadMore() {
+                addlist.add("112");
+                addlist.add("113");
+                addlist.add("114");
+                addlist.add("115");
+                addlist.add("116");
+                addlist.add("117");
+                collectAdapter.addItemsToLast(addlist);
+                collectAdapter.notifyDataSetChanged();
                 //加载更多
                 mRecyclerView.loadMoreComplete();//加载动画完成
+                if(addlist.size()>5) {
                 mRecyclerView.setNoMore(true);//数据加载完成
+                }
             }
         });
         mRecyclerView.setAdapter(collectAdapter);

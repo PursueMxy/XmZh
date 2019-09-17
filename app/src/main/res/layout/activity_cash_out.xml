@@ -90,6 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <CheckBox
+                android:id="@+id/cash_out_cb_wechatPay"
+                style="@style/MyCheckBox"
                 android:checked="true"
                 android:layout_margin="@dimen/dp_10"
                 android:layout_width="wrap_content"
@@ -117,6 +119,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <CheckBox
+                android:id="@+id/cash_out_cb_alipay"
+                style="@style/MyCheckBox"
                 android:checked="false"
                 android:layout_margin="@dimen/dp_10"
                 android:layout_width="wrap_content"

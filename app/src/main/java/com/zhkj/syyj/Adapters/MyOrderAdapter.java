@@ -117,7 +117,6 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
         ChildViewHolder childViewHolder;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.myorder_item_detail, null);
-
             childViewHolder = new ChildViewHolder(convertView);
             convertView.setTag(childViewHolder);
         } else {
@@ -129,10 +128,38 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
         }else {
             childViewHolder.myorder_item_bottom_rl.setVisibility(View.GONE);
         }
+        if (groupPosition==0){
+            childViewHolder.ll_obligation.setVisibility(View.GONE);
+            childViewHolder.ll_tobe_received.setVisibility(View.GONE);
+            childViewHolder.ll_orderDone.setVisibility(View.GONE);
+            childViewHolder.ll_cancel_order.setVisibility(View.GONE);
+        }else if (groupPosition==1){
+            childViewHolder.ll_obligation.setVisibility(View.VISIBLE);
+            childViewHolder.ll_tobe_received.setVisibility(View.GONE);
+            childViewHolder.ll_orderDone.setVisibility(View.GONE);
+            childViewHolder.ll_cancel_order.setVisibility(View.GONE);
+        }else if (groupPosition==2){
+            childViewHolder.ll_obligation.setVisibility(View.GONE);
+            childViewHolder.ll_orderDone.setVisibility(View.GONE);
+            childViewHolder.ll_cancel_order.setVisibility(View.GONE);
+            childViewHolder.ll_tobe_received.setVisibility(View.VISIBLE);
+        }else if (groupPosition==3){
+            childViewHolder.ll_obligation.setVisibility(View.GONE);
+            childViewHolder.ll_tobe_received.setVisibility(View.GONE);
+            childViewHolder.ll_cancel_order.setVisibility(View.GONE);
+            childViewHolder.ll_orderDone.setVisibility(View.VISIBLE);
+        }else if (groupPosition==4){
+            childViewHolder.ll_obligation.setVisibility(View.GONE);
+            childViewHolder.ll_tobe_received.setVisibility(View.GONE);
+            childViewHolder.ll_orderDone.setVisibility(View.GONE);
+            childViewHolder.ll_cancel_order.setVisibility(View.VISIBLE);
+        }
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context,OrderDetailActivity.class));;
+                Intent intent = new Intent(context, OrderDetailActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
         return convertView;
@@ -154,6 +181,14 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
         ImageView list_fm_shopcart_img;
         @InjectView(R.id.myorder_item_bottom_rl)
          RelativeLayout myorder_item_bottom_rl;
+        @InjectView(R.id.item_shopping_ll_obligation)
+        LinearLayout ll_obligation;
+        @InjectView(R.id.item_shopping_ll_cancel_order)
+        LinearLayout ll_cancel_order;
+        @InjectView(R.id.item_shopping_ll_tobe_received)
+        LinearLayout ll_tobe_received;
+        @InjectView(R.id.item_shopping_ll_orderDone)
+        LinearLayout ll_orderDone;
         ChildViewHolder(View view) {
             ButterKnife.inject(this, view);
         }

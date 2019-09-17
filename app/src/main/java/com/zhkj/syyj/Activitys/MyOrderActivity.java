@@ -60,6 +60,32 @@ public class MyOrderActivity extends AppCompatActivity implements View.OnClickLi
             "        {\n" +
             "            \"goods\": [\n" +
             "                {\n" +
+            "                    \"goods_id\": \"111111\",\n" +
+            "                    \"goods_image\": \"http://pic.58pic.com/58pic/15/62/69/34K58PICbmZ_1024.jpg\",\n" +
+            "                    \"goods_name\": \"习近平谈治国理政(第二卷)(平装)\",\n" +
+            "                    \"goods_num\": \"1\",\n" +
+            "                    \"goods_price\": \"18.00\"\n" +
+            "                }\n" +
+            "            ],\n" +
+            "            \"store_id\": \"1\",\n" +
+            "            \"store_name\": \"一号小书店\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"goods\": [\n" +
+            "                {\n" +
+            "                    \"goods_id\": \"111111\",\n" +
+            "                    \"goods_image\": \"http://pic.58pic.com/58pic/15/62/69/34K58PICbmZ_1024.jpg\",\n" +
+            "                    \"goods_name\": \"习近平谈治国理政(第二卷)(平装)\",\n" +
+            "                    \"goods_num\": \"1\",\n" +
+            "                    \"goods_price\": \"18.00\"\n" +
+            "                }\n" +
+            "            ],\n" +
+            "            \"store_id\": \"1\",\n" +
+            "            \"store_name\": \"一号小书店\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"goods\": [\n" +
+            "                {\n" +
             "                    \"goods_id\": \"222221\",\n" +
             "                    \"goods_image\": \"http://file06.16sucai.com/2016/0511/9711205e4c003182edeed83355e6f1c7.jpg\",\n" +
             "                    \"goods_name\": \"马克思传\",\n" +
@@ -77,6 +103,7 @@ public class MyOrderActivity extends AppCompatActivity implements View.OnClickLi
             "            \"store_id\": \"2\",\n" +
             "            \"store_name\": \"二号中书店\"\n" +
             "        },\n" +
+
             "        {\n" +
             "            \"goods\": [\n" +
             "                {\n" +

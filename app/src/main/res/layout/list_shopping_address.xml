@@ -39,6 +39,8 @@
         android:layout_height="wrap_content" />
 
        <CheckBox
+           android:paddingLeft="@dimen/dp_10"
+           style="@style/MyCheckBox"
            android:layout_alignTop="@+id/list_shopping_address_tv_delete"
            android:textSize="@dimen/sp_12"
            android:text="设为默认"

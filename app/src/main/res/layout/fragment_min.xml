@@ -154,6 +154,7 @@
                          android:layout_height="wrap_content" />
                  </RelativeLayout>
                  <RelativeLayout
+                     android:id="@+id/fm_min_rel_obligation"
                      android:layout_weight="1"
                      android:layout_width="match_parent"
                      android:layout_height="match_parent">
@@ -177,6 +178,7 @@
                          android:layout_height="wrap_content" />
                  </RelativeLayout>
                  <RelativeLayout
+                     android:id="@+id/fm_min_rel_tobe_shipped"
                      android:layout_weight="1"
                      android:layout_width="match_parent"
                      android:layout_height="match_parent">
@@ -200,6 +202,7 @@
                          android:layout_height="wrap_content" />
                  </RelativeLayout>
                  <RelativeLayout
+                     android:id="@+id/fm_min_rel_tobe_received"
                      android:layout_weight="1"
                      android:layout_width="match_parent"
                      android:layout_height="match_parent">
@@ -223,6 +226,7 @@
                          android:layout_height="wrap_content" />
                  </RelativeLayout>
                  <RelativeLayout
+                     android:id="@+id/fm_min_rel_orderDone"
                      android:layout_weight="1"
                      android:layout_width="match_parent"
                      android:layout_height="match_parent">

@@ -11,15 +11,19 @@
         android:layout_height="100dp"
         android:background="#ffffff">
 
-        <ImageView
-            android:id="@+id/iv_select"
+        <CheckBox
+            android:background="#fff"
+            android:id="@+id/cb_child"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:padding="10dp"
-            android:src="@mipmap/unselect" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
+            android:focusable="false"
+            style="@style/MyCheckBox"/>
+
 
         <RelativeLayout
+            android:layout_marginLeft="@dimen/dp_20"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -107,12 +111,6 @@
                         android:src="@mipmap/iv_edit_add" />
                 </LinearLayout>
 
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="#cccccc" />
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
