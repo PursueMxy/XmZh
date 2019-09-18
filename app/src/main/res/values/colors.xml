@@ -22,6 +22,10 @@
     <color name="colorLineChoosedShadow">#8833B5E5</color>
     <!--灰色  未选中下划线 -->
     <color name="colorLineDefault">#FFAAAAAA</color>
+    <color name="v333333">#333333</color>
+    <color name="ff5000">#ff5000</color>
+    <color name="v666666">#666666</color>
+    <color name="veeeeee">#eeeeee</color>
     <dimen name="top_high">@dimen/dp_45</dimen>
     <dimen name="left">@dimen/dp_15</dimen>
     <dimen name="right">@dimen/dp_15</dimen>

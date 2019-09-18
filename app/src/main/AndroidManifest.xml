@@ -2,81 +2,136 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zhkj.syyj">
-
+    <!-- bugly权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/spyj_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/spyj_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activitys.OrderTypeActivity"></activity>
-        <activity android:name=".Activitys.ReMindActivity" />
-        <activity android:name=".Activitys.ForwardActivity" />
-        <activity android:name=".Activitys.AppraiseActivity" />
-        <activity android:name=".Activitys.MyExchangeActivity" />
-        <activity android:name=".Activitys.IntegralDetailActivity" />
-        <activity android:name=".Activitys.PlaceOrderIntegralActivity" />
-        <activity android:name=".Activitys.IntegralGoodsDetailActivity" />
-        <activity android:name=".Activitys.UpdateMobileActivity" />
-        <activity android:name=".Activitys.ServicesMessageActivity" />
-        <activity android:name=".Activitys.MessageDetailActivity" />
-        <activity android:name=".Activitys.SystemMessageActivity" />
-        <activity android:name=".Activitys.NewsActivity" />
-        <activity android:name=".Activitys.IntegralActivity" />
-        <activity android:name=".Activitys.CouponDetailActivity" />
-        <activity android:name=".Activitys.ShoppingBrokerActivity" />
-        <activity android:name=".Activitys.CouponActivity" />
-        <activity android:name=".Activitys.CollectActivity" />
-        <activity android:name=".Activitys.ShoppingAddressUpdateActivity" />
-        <activity android:name=".Activitys.ShoppingAddressAddActivity" />
-        <activity android:name=".Activitys.LogisticsDetailActivity" />
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.zhkj.syyj.file.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/boxing_file_provider" />
-        </provider>
-
-        <activity android:name=".Activitys.EvaluateActivity" />
-        <activity android:name=".Activitys.UpdateUserActivity" />
-        <activity android:name=".Activitys.PerSonalDataActivity" />
-        <activity android:name=".Activitys.ShoppingAddressActivity" />
-        <activity android:name=".Activitys.MemberActivity" />
-        <activity android:name=".Activitys.CashOutActivity" />
-        <activity android:name=".Activitys.RechargeActivity" />
-        <activity android:name=".Activitys.MyBalanceActivity" />
-        <activity android:name=".Activitys.OrderDetailActivity" />
-        <activity android:name=".Activitys.MyOrderActivity" />
-        <activity android:name=".Activitys.GoodsDetailActivity" />
-        <activity android:name=".Activitys.ShopFmSearchActivity" />
-        <activity android:name=".Activitys.InformationChoiceDetailActivity" />
-        <activity android:name=".Activitys.InformationChoiceActivity" />
+        android:networkSecurityConfig="@xml/network_security_config"
+        tools:ignore="GoogleAppIndexingWarning"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Activitys.CallCenterActivity"
+            android:launchMode="singleTask"></activity>
+        <activity android:name=".Activitys.PlaceOrderActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.OrderTypeActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.ReMindActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.ForwardActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.AppraiseActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.MyExchangeActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.IntegralDetailActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.PlaceOrderIntegralActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.IntegralGoodsDetailActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.UpdateMobileActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.ServicesMessageActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.MessageDetailActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.SystemMessageActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.NewsActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.IntegralActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.CouponDetailActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.ShoppingBrokerActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.CouponActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.CollectActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.ShoppingAddressUpdateActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.ShoppingAddressAddActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.LogisticsDetailActivity"
+            android:launchMode="singleTask"/> <!-- <provider -->
+        <!-- android:name="androidx.core.content.FileProvider" -->
+        <!-- android:authorities="com.zhkj.syyj.file.provider" -->
+        <!-- android:exported="false" -->
+        <!-- android:grantUriPermissions="true"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.support.FILE_PROVIDER_PATHS" -->
+        <!-- android:resource="@xml/boxing_file_provider" /> -->
+        <!-- </provider> -->
+        <activity android:name=".Activitys.EvaluateActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.UpdateUserActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.PerSonalDataActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.ShoppingAddressActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.MemberActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.CashOutActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.RechargeActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.MyBalanceActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.OrderDetailActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.MyOrderActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.GoodsDetailActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.ShopFmSearchActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.InformationChoiceDetailActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.InformationChoiceActivity"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".Activitys.HomeActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".Activitys.UserProtocolActivity" />
-        <activity android:name=".Activitys.AuditingActivity" />
-        <activity android:name=".Activitys.EnrollActivity" />
-        <activity android:name=".Activitys.BindInformationActivity" />
-        <activity android:name=".Activitys.ReSettingActivity" />
-        <activity android:name=".Activitys.LunchActivity">
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.UserProtocolActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.AuditingActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.EnrollActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.BindInformationActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.ReSettingActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".Activitys.LunchActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activitys.LoginActivity" />
-        <activity android:name=".MainActivity" /> <!-- 注意这里的android:theme="@style/AppTheme" AppTheme一定要是NoActionbar类型的主题 -->
+        <activity android:name=".Activitys.LoginActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask"/> <!-- 注意这里的android:theme="@style/AppTheme" AppTheme一定要是NoActionbar类型的主题 -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"

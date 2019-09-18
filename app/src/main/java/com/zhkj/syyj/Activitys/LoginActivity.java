@@ -10,7 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.XXPermissions;
 import com.zhkj.syyj.R;
+
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,6 +30,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mContext = getApplicationContext();
+        XXPermissions.with(this)
+                .request(new OnPermission() {
+
+                    @Override
+                    public void hasPermission(List<String> granted, boolean isAll) {
+
+                    }
+
+                    @Override
+                    public void noPermission(List<String> denied, boolean quick) {
+
+                    }
+                });
         InitUI();
     }
 

@@ -6,7 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -38,8 +40,26 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mContext = getApplicationContext();
+        Intent intent = getIntent();
+        try {
+            currentItems = Integer.parseInt(intent.getStringExtra("currentItems"));
+        }catch (Exception e){
+            currentItems=0;
+        }
         AddFragment();
         IintUI();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        // 跳转首页或者其他操作
+        try {
+            currentItems = Integer.parseInt(intent.getStringExtra("currentItems"));
+        }catch (Exception e){
+            currentItems=0;
+        }
+        home_bottombarly.setCurrentItem(currentItems);
     }
 
     private void AddFragment() {
@@ -92,4 +112,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

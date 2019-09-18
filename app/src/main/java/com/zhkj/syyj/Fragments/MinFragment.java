@@ -14,6 +14,7 @@ import android.widget.ThemedSpinnerAdapter;
 
 import com.zhkj.syyj.Activitys.CollectActivity;
 import com.zhkj.syyj.Activitys.CouponActivity;
+import com.zhkj.syyj.Activitys.HomeActivity;
 import com.zhkj.syyj.Activitys.IntegralActivity;
 import com.zhkj.syyj.Activitys.MemberActivity;
 import com.zhkj.syyj.Activitys.MyBalanceActivity;
@@ -61,6 +62,8 @@ public class MinFragment extends Fragment implements View.OnClickListener {
        inflate.findViewById(R.id.fm_min_rel_tobe_shipped).setOnClickListener(this);
         inflate.findViewById(R.id.fm_min_rel_tobe_received).setOnClickListener(this);
         inflate.findViewById(R.id.fm_min_rel_orderDone).setOnClickListener(this);
+        inflate.findViewById(R.id.fm_min_rel_task).setOnClickListener(this);
+        inflate.findViewById(R.id.fm_min_my_integral).setOnClickListener(this);
     }
 
     @Override
@@ -113,8 +116,17 @@ public class MinFragment extends Fragment implements View.OnClickListener {
             case R.id.fm_min_rl_news:
                 startActivity(new Intent(mContext, NewsActivity.class));
                 break;
+            case R.id.fm_min_rel_task:
+                Intent intent4 = new Intent(mContext, HomeActivity.class);
+                intent4.putExtra("currentItems","2");
+                startActivity(intent4);
+                break;
+            case R.id.fm_min_my_integral:
+                startActivity(new Intent(mContext, IntegralActivity.class));
+                break;
                 default:
                     break;
         }
     }
+
 }

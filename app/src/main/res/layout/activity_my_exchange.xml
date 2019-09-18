@@ -27,6 +27,7 @@
             android:layout_height="match_parent" />
     </RelativeLayout>
     <RadioGroup
+        android:background="@color/white"
         android:id="@+id/my_exchange_radioGroup"
         android:orientation="horizontal"
         android:layout_width="match_parent"

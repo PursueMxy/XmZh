@@ -70,6 +70,7 @@
                 android:textSize="@dimen/sp_14"/>
 
               <EditText
+                  android:id="@+id/up_user_edt_userId"
                   android:textSize="@dimen/sp_14"
                   android:layout_marginLeft="@dimen/dp_77"
                   android:hint="请输入信息"
@@ -98,9 +99,10 @@
                 android:textSize="@dimen/sp_14"/>
 
             <EditText
+                android:id="@+id/up_user_edt_userName"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginLeft="@dimen/dp_77"
-                android:hint="请输入信息"
+                android:hint="请输入昵称"
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -126,16 +128,23 @@
                 android:textSize="@dimen/sp_14"/>
 
                <RadioGroup
+                   android:id="@+id/up_user_radioGroup"
                    android:orientation="horizontal"
                    android:layout_marginLeft="@dimen/dp_77"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content">
                    <RadioButton
+                       android:id="@+id/up_user_radioBtn_man"
+                       style="@style/MyCheckBox"
+                       android:paddingLeft="@dimen/dp_10"
                        android:text="男"
                        android:checked="true"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content" />
                    <RadioButton
+                       android:id="@+id/up_user_radioBtn_girl"
+                       style="@style/MyCheckBox"
+                       android:paddingLeft="@dimen/dp_10"
                        android:layout_marginLeft="@dimen/dp_30"
                        android:text="女"
                        android:checked="false"
@@ -165,6 +174,7 @@
                 android:textSize="@dimen/sp_14"/>
 
             <TextView
+                android:id="@+id/up_user_tv_birthday"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginLeft="@dimen/dp_77"
                 android:hint="请选择生日"
@@ -192,6 +202,7 @@
                 android:textSize="@dimen/sp_14"/>
 
             <TextView
+                android:id="@+id/up_user_tv_address"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginLeft="@dimen/dp_77"
                 android:hint="请选择城市"
@@ -219,6 +230,7 @@
                 android:textSize="@dimen/sp_14"/>
 
             <EditText
+                android:id="@+id/up_user_edt_vocation"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginLeft="@dimen/dp_77"
                 android:hint="请输入职业"
@@ -247,6 +259,7 @@
             android:textSize="@dimen/sp_14"/>
 
             <EditText
+                android:id="@+id/up_user_edt_wechatNumber"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginLeft="@dimen/dp_77"
                 android:hint="请输入微信号"
