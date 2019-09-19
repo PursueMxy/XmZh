@@ -21,6 +21,7 @@
         android:layout_height="@dimen/dp_44" />
 
     <TextView
+        android:id="@+id/list_has_been_done_tv_price"
         android:layout_toRightOf="@+id/list_has_been_done_img"
         android:layout_alignBottom="@+id/list_has_been_done_img"
         android:layout_width="wrap_content"
@@ -31,6 +32,7 @@
         />
 
     <TextView
+        android:id="@+id/list_has_been_done_tv_placeOrder"
         android:background="@color/e99415"
         android:layout_alignBottom="@+id/list_has_been_done_img"
         android:layout_marginRight="@dimen/dp_10"

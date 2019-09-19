@@ -14,6 +14,7 @@ public class ReSettingActivity extends AppCompatActivity implements View.OnClick
     private EditText edt_mobile;
     private EditText edt_password;
     private EditText edt_define_password;
+    private EditText edt_verification_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class ReSettingActivity extends AppCompatActivity implements View.OnClick
         edt_mobile = findViewById(R.id.re_setting_edt_mobile);
         edt_password = findViewById(R.id.re_setting_edt_password);
         edt_define_password = findViewById(R.id.re_setting_edt_define_password);
+        edt_verification_code = findViewById(R.id.re_setting_edt_verification_code);
     }
 
     @Override

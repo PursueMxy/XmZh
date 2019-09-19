@@ -43,7 +43,7 @@
     <Button
         android:layout_marginBottom="@dimen/dp_40"
         android:layout_alignParentBottom="true"
-        android:id="@+id/integral_btn_redeem_now"
+        android:id="@+id/integral_dtl_btn_redeem_now"
         android:background="@drawable/btn_yellow"
         android:gravity="center"
         android:text="取 现"

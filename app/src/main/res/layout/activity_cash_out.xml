@@ -63,6 +63,7 @@
             android:textSize="@dimen/sp_14" />
 
         <EditText
+            android:id="@+id/cash_out_edt_money"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_10"
@@ -145,6 +146,7 @@
             android:layout_height="0.3dp"/>
     </LinearLayout>
     <Button
+        android:id="@+id/cash_out_btn_confirm"
         android:background="@drawable/btn_yellow"
         android:layout_marginTop="@dimen/dp_180"
         android:layout_marginLeft="@dimen/dp_30"

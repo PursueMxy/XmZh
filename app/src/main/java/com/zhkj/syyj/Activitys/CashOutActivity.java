@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.zhkj.syyj.R;
 
@@ -13,6 +14,7 @@ public class CashOutActivity extends AppCompatActivity implements View.OnClickLi
 
     private CheckBox cb_wechatPay;
     private CheckBox cb_alipay;
+    private EditText edt_money;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,8 @@ public class CashOutActivity extends AppCompatActivity implements View.OnClickLi
         cb_alipay = findViewById(R.id.cash_out_cb_alipay);
         cb_wechatPay.setOnClickListener(this);
         cb_alipay.setOnClickListener(this);
+        edt_money = findViewById(R.id.cash_out_edt_money);
+        findViewById(R.id.cash_out_btn_confirm).setOnClickListener(this);
 
     }
 
@@ -49,6 +53,8 @@ public class CashOutActivity extends AppCompatActivity implements View.OnClickLi
                 }else {
                     cb_wechatPay.setChecked(true);
                 }
+                break;
+            case R.id.cash_out_btn_confirm:
                 break;
                 default:
                     break;

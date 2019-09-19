@@ -36,6 +36,7 @@ public class ForwardActivity extends AppCompatActivity implements View.OnClickLi
     private GridLayoutManager mLayoutManager;
     private ForwardAdapter forwardAdapter;
     private List<String> list=new ArrayList<>();
+    private TextView tv_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class ForwardActivity extends AppCompatActivity implements View.OnClickLi
         list.add("112");
         findViewById(R.id.forward_btn_define).setOnClickListener(this);
         findViewById(R.id.forward_img_back).setOnClickListener(this);
+        tv_content = findViewById(R.id.forward_tv_content);
         mRecyclerView = findViewById(R.id.forward_recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mLayoutManager =new GridLayoutManager(mContext, 3);

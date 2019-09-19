@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.zhkj.syyj.Adapters.CallCenterAdapter;
 import com.zhkj.syyj.R;
@@ -23,6 +24,7 @@ public class CallCenterActivity extends AppCompatActivity implements View.OnClic
     private List<String> list=new ArrayList<>();
     private Context mContext;
     private CallCenterAdapter callCenterAdapter;
+    private TextView tv_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class CallCenterActivity extends AppCompatActivity implements View.OnClic
         mRvChat.setLayoutManager(mLinearLayout);
         mRvChat.setAdapter(callCenterAdapter);
         mSwipeRefresh.setOnRefreshListener(this);
+        tv_content = findViewById(R.id.call_center_tv_content);
+        findViewById(R.id.call_center_img_sendout).setOnClickListener(this);
     }
 
     @Override
@@ -56,6 +60,8 @@ public class CallCenterActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()){
             case R.id.callCenter_img_back:
                 finish();
+                break;
+            case R.id.call_center_img_sendout:
                 break;
                 default:
                     break;

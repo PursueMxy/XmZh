@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhkj.syyj.Adapters.GridAdapter;
@@ -35,6 +36,13 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     public int SelectNum=1;
     private ArrayList<Map<String, Object>> dataList=new ArrayList<>();
     private GridView gridView;
+    private ImageView img_appraise;
+    private TextView tv_appraise_name;
+    private TextView tv_appraise_content;
+    private TextView tv_copywriting;
+    private TextView tv_goodsTitle;
+    private TextView tv_goodsMoney;
+    private TextView tv_goodsVolume;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +56,19 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.goods_detail_img_back).setOnClickListener(this);
         findViewById(R.id.goods_detail_tv_forward).setOnClickListener(this);
         findViewById(R.id.goods_img_call_center).setOnClickListener(this);
+        findViewById(R.id.goods_detail_img_home).setOnClickListener(this);
         myAdapter = new MyAdapter();
         noScrollListView = findViewById(R.id.goods_detail_noScrollListView);
         noScrollListView.setAdapter(myAdapter);
         findViewById(R.id.goods_detail_tv_view_all_appraise).setOnClickListener(this);
         findViewById(R.id.goods_detail_btn_buynow).setOnClickListener(this);
+        img_appraise = findViewById(R.id.goods_detail_img_appraise);
+        tv_appraise_name = findViewById(R.id.goods_detail_tv_appraise_name);
+        tv_appraise_content = findViewById(R.id.goods_detail_tv_appraise_content);
+        tv_copywriting = findViewById(R.id.goods_detail_tv_copywriting);
+        tv_goodsTitle = findViewById(R.id.goods_detail_tv_goodsTitle);
+        tv_goodsMoney = findViewById(R.id.goods_detail_tv_goodsMoney);
+        tv_goodsVolume = findViewById(R.id.goods_detail_tv_goodsVolume);
     }
 
     @Override
@@ -72,6 +88,11 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.goods_img_call_center:
                 startActivity(new Intent(mContext,CallCenterActivity.class));
+                break;
+            case R.id.goods_detail_img_home:
+                Intent intent = new Intent(mContext, HomeActivity.class);
+                intent.putExtra("currentItems","0");
+                startActivity(intent);
                 break;
                 default:
                     break;

@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.zhkj.syyj.Adapters.IntegralAdapter;
 import com.zhkj.syyj.Adapters.IntergralTopAdapter;
@@ -34,6 +35,7 @@ public class IntegralActivity extends AppCompatActivity implements View.OnClickL
     private XRecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private IntegralAdapter integralAdapter;
+    private TextView tv_myintegral;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class IntegralActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.integral_tv_detail).setOnClickListener(this);
         findViewById(R.id.integral_tv_exchange).setOnClickListener(this);
         top_recyclerView = findViewById(R.id.integral_top_recyclerView);
+        tv_myintegral = findViewById(R.id.integral_tv_myintegral);
         intergralTopAdapter = new IntergralTopAdapter(this, list);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         top_recyclerView.setLayoutManager(manager);

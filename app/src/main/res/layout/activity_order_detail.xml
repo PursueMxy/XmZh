@@ -35,6 +35,7 @@
          android:layout_width="match_parent"
          android:layout_height="wrap_content">
          <TextView
+             android:id="@+id/order_detail_tv_type"
              android:drawablePadding="@dimen/dp_10"
              android:layout_centerInParent="true"
              android:drawableLeft="@mipmap/icon_wait_payment"
@@ -77,6 +78,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/order_detail_tv_expressTime"
             android:layout_marginTop="@dimen/dp_13"
             android:layout_marginLeft="@dimen/dp_43"
             android:layout_below="@+id/order_detail_tv_logistics"
@@ -103,6 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_88">
         <TextView
+            android:id="@+id/order_detail_Name"
             android:text="XXXXX"
             android:drawableLeft="@mipmap/icon_min_location"
             android:drawablePadding="@dimen/dp_10"
@@ -111,6 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/order_detail_address"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/dp_13"
             android:layout_marginLeft="@dimen/dp_34"
@@ -171,6 +175,7 @@
                          android:textSize="14sp"
                          />
                      <TextView
+                         android:id="@+id/order_detail_tv_freight"
                          android:layout_centerVertical="true"
                          android:layout_marginLeft="@dimen/dp_81"
                          android:layout_width="match_parent"
@@ -192,6 +197,7 @@
                          android:textSize="14sp"
                          />
                      <TextView
+                         android:id="@+id/order_detail_tv_coupon"
                          android:layout_centerVertical="true"
                          android:layout_marginLeft="@dimen/dp_81"
                          android:layout_width="match_parent"
@@ -213,6 +219,7 @@
                          android:textSize="14sp"
                          />
                      <TextView
+                         android:id="@+id/order_detail_tv_orderNumber"
                          android:layout_centerVertical="true"
                          android:layout_marginLeft="@dimen/dp_81"
                          android:layout_width="match_parent"
@@ -234,6 +241,7 @@
                      android:textSize="14sp"
                      />
                  <TextView
+                     android:id="@+id/order_detail_tv_confirmTime"
                      android:layout_centerVertical="true"
                      android:layout_marginLeft="@dimen/dp_81"
                      android:layout_width="match_parent"
@@ -250,11 +258,12 @@
                          android:layout_margin="@dimen/dp_10"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:text="交付方式："
+                         android:text="支付方式："
                          android:textColor="#ff040000"
                          android:textSize="14sp"
                          />
                      <TextView
+                         android:id="@+id/order_detail_tv_payType"
                          android:layout_centerVertical="true"
                          android:layout_marginLeft="@dimen/dp_81"
                          android:layout_width="match_parent"
@@ -285,6 +294,7 @@
                     android:textSize="14sp"
                     />
                 <TextView
+                    android:id="@+id/order_detail_goodsPrice"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/order_detail_sphj"
@@ -305,6 +315,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_66">
         <Button
+            android:id="@+id/order_detail_btn_immediate_payment"
             android:background="@drawable/btn_yellow"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_alignParentRight="true"
@@ -316,6 +327,7 @@
             android:layout_height="@dimen/dp_40" />
 
         <Button
+            android:id="@+id/order_detail_btn_backOrder"
             android:background="@drawable/btn_enroll"
             android:layout_marginRight="@dimen/dp_114"
             android:layout_alignParentRight="true"
@@ -327,6 +339,7 @@
             android:layout_height="@dimen/dp_40" />
 
         <Button
+            android:id="@+id/order_detail_btn_checkExpress"
             android:background="@drawable/btn_enroll"
             android:layout_marginRight="@dimen/dp_217"
             android:layout_alignParentRight="true"

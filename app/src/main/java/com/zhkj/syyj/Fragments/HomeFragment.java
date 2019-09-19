@@ -62,6 +62,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return inflate;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
     private void InitUI() {
         home_top = getLayoutInflater().inflate(R.layout.fm_home_top, null);
         home_top.findViewById(R.id.fmhome_tv_information_choice).setOnClickListener(this);

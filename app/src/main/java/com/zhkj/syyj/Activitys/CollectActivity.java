@@ -87,6 +87,7 @@ public class CollectActivity extends AppCompatActivity implements View.OnClickLi
                         , MxyUtils.dpToPx(mContext, MxyUtils.getDimens(mContext, R.dimen.dp_10)));
             }
         });
+        findViewById(R.id.collect_tv_manage).setOnClickListener(this);
     }
 
     @Override
@@ -96,6 +97,10 @@ public class CollectActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.collect_img_back:
                 finish();
                 break;
+            case R.id.collect_tv_manage:
+                break;
+                default:
+                    break;
         }
     }
 

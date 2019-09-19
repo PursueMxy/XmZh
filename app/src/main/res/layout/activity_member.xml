@@ -33,7 +33,7 @@
     <com.zhkj.syyj.CustView.CircleImageView
         android:layout_marginTop="@dimen/dp_20"
         android:layout_gravity="center"
-        android:src="@mipmap/spyj_logo"
+        android:src="@mipmap/icon_headportrait"
         android:layout_width="@dimen/dp_112"
         android:layout_height="@dimen/dp_112" />
 
@@ -42,7 +42,7 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="我是美女哦"
+        android:text="mxy"
         android:textColor="#ff040000"
         android:textSize="17sp"
         />

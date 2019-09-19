@@ -50,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:id="@+id/shopping_address_update_edt_consignee"
                 android:gravity="center|right"
                 android:layout_centerVertical="true"
                 android:hint="请输入收货人姓名"
@@ -80,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:id="@+id/shopping_address_update_edt_mobile"
                 android:gravity="center|right"
                 android:layout_centerVertical="true"
                 android:hint="请输入手机号码"
@@ -111,6 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <EditText
+                android:id="@+id/shopping_address_update_edt_zipcode"
                 android:gravity="center|right"
                 android:layout_centerVertical="true"
                 android:hint="请输入邮政编码"
@@ -170,6 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:id="@+id/shopping_address_update_edt_deladdress"
             android:gravity="center|right"
             android:layout_centerVertical="true"
             android:hint="请输入详细地址"
@@ -189,6 +193,7 @@
             android:layout_height="0.3dp"/>
 
         <CheckBox
+            android:id="@+id/shopping_address_update_cb_default"
             android:paddingLeft="@dimen/dp_10"
             style="@style/MyCheckBox"
             android:layout_marginTop="@dimen/dp_20"
@@ -200,6 +205,7 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:id="@+id/shopping_address_update_btn_confirm"
             android:layout_marginLeft="@dimen/dp_30"
             android:layout_marginRight="@dimen/dp_30"
             android:background="@drawable/btn_yellow"

@@ -47,6 +47,11 @@ public class ShopCartFragment extends Fragment {
         return inflate;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
     private void InitUI() {
         mRecyclerView = inflate.findViewById(R.id.fm_shop_cart_recyclerView);
         final Products products = new Products("1");

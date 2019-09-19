@@ -48,6 +48,11 @@ public class MinFragment extends Fragment implements View.OnClickListener {
         return inflate;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
     private void InitUI() {
        inflate.findViewById(R.id.fm_min_rel_my_order).setOnClickListener(this);
        inflate.findViewById(R.id.fm_min_my_balance).setOnClickListener(this);

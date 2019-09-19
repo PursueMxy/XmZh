@@ -51,6 +51,12 @@ public class TaskListFragment extends Fragment {
         return inflate;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        return;
+    }
+
     private void InitUI() {
         tasklist_item.add("112");
         tasklist_item.add("112");

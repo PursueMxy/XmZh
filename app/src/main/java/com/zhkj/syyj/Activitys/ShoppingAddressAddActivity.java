@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ThemedSpinnerAdapter;
 
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Region.Config;
@@ -22,6 +25,11 @@ public class ShoppingAddressAddActivity extends AppCompatActivity implements Vie
     private String selectedProvince;
     private String selectedCity;
     private String selectedArea;
+    private EditText edt_zipcode;
+    private EditText edt_mobile;
+    private EditText edt_dtladdress;
+    private EditText edt_consignee;
+    private CheckBox cb_setdefault;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,12 @@ public class ShoppingAddressAddActivity extends AppCompatActivity implements Vie
         findViewById(R.id.shopping_address_add_img_back).setOnClickListener(this);
         tv_city = findViewById(R.id.shopping_address_tv_city);
         tv_city.setOnClickListener(this);
+        edt_consignee = findViewById(R.id.shopping_address_add_edt_consignee);
+        edt_dtladdress = findViewById(R.id.shopping_address_add_edt_dtladdress);
+        edt_mobile = findViewById(R.id.shopping_address_add_edt_mobile);
+        edt_zipcode = findViewById(R.id.shopping_address_add_edt_zipcode);
+        cb_setdefault = findViewById(R.id.shopping_address_add_cb_setdefault);
+        findViewById(R.id.shopping_address_add_btn_confirm).setOnClickListener(this);
     }
 
     @Override
@@ -58,6 +72,8 @@ public class ShoppingAddressAddActivity extends AppCompatActivity implements Vie
 
                     }
                 });
+                break;
+            case R.id.shopping_address_add_btn_confirm:
                 break;
                 default:
                     break;

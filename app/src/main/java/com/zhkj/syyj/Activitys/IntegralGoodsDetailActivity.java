@@ -37,6 +37,12 @@ public class IntegralGoodsDetailActivity extends AppCompatActivity {
     private GridView gridView;
     private ArrayList<Map<String, Object>> dataList;
     public int SelectNum=1;
+    private TextView tv_goodsTitle;
+    private TextView tv_goodsMoney;
+    private TextView tv_goodsVolume;
+    private TextView tv_copywriting;
+    private TextView tv_appraise_name;
+    private TextView tv_appraise_content;
 
 
     @Override
@@ -51,10 +57,16 @@ public class IntegralGoodsDetailActivity extends AppCompatActivity {
     private void InitUI() {
         myAdapter = new MyAdapter();
         noScrollListView.setAdapter(myAdapter);
+        tv_goodsTitle = findViewById(R.id.integral_detail_goods_tv_goodsTitle);
+        tv_goodsMoney = findViewById(R.id.integral_detail_goods_tv_goodsMoney);
+        tv_goodsVolume = findViewById(R.id.integral_detail_goods_tv_goodsVolume);
+        tv_copywriting = findViewById(R.id.integral_detail_goods_tv_copywriting);
+        tv_appraise_name = findViewById(R.id.integral_detail_goods_tv_appraise_name);
+        tv_appraise_content = findViewById(R.id.integral_detail_goods_tv_appraise_content);
     }
 
 
-    @OnClick({R.id.integral_detail_goods_img_back,R.id.integral_btn_redeem_now})
+    @OnClick({R.id.integral_detail_goods_img_back,R.id.integral_btn_redeem_now,R.id.integral_detail_goods_tv_forward})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.integral_detail_goods_img_back:
@@ -62,6 +74,9 @@ public class IntegralGoodsDetailActivity extends AppCompatActivity {
                 break;
             case R.id.integral_btn_redeem_now:
                 RedeemNowDialog();
+                break;
+            case R.id.integral_detail_goods_tv_forward:
+                startActivity(new Intent(mContext,ForwardActivity.class));
                 break;
             default:
                 break;

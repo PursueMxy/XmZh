@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.zhkj.syyj.R;
 
@@ -18,6 +19,9 @@ public class LogisticsDetailActivity extends AppCompatActivity implements View.O
     private ListView list_view;
     private Context mContext;
     private MyAdapter myAdapter;
+    private TextView tv_delivery_express;
+    private TextView tv_goodsNum;
+    private TextView tv_expressNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,9 @@ public class LogisticsDetailActivity extends AppCompatActivity implements View.O
         list_view = findViewById(R.id.logistics_detail_list);
         myAdapter = new MyAdapter();
         list_view.setAdapter(myAdapter);
+        tv_delivery_express = findViewById(R.id.logistics_tv_delivery_express);
+        tv_goodsNum = findViewById(R.id.logistics_tv_goodsNum);
+        tv_expressNumber = findViewById(R.id.logistics_tv_expressNumber);
     }
 
     @Override

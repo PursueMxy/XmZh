@@ -3,6 +3,7 @@ package com.zhkj.syyj.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.zhkj.syyj.Activitys.ForwardActivity;
 import com.zhkj.syyj.Activitys.ReMindActivity;
@@ -34,5 +35,14 @@ public class TaskListAdapter extends HelperRecyclerViewAdapter<String> {
                 mContext.startActivity(new Intent(mContext, ReMindActivity.class));
             }
         });
+        viewHolder.getView(R.id.list_home_task_tv_detail).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+       TextView tv_content = viewHolder.getView(R.id.list_home_task_tv_content);
+       TextView tv_price= viewHolder.getView(R.id.list_home_task_tv_price);
+       TextView tv_rrp= viewHolder.getView(R.id.list_home_task_tv_rrp);
     }
 }

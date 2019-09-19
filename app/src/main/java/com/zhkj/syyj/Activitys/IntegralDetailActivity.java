@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class IntegralDetailActivity extends AppCompatActivity {
+public class IntegralDetailActivity extends AppCompatActivity{
 
     @InjectView(R.id.integral_detail_recyclerView)
     XRecyclerView mRecyclerView;
@@ -80,11 +80,13 @@ public class IntegralDetailActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.integral_detail_img_back})
+    @OnClick({R.id.integral_detail_img_back,R.id.integral_dtl_btn_redeem_now})
     public void onViewClicked(View view){
         switch (view.getId()){
             case R.id.integral_detail_img_back:
                 finish();
+                break;
+            case R.id.integral_dtl_btn_redeem_now:
                 break;
             default:
                 break;
@@ -98,4 +100,5 @@ public class IntegralDetailActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

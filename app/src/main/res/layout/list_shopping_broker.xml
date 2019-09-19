@@ -13,7 +13,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/list_coupon_tv_money"
+        android:id="@+id/list_shopping_broker_tv_money"
         android:layout_marginTop="@dimen/dp_22"
         android:layout_marginLeft="@dimen/dp_54"
         android:text="100"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/list_coupon_tv_content"
+        android:id="@+id/list_shopping_broker_tv_content"
         android:layout_marginLeft="@dimen/dp_30"
         android:layout_marginTop="@dimen/dp_72"
         android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         android:layout_marginBottom="@dimen/dp_22"
         />
     <TextView
-        android:id="@+id/list_coupon_tv_type"
+        android:id="@+id/list_shopping_broker_tv_type"
         android:layout_marginTop="@dimen/dp_27"
         android:layout_marginLeft="@dimen/dp_132"
         android:paddingBottom="@dimen/dp_4"
@@ -50,10 +50,10 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/list_coupon_tv_name"
+        android:id="@+id/list_shopping_broker_tv_name"
         android:layout_marginTop="@dimen/dp_27"
         android:layout_marginLeft="@dimen/dp_10"
-        android:layout_toRightOf="@+id/list_coupon_tv_type"
+        android:layout_toRightOf="@+id/list_shopping_broker_tv_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="优惠全名称"
@@ -64,7 +64,7 @@
     <TextView
         android:layout_marginTop="@dimen/dp_68"
         android:layout_marginLeft="@dimen/dp_132"
-        android:id="@+id/list_coupon_tv_dt"
+        android:id="@+id/list_shopping_broker_tv_dt"
         android:textSize="@dimen/sp_12"
         android:text="2019.12.12~2019.12.31"
         android:textColor="#ff949397"
@@ -72,6 +72,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/list_shopping_broker_tv_price"
         android:gravity="center"
         android:layout_marginTop="@dimen/dp_46"
         android:layout_marginRight="@dimen/dp_19"

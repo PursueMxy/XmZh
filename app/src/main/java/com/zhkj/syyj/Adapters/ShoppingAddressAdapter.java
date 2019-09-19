@@ -3,6 +3,8 @@ package com.zhkj.syyj.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.zhkj.syyj.Activitys.ShoppingAddressUpdateActivity;
 import com.zhkj.syyj.R;
@@ -27,5 +29,15 @@ public class ShoppingAddressAdapter extends HelperRecyclerViewAdapter<String> {
                 context.startActivity(intent);
             }
         });
+        viewHolder.getView(R.id.list_shopping_address_tv_delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+       TextView tv_address= viewHolder.getView(R.id.list_shopping_address_tv_address);
+       TextView tv_name = viewHolder.getView(R.id.list_shopping_address_tv_name);
+       TextView tv_default= viewHolder.getView(R.id.list_shopping_address_tv_default);
+        CheckBox cb_default = viewHolder.getView(R.id.list_shopping_address_cb_default);
     }
 }

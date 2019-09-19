@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
    <TextView
-       android:id="@+id/list_task_tv_content"
+       android:id="@+id/list_home_task_tv_content"
        android:layout_margin="@dimen/dp_10"
        android:layout_width="180dp"
        android:layout_height="58dp"
@@ -14,9 +14,9 @@
        android:textColor="#ff040000"
        android:textSize="14sp" />
     <TextView
-        android:id="@+id/list_task_tv_detail"
+        android:id="@+id/list_home_task_tv_detail"
         android:layout_marginLeft="@dimen/dp_10"
-        android:layout_below="@+id/list_task_tv_content"
+        android:layout_below="@+id/list_home_task_tv_content"
         android:layout_width="66dp"
         android:layout_height="16dp"
         android:text="查看详情>>"
@@ -25,15 +25,15 @@
         />
 
        <RelativeLayout
-           android:id="@+id/list_task_rel_price"
+           android:id="@+id/list_home_task_rel_price"
            android:layout_marginLeft="@dimen/dp_10"
            android:layout_marginTop="@dimen/dp_27"
-           android:layout_below="@+id/list_task_tv_detail"
+           android:layout_below="@+id/list_home_task_tv_detail"
            android:background="@mipmap/icon_list_task_price"
            android:layout_width="@dimen/dp_103"
            android:layout_height="@dimen/dp_20">
            <TextView
-               android:id="@+id/list_task_tv_lsj"
+               android:id="@+id/list_home_task_tv_lsj"
                android:layout_marginLeft="@dimen/dp_5"
                android:layout_centerVertical="true"
                android:layout_width="52dp"
@@ -43,8 +43,9 @@
                android:textSize="10sp"
                />
            <TextView
+               android:id="@+id/list_home_task_tv_rrp"
                android:layout_marginLeft="@dimen/dp_10"
-               android:layout_toRightOf="@+id/list_task_tv_lsj"
+               android:layout_toRightOf="@+id/list_home_task_tv_lsj"
                android:layout_width="40dp"
                android:layout_height="14dp"
                android:layout_centerVertical="true"
@@ -55,8 +56,9 @@
 
        </RelativeLayout>
     <TextView
+        android:id="@+id/list_home_task_tv_price"
         android:layout_marginTop="@dimen/dp_9"
-        android:layout_below="@id/list_task_rel_price"
+        android:layout_below="@id/list_home_task_rel_price"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_width="47dp"
         android:layout_height="wrap_content"
@@ -66,7 +68,7 @@
         />
       
     <ImageView
-        android:id="@+id/list_task_img"
+        android:id="@+id/list_home_task_img"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_alignParentRight="true"
@@ -78,7 +80,7 @@
         android:id="@+id/list_home_task_btn_setReMind"
         android:layout_marginBottom="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_24"
-        android:layout_below="@+id/list_task_img"
+        android:layout_below="@+id/list_home_task_img"
         android:layout_width="@dimen/dp_73"
         android:layout_height="@dimen/dp_28"
         android:layout_alignParentRight="true"
@@ -92,7 +94,7 @@
         android:id="@+id/list_home_task_btn_forward"
         android:layout_marginBottom="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_24"
-        android:layout_below="@+id/list_task_img"
+        android:layout_below="@+id/list_home_task_img"
         android:layout_width="@dimen/dp_73"
         android:layout_height="@dimen/dp_28"
         android:layout_alignParentRight="true"

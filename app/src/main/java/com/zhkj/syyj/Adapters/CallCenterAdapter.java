@@ -1,10 +1,14 @@
 package com.zhkj.syyj.Adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,11 +54,19 @@ public class CallCenterAdapter extends RecyclerView.Adapter<CallCenterAdapter.My
 
         private final RelativeLayout rl_left;
         private final RelativeLayout rl_right;
+        private final ImageView left_img_head;
+        private final TextView left_tv_message;
+        private final ImageView right_img_head;
+        private final TextView right_tv_message;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             rl_left = itemView.findViewById(R.id.list_callcenter_left);
             rl_right = itemView.findViewById(R.id.list_callcenter_right);
+            left_img_head = itemView.findViewById(R.id.list_callcenter_left_img_head);
+            left_tv_message = itemView.findViewById(R.id.list_callcenter_left_tv_message);
+            right_img_head = itemView.findViewById(R.id.list_callcenter_right_img_head);
+            right_tv_message = itemView.findViewById(R.id.list_callcenter_right_tv_message);
         }
     }
 }

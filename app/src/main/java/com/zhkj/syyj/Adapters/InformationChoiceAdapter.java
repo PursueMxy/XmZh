@@ -1,6 +1,8 @@
 package com.zhkj.syyj.Adapters;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
 
 import com.zhkj.syyj.Beans.Products;
 import com.zhkj.syyj.R;
@@ -17,9 +19,8 @@ public class InformationChoiceAdapter extends HelperRecyclerViewAdapter<Products
     @Override
     protected void HelperBindData(HelperRecyclerViewHolder viewHolder, int position, Products item) {
         Products data = getData(position);
-//        TextView tv_proname = viewHolder.getView(R.id.fh_goods_tv_proname);
-//        TextView tv_costprice= viewHolder.getView(R.id.fh_goods_tv_costprice);
-//        tv_proname.setText(data.getProductName());
-//        tv_costprice.setText(data.getCostPrice()+"");
+        TextView tv_title = viewHolder.getView(R.id.list_information_choice_tv_title);
+        TextView tv_time= viewHolder.getView(R.id.list_information_choice_tv_time);
+        TextView tv_content = viewHolder.getView(R.id.list_information_choice_tv_content);
     }
 }

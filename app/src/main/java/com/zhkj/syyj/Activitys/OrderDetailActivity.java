@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.zhkj.syyj.CustView.NoScrollListView;
 import com.zhkj.syyj.R;
@@ -20,6 +21,14 @@ public class OrderDetailActivity extends AppCompatActivity implements View.OnCli
     private Context mContext;
     private NoScrollListView noScrollListView;
     private MyAdapter myAdapter;
+    private TextView tv_confirmTime;
+    private TextView tv_coupon;
+    private TextView tv_expressTime;
+    private TextView tv_freight;
+    private TextView tv_logistics;
+    private TextView tv_orderNumber;
+    private TextView tv_payType;
+    private TextView tv_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +42,21 @@ public class OrderDetailActivity extends AppCompatActivity implements View.OnCli
         noScrollListView = findViewById(R.id.order_detail_noScrollListView);
         findViewById(R.id.order_detail_rl_logistics).setOnClickListener(this);
         findViewById(R.id.order_detail_img_back).setOnClickListener(this);
+        findViewById(R.id.order_detail_btn_immediate_payment).setOnClickListener(this);
+        findViewById(R.id.order_detail_btn_checkExpress).setOnClickListener(this);
+        findViewById(R.id.order_detail_btn_backOrder).setOnClickListener(this);
         myAdapter = new MyAdapter();
         noScrollListView.setAdapter(myAdapter);
+        tv_confirmTime = findViewById(R.id.order_detail_tv_confirmTime);
+        tv_coupon = findViewById(R.id.order_detail_tv_coupon);
+        tv_expressTime = findViewById(R.id.order_detail_tv_expressTime);
+        tv_freight = findViewById(R.id.order_detail_tv_freight);
+        tv_logistics = findViewById(R.id.order_detail_tv_logistics);
+        tv_orderNumber = findViewById(R.id.order_detail_tv_orderNumber);
+        tv_payType = findViewById(R.id.order_detail_tv_payType);
+        tv_type = findViewById(R.id.order_detail_tv_type);
+
+
     }
 
     @Override
@@ -46,6 +68,12 @@ public class OrderDetailActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.order_detail_img_back:
                 finish();
+                break;
+            case R.id.order_detail_btn_checkExpress:
+                break;
+            case R.id.order_detail_btn_backOrder:
+                break;
+            case R.id.order_detail_btn_immediate_payment:
                 break;
                 default:
                     break;

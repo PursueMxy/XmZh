@@ -81,6 +81,7 @@
                 android:textSize="@dimen/sp_14"
                 />
             <TextView
+                android:id="@+id/place_order_integral_tv_freight"
                 android:layout_marginRight="@dimen/dp_25"
                 android:layout_alignParentRight="true"
                 android:gravity="center"
@@ -119,6 +120,7 @@
             android:layout_height="@dimen/dp_70">
 
             <EditText
+                android:id="@+id/place_order_integral_edt_message"
                 android:background="@null"
                 android:padding="@dimen/dp_10"
                 android:layout_width="match_parent"
@@ -145,6 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/place_order_integral_tv_contracts"
             android:layout_marginLeft="@dimen/dp_34"
             android:layout_marginTop="@dimen/dp_14"
             android:layout_width="wrap_content"
@@ -171,7 +174,7 @@
         <TextView
 
             android:layout_alignParentBottom="true"
-            android:id="@+id/list_shopping_address_tv_address"
+            android:id="@+id/place_order_integral_tv_address"
             android:layout_marginBottom="@dimen/dp_13"
             android:padding="@dimen/dp_2"
             android:layout_marginLeft="@dimen/dp_34"
@@ -200,6 +203,7 @@
             />
 
         <TextView
+            android:id="@+id/place_order_integral_tv_couponNumber"
             android:textStyle="bold"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_46"
@@ -211,6 +215,7 @@
             />
 
         <Button
+            android:id="@+id/place_order_integral_btn_immediate_payment"
             android:layout_marginRight="@dimen/dp_12"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

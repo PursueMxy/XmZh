@@ -18,6 +18,7 @@
       android:layout_height="wrap_content" />
 
      <TextView
+         android:id="@+id/list_shopping_address_tv_name"
          android:padding="@dimen/dp_2"
          android:layout_alignTop="@+id/list_shopping_address_tv_default"
          android:text="颜"
@@ -39,6 +40,7 @@
         android:layout_height="wrap_content" />
 
        <CheckBox
+           android:id="@+id/list_shopping_address_cb_default"
            android:paddingLeft="@dimen/dp_10"
            style="@style/MyCheckBox"
            android:layout_alignTop="@+id/list_shopping_address_tv_delete"

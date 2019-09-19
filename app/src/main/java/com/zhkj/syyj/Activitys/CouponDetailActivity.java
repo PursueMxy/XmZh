@@ -8,12 +8,15 @@ import android.content.MutableContextWrapper;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.zhkj.syyj.R;
 
 public class CouponDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context mContext;
+    private TextView tv_title;
+    private TextView tv_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,9 @@ public class CouponDetailActivity extends AppCompatActivity implements View.OnCl
 
     private void InitUI() {
         findViewById(R.id.coupon_detail_img_back).setOnClickListener(this);
+        findViewById(R.id.coupon_btn_use).setOnClickListener(this);
+        tv_title = findViewById(R.id.coupon_tv_title);
+        tv_content = findViewById(R.id.coupon_tv_content);
     }
 
     @Override
@@ -32,6 +38,8 @@ public class CouponDetailActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId()){
             case R.id.coupon_detail_img_back:
                 finish();
+                break;
+            case R.id.coupon_btn_use:
                 break;
                 default:
                     break;

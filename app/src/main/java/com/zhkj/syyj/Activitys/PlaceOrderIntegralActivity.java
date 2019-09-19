@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.zhkj.syyj.CustView.NoScrollListView;
 import com.zhkj.syyj.R;
@@ -23,6 +24,10 @@ public class PlaceOrderIntegralActivity extends AppCompatActivity {
     NoScrollListView noScrollListView;
     private Context mContext;
     private MyAdapter myAdapter;
+    private TextView tv_couponNumber;
+    private TextView tv_freight;
+    private TextView tv_contracts;
+    private TextView tv_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,10 @@ public class PlaceOrderIntegralActivity extends AppCompatActivity {
     private void InitUI() {
         myAdapter = new MyAdapter();
         noScrollListView.setAdapter(myAdapter);
+        tv_address = findViewById(R.id.place_order_integral_tv_address);
+        tv_contracts = findViewById(R.id.place_order_integral_tv_contracts);
+        tv_couponNumber = findViewById(R.id.place_order_integral_tv_couponNumber);
+        tv_freight = findViewById(R.id.place_order_integral_tv_freight);
     }
 
     @OnClick({R.id.place_order_integral_img_back})

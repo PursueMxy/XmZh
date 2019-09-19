@@ -86,6 +86,12 @@ public class HasBeenDoneFragment extends Fragment {
         hasBeenDoneAdapter.setListAll(tasklist_item);
          mRecyclerView.setAdapter(hasBeenDoneAdapter);
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
     /**
      * dp转px
      *

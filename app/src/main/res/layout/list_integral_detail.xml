@@ -13,6 +13,7 @@
         android:textSize="@dimen/sp_14"
         />
     <TextView
+        android:id="@+id/list_integral_detail_tv_time"
         android:layout_marginBottom="@dimen/dp_9"
         android:layout_marginLeft="@dimen/dp_11"
         android:layout_marginTop="@dimen/dp_10"
@@ -25,6 +26,7 @@
         />
 
     <TextView
+        android:id="@+id/list_integral_detail_tv_number"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_33"
         android:layout_alignParentRight="true"

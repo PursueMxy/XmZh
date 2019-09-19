@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +22,11 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
     private Context mContext;
     private static final int REQUEST_CODE = 1001;
     private ImageView img_add;
+    private EditText edt_mobile;
+    private EditText edt_verification_code;
+    private EditText edt_password;
+    private EditText edt_define_password;
+    private EditText edt_invite_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,12 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.enroll_btn_confirm).setOnClickListener(this);
         img_add = findViewById(R.id.enroll_img_add);
         img_add.setOnClickListener(this);
+        edt_mobile = findViewById(R.id.enroll_edt_mobile);
+        edt_verification_code = findViewById(R.id.enroll_edt_verification_code);
+        edt_password = findViewById(R.id.enroll_edt_password);
+        edt_define_password = findViewById(R.id.enroll_edt_define_password);
+        edt_invite_code = findViewById(R.id.enroll_edt_invite_code);
+
     }
 
     @Override

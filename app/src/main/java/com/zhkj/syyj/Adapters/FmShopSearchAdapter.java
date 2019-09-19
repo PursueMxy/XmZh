@@ -1,6 +1,9 @@
 package com.zhkj.syyj.Adapters;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.zhkj.syyj.Beans.Products;
 import com.zhkj.syyj.R;
@@ -17,9 +20,8 @@ public class FmShopSearchAdapter extends HelperRecyclerViewAdapter<Products> {
     @Override
     protected void HelperBindData(HelperRecyclerViewHolder viewHolder, int position, Products item) {
         Products data = getData(position);
-//        TextView tv_proname = viewHolder.getView(R.id.fh_goods_tv_proname);
-//        TextView tv_costprice= viewHolder.getView(R.id.fh_goods_tv_costprice);
-//        tv_proname.setText(data.getProductName());
-//        tv_costprice.setText(data.getCostPrice()+"");
+        TextView tv_proname = viewHolder.getView(R.id.list_fm_shop_tv_content);
+        TextView tv_price= viewHolder.getView(R.id.list_fm_shop_tv_price);
+        ImageView shop_img = viewHolder.getView(R.id.list_fm_shop_img);
     }
 }

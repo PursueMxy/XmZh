@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Switch;
 
 import com.zhkj.syyj.R;
@@ -22,6 +23,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     private Context mContext;
     private CheckBox cb_wechatpay;
     private CheckBox cb_alipay;
+    private EditText edt_price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         cb_alipay = findViewById(R.id.recharge_cb_alipay);
         cb_alipay.setOnClickListener(this);
         cb_wechatpay.setOnClickListener(this);
+        findViewById(R.id.recharge_btn_define).setOnClickListener(this);
+        edt_price = findViewById(R.id.recharge_edt_price);
     }
 
 
@@ -45,6 +49,8 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()){
             case R.id.re_charge_img_back:
                 finish();
+                break;
+            case R.id.recharge_btn_define:
                 break;
             case R.id.recharge_cb_wechatpay:
                 if (cb_wechatpay.isChecked()){

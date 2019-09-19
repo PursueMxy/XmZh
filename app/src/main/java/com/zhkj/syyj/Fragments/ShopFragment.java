@@ -94,6 +94,11 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
         ll_two_rec = inflate.findViewById(R.id.fm_shop_ll_two_rec);
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
     @SuppressLint("WrongConstant")
     private void initLeft() {
         recLeft = inflate.findViewById(R.id.fm_shop_rec_left);
@@ -148,31 +153,31 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
 
         rightAdapter.setNewData(right);
 
-        rightAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener(){
-            @Override
-            public void onLoadMoreRequested() {
-               recRight.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        rightAdapter.notifyDataSetChanged();
-                        rightAdapter.loadMoreEnd();
-                    }
-
-                },2000);
-            }
-        },recRight);
-        rightAdapter.setUpFetchListener(new BaseQuickAdapter.UpFetchListener() {
-            @Override
-            public void onUpFetch() {
-                recRight.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        rightAdapter.setUpFetchEnable(true);
-                        rightAdapter.setStartUpFetchPosition(0);
-                    }
-                },500);
-            }
-        });
+//        rightAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener(){
+//            @Override
+//            public void onLoadMoreRequested() {
+//               recRight.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        rightAdapter.notifyDataSetChanged();
+//                        rightAdapter.loadMoreEnd();
+//                    }
+//
+//                },2000);
+//            }
+//        },recRight);
+//        rightAdapter.setUpFetchListener(new BaseQuickAdapter.UpFetchListener() {
+//            @Override
+//            public void onUpFetch() {
+//                recRight.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        rightAdapter.setUpFetchEnable(true);
+////                        rightAdapter.setStartUpFetchPosition(0);
+//                    }
+//                },500);
+//            }
+//        });
 
 
     }

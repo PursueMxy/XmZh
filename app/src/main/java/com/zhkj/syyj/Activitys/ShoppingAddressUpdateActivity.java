@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zhkj.syyj.R;
@@ -22,6 +23,10 @@ public class ShoppingAddressUpdateActivity extends AppCompatActivity implements 
     private String selectedProvince;
     private String selectedCity;
     private String selectedArea;
+    private EditText edt_zipcode;
+    private EditText edt_deladdress;
+    private EditText edt_mobile;
+    private EditText edt_consignee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,11 @@ public class ShoppingAddressUpdateActivity extends AppCompatActivity implements 
         findViewById(R.id.shopping_address_update_img_back).setOnClickListener(this);
         tv_city = findViewById(R.id.shopping_address_up_tv_city);
         tv_city.setOnClickListener(this);
+        findViewById(R.id.shopping_address_update_btn_confirm).setOnClickListener(this);
+        edt_consignee = findViewById(R.id.shopping_address_update_edt_consignee);
+        edt_mobile = findViewById(R.id.shopping_address_update_edt_mobile);
+        edt_deladdress = findViewById(R.id.shopping_address_update_edt_deladdress);
+        edt_zipcode = findViewById(R.id.shopping_address_update_edt_zipcode);
     }
 
     @Override
@@ -58,6 +68,8 @@ public class ShoppingAddressUpdateActivity extends AppCompatActivity implements 
 
                     }
                 });
+                break;
+            case R.id.shopping_address_update_btn_confirm:
                 break;
                 default:
                     break;

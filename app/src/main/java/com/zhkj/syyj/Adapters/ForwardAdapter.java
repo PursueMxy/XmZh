@@ -1,6 +1,8 @@
 package com.zhkj.syyj.Adapters;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.zhkj.syyj.R;
 import com.zhouyou.recyclerview.adapter.HelperRecyclerViewAdapter;
@@ -17,5 +19,6 @@ public class ForwardAdapter extends HelperRecyclerViewAdapter<String> {
     @Override
     protected void HelperBindData(HelperRecyclerViewHolder viewHolder, int position, String item) {
         String data = getData(position);
+        ImageView forward_img= viewHolder.getView(R.id.list_forward_img);
     }
 }

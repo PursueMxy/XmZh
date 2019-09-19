@@ -63,6 +63,7 @@
             />
 
          <TextView
+             android:id="@+id/integral_detail_goods_tv_forward"
              android:background="@drawable/btn_yellow_left"
              android:layout_alignParentRight="true"
              android:textColor="@color/white"
@@ -74,6 +75,7 @@
      </RelativeLayout>
     </RelativeLayout>
     <TextView
+        android:id="@+id/integral_detail_goods_tv_goodsTitle"
         android:layout_marginRight="@dimen/dp_15"
         android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_16"
@@ -89,6 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_22">
         <TextView
+            android:id="@+id/integral_detail_goods_tv_goodsMoney"
             android:gravity="center"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_width="wrap_content"
@@ -98,6 +101,7 @@
             android:textSize="@dimen/sp_16"
             />
         <TextView
+            android:id="@+id/integral_detail_goods_tv_goodsVolume"
             android:layout_marginRight="@dimen/dp_15"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
@@ -167,6 +171,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
      <TextView
+         android:id="@+id/integral_detail_goods_tv_copywriting"
          android:background="@color/white"
          android:layout_marginLeft="@dimen/dp_15"
          android:layout_marginRight="@dimen/dp_15"
@@ -223,6 +228,7 @@
                 />
 
             <TextView
+                android:id="@+id/integral_detail_goods_tv_appraise_content"
                 android:layout_marginTop="@dimen/dp_17"
                 android:layout_below="@+id/integral_detail_goods_tv_appraise_name"
                 android:layout_width="276dp"
@@ -260,14 +266,16 @@
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50">
+        android:layout_height="@dimen/dp_70">
         <ImageView
+            android:layout_marginTop="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_10"
             android:layout_marginLeft="@dimen/dp_15"
             android:src="@mipmap/icon_integral_detail_home"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40" />
         <Button
+            android:layout_marginTop="@dimen/dp_20"
             android:id="@+id/integral_btn_redeem_now"
             android:background="@drawable/btn_yellow"
             android:gravity="center"

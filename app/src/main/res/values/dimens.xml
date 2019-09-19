@@ -391,12 +391,14 @@
     <dimen name="dp_500">500dp</dimen>
     <dimen name="dp_508">508dp</dimen>
     <dimen name="dp_556">556dp</dimen>
+    <dimen name="dp_571">571dp</dimen>
     <dimen name="dp_600">600dp</dimen>
     <dimen name="dp_640">640dp</dimen>
     <dimen name="dp_686">686dp</dimen>
     <dimen name="dp_720">720dp</dimen>
     <dimen name="dp_725">725dp</dimen>
-
+    <dimen name="dp_764">764dp</dimen>
+    <dimen name="dp_803">803dp</dimen>
     <!-- font size,you can add if there is no one -->
     <dimen name="sp_6">6sp</dimen>
     <dimen name="sp_7">7sp</dimen>

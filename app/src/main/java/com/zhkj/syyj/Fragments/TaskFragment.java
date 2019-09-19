@@ -71,6 +71,11 @@ public class TaskFragment extends Fragment {
         return inflate;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
     private void InitUI() {
         titles.add("任务1");
         titles.add("任务2");
@@ -88,7 +93,7 @@ public class TaskFragment extends Fragment {
         fragments.add(new TaskListFragment());
         task_tablelayout = inflate.findViewById(R.id.fm_task_tablelayout);
         task_viewpager = inflate.findViewById(R.id.fm_task_viewpager);
-        MyAdapter adapter=new MyAdapter(getFragmentManager());
+        MyAdapter adapter=new MyAdapter(getChildFragmentManager());
         task_viewpager.setAdapter(adapter);
         task_tablelayout.setupWithViewPager(task_viewpager);
         task_radioGroup =  inflate.findViewById(R.id.fm_task_radioGroup);

@@ -421,19 +421,19 @@ public class ShoppingCarAdapter extends BaseExpandableListAdapter {
     static class ChildViewHolder {
         @InjectView(R.id.iv_select)
         ImageView ivSelect;
-        @InjectView(R.id.iv_photo)
+        @InjectView(R.id.item_shopping_car_image)
         ImageView ivPhoto;
-        @InjectView(R.id.tv_name)
+        @InjectView(R.id.item_shopping_car_tv_name)
         TextView tvName;
-        @InjectView(R.id.tv_price_key)
+        @InjectView(R.id.item_shopping_car_tv_price_key)
         TextView tvPriceKey;
-        @InjectView(R.id.tv_price_value)
+        @InjectView(R.id.item_shopping_car_tv_price_value)
         TextView tvPriceValue;
-        @InjectView(R.id.iv_edit_subtract)
+        @InjectView(R.id.item_shopping_car_img_subtract)
         ImageView ivEditSubtract;
-        @InjectView(R.id.tv_edit_buy_number)
+        @InjectView(R.id.item_shopping_car_tv_buy_number)
         TextView tvEditBuyNumber;
-        @InjectView(R.id.iv_edit_add)
+        @InjectView(R.id.item_shopping_car_img_add)
         ImageView ivEditAdd;
         @InjectView(R.id.view_last)
         View viewLast;
