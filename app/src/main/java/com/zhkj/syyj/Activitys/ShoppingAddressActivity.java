@@ -20,7 +20,7 @@ import com.zhouyou.recyclerview.XRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingAddressActivity extends AppCompatActivity implements View.OnClickListener {
+public class  ShoppingAddressActivity extends AppCompatActivity implements View.OnClickListener {
 
     private XRecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
@@ -83,6 +83,7 @@ public class ShoppingAddressActivity extends AppCompatActivity implements View.O
                 startActivity(new Intent(mContext,ShoppingAddressAddActivity.class));
                 break;
             case R.id.shopping_address_img_back:
+                finish();
                 break;
                 default:
                     break;

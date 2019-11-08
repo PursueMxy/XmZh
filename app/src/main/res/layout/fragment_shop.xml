@@ -55,10 +55,11 @@
                     />
             </RelativeLayout>
             <LinearLayout
-                android:id="@+id/fm_shop_ll_two_rec"
-                android:background="@color/white"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/fm_shop_ll_two_rec"
+                android:background="@color/white"
                 android:orientation="horizontal">
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -83,6 +84,27 @@
 
                 </FrameLayout>
             </LinearLayout>
+           <LinearLayout
+               android:background="@color/white"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+               <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/fm_shop_recycler_left"
+                   android:layout_width="@dimen/dp_79"
+                   android:layout_height="match_parent"
+                   android:background="@color/white" />
+
+               <View
+                   android:layout_width="@dimen/dp_1"
+                   android:layout_height="match_parent"
+                   android:background="@color/text_fdfdfd" />
+
+               <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/fm_shop_recycler_right"
+                   android:layout_width="@dimen/dp_280"
+                   android:layout_height="match_parent" />
+           </LinearLayout>
 
   </LinearLayout>
 

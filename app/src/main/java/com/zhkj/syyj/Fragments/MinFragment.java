@@ -3,6 +3,7 @@ package com.zhkj.syyj.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,8 +11,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ThemedSpinnerAdapter;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.zhkj.syyj.Activitys.CollectActivity;
 import com.zhkj.syyj.Activitys.CouponActivity;
 import com.zhkj.syyj.Activitys.HomeActivity;
@@ -23,7 +32,9 @@ import com.zhkj.syyj.Activitys.NewsActivity;
 import com.zhkj.syyj.Activitys.OrderTypeActivity;
 import com.zhkj.syyj.Activitys.PerSonalDataActivity;
 import com.zhkj.syyj.Activitys.ShoppingAddressActivity;
+import com.zhkj.syyj.Beans.IndexBean;
 import com.zhkj.syyj.R;
+import com.zhkj.syyj.Utils.RequstUrlUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +44,13 @@ public class MinFragment extends Fragment implements View.OnClickListener {
 
     private Context mContext;
     private View inflate;
+    private String token;
+    private String uid;
+    private TextView tv_username;
+    private ImageView img_head;
+    private TextView tv_hy;
+    private TextView tv_user_money;
+    private TextView tv_level;
 
     public MinFragment() {
         // Required empty public constructor
@@ -44,8 +62,39 @@ public class MinFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_min, container, false);
         mContext = getContext();
+        SharedPreferences share = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        token = share.getString("token", "");
+        uid = share.getString("uid", "");
         InitUI();
+        InitData();
         return inflate;
+    }
+
+    private void InitData() {
+        OkGo.<String>get(RequstUrlUtils.URL.Index)
+                .params("uid",uid)
+                .params("token",token)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new GsonBuilder().create();
+                        try {
+                            IndexBean indexBean = gson.fromJson(response.body(), IndexBean.class);
+                            if (indexBean.getCode()==1){
+                                IndexBean.DataBean data = indexBean.getData();
+                                if (data!=null){
+                                    tv_username.setText(data.getNickname());
+                                    Glide.with(mContext).load(RequstUrlUtils.URL.HOST+data.getHeadimg()).into(img_head);
+                                    tv_hy.setText(data.getLevelname());
+                                    tv_user_money.setText("¥"+data.getUser_money());
+                                    tv_level.setText(data.getLevel()+"");
+                                }
+                            }
+                        }catch (Exception e){
+
+                        }
+                    }
+                });
     }
 
     @Override
@@ -69,6 +118,11 @@ public class MinFragment extends Fragment implements View.OnClickListener {
         inflate.findViewById(R.id.fm_min_rel_orderDone).setOnClickListener(this);
         inflate.findViewById(R.id.fm_min_rel_task).setOnClickListener(this);
         inflate.findViewById(R.id.fm_min_my_integral).setOnClickListener(this);
+        tv_username = inflate.findViewById(R.id.fm_min_tv_username);
+        img_head = inflate.findViewById(R.id.fm_min_img_head);
+        tv_hy = inflate.findViewById(R.id.fm_min_tv_hy);
+        tv_user_money = inflate.findViewById(R.id.fm_min_tv_user_money);
+        tv_level = inflate.findViewById(R.id.fm_min_tv_level);
     }
 
     @Override

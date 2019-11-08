@@ -21,8 +21,6 @@
         android:roundIcon="@mipmap/spyj_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:networkSecurityConfig="@xml/network_security_config"
-        tools:ignore="GoogleAppIndexingWarning"
         android:usesCleartextTraffic="true">
         <activity android:name=".Activitys.CallCenterActivity"
             android:launchMode="singleTask"></activity>
@@ -69,15 +67,7 @@
         <activity android:name=".Activitys.ShoppingAddressAddActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".Activitys.LogisticsDetailActivity"
-            android:launchMode="singleTask"/> <!-- <provider -->
-        <!-- android:name="androidx.core.content.FileProvider" -->
-        <!-- android:authorities="com.zhkj.syyj.file.provider" -->
-        <!-- android:exported="false" -->
-        <!-- android:grantUriPermissions="true"> -->
-        <!-- <meta-data -->
-        <!-- android:name="android.support.FILE_PROVIDER_PATHS" -->
-        <!-- android:resource="@xml/boxing_file_provider" /> -->
-        <!-- </provider> -->
+            android:launchMode="singleTask"/>
         <activity android:name=".Activitys.EvaluateActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".Activitys.UpdateUserActivity"

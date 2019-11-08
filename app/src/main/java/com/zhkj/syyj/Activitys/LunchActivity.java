@@ -30,7 +30,6 @@ public class LunchActivity extends AppCompatActivity {
         mContext = getApplicationContext();
         handler.postDelayed(runnable,3000);
         InitUI();
-
     }
 
     private void InitUI() {

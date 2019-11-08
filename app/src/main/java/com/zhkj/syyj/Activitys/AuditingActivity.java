@@ -2,6 +2,8 @@ package com.zhkj.syyj.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -10,10 +12,13 @@ import com.zhkj.syyj.R;
 
 public class AuditingActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auditing);
+        mContext = getApplicationContext();
         InitUI();
     }
 
@@ -29,7 +34,7 @@ public class AuditingActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.auditing_btn_back:
-                finish();
+                startActivity(new Intent(mContext,LoginActivity.class));
                 break;
                 default:
                     break;

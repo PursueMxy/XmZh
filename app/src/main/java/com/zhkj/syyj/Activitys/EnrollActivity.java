@@ -8,16 +8,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.winfo.photoselector.PhotoSelector;
+import com.zhkj.syyj.Beans.UploadBean;
 import com.zhkj.syyj.R;
+import com.zhkj.syyj.Utils.RequstUrlUtils;
+import com.zhkj.syyj.Utils.ToastUtils;
+import com.zhkj.syyj.contract.EnrollContract;
+import com.zhkj.syyj.presenter.EnrollPresenter;
 
-public class EnrollActivity extends AppCompatActivity implements View.OnClickListener {
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+public class EnrollActivity extends AppCompatActivity implements View.OnClickListener, EnrollContract.View {
 
     private Context mContext;
     private static final int REQUEST_CODE = 1001;
@@ -27,12 +45,19 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
     private EditText edt_password;
     private EditText edt_define_password;
     private EditText edt_invite_code;
+    private CheckBox enroll_ckb;
+    private String wximgPath="";
+    private TextView tv_send_code;
+    private int Timesecond;
+    private String mobile;
+    private EnrollPresenter enrollPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enroll);
         mContext = getApplicationContext();
+        enrollPresenter = new EnrollPresenter(this);
         InitUI();
     }
 
@@ -45,6 +70,9 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
         edt_password = findViewById(R.id.enroll_edt_password);
         edt_define_password = findViewById(R.id.enroll_edt_define_password);
         edt_invite_code = findViewById(R.id.enroll_edt_invite_code);
+        enroll_ckb = findViewById(R.id.enroll_ckb);
+        tv_send_code = findViewById(R.id.enroll_send_verification_code);
+        tv_send_code.setOnClickListener(this);
 
     }
 
@@ -52,7 +80,18 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.enroll_btn_confirm:
-                startActivity(new Intent(mContext,AuditingActivity.class));
+               Logon();
+                break;
+            case R.id.enroll_send_verification_code:
+                mobile = edt_mobile.getText().toString();
+                if (!mobile.equals("")&&mobile.length()==11){
+                    Timesecond=60;
+                    timeHandler.postDelayed(timeRunnable,1000);
+                    tv_send_code.setClickable(false);
+                    enrollPresenter.GetSendCode(mobile,1);
+                }else {
+                    ToastUtils.showToast(mContext,"手机号码有误");
+                }
                 break;
             case R.id.enroll_img_add:
                 PhotoSelector.builder()
@@ -71,6 +110,58 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    private void Logon() {
+        String mobile= edt_mobile.getText().toString();
+        String code = edt_verification_code.getText().toString();
+        String password= edt_password.getText().toString();
+        String define_password = edt_define_password.getText().toString();
+        String invite_code = edt_invite_code.getText().toString();
+        if (enroll_ckb.isChecked()) {
+            if (!mobile.equals("")){
+                if (!code.equals("")){
+                 if (!password.equals("")){
+                    if (!define_password.equals("")&&define_password.equals(password)){
+                     if (!wximgPath.equals("")){
+                      enrollPresenter.GetEnroll(mobile,password,code,invite_code,wximgPath,"");
+                     }else {
+                         ToastUtils.showToast(mContext,"通讯录图片不能为空");
+                     }
+                    }else {
+                        ToastUtils.showToast(mContext,"密码两次输入不一致");
+                    }
+                 }else {
+                     ToastUtils.showToast(mContext,"密码不能为空");
+                 }
+                }else {
+                    ToastUtils.showToast(mContext,"验证码不能为空");
+                }
+            }else {
+                ToastUtils.showToast(mContext,"手机号不能为空");
+            }
+        }else {
+            ToastUtils.showToast(mContext,"请先阅读服务协议并同意");
+        }
+    }
+
+     /*
+     * 注册返回事件
+     * */
+     public void Enroll(int code,String msg,String data){
+         if (code==1){
+             if (msg.equals("注册成功")) {
+                 startActivity(new Intent(mContext, AuditingActivity.class));
+             }
+         }else if (code==0){
+             if (msg.equals("手机号码已注册")){
+                 timeHandler.removeCallbacks(timeRunnable);
+                 tv_send_code.setClickable(true);
+                 tv_send_code.setText("发送验证码");
+             }
+         }
+         ToastUtils.showToast(mContext,msg);
+     }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -80,6 +171,26 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
                     //获取到裁剪后的图片的Uri进行处理
                     Uri resultUri = PhotoSelector.getCropImageUri(data);
                     Glide.with(this).load(resultUri).into(img_add);
+                    File file = new File(resultUri.getPath());//实例化数据库文件
+                    OkGo.<String>post(RequstUrlUtils.URL.Upload)
+                            .params("image",file)
+                            .params("type","app")
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Gson gson = new GsonBuilder().create();
+                                    try {
+                                        UploadBean uploadBean = gson.fromJson(response.body(), UploadBean.class);
+                                        if (uploadBean.getCode() == 1) {
+                                            wximgPath = uploadBean.getData().getPath();
+                                        } else {
+                                            ToastUtils.showToast(mContext, "图片上传失败");
+                                        }
+                                    }catch (Exception e){
+                                        ToastUtils.showToast(mContext, "图片上传失败");
+                                    }
+                                }
+                            });
                     break;
                 default:
                     break;
@@ -93,5 +204,32 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    //防止多次点击获取验证码
+    Handler timeHandler=new Handler();
+    Runnable timeRunnable=new Runnable() {
+        @Override
+        public void run() {
+            if (Timesecond==0){
+                timeHandler.removeCallbacks(timeRunnable);
+                tv_send_code.setClickable(true);
+                tv_send_code.setText("发送验证码");
+            }else {
+                timeHandler.postDelayed(timeRunnable,1000);
+                tv_send_code.setText(Timesecond+"秒后");
+            }
+            Timesecond=Timesecond-1;
+        }
+    };
+
+    @Override
+    public void Enroll(int code, String msg) {
+
     }
 }
