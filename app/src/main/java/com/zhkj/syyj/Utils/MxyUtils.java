@@ -27,4 +27,16 @@ public class MxyUtils {
         float px = context.getResources().getDimension(id);
         return px / dm.density;
     }
+
+
+    /**
+     * 手机号用****号隐藏中间数字
+     *
+     * @param phone
+     * @return
+     */
+    public static String settingphone(String phone) {
+        String phone_s = phone.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+        return phone_s;
+    }
 }

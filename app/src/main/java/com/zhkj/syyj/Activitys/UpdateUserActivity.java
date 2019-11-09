@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -69,6 +70,8 @@ public class UpdateUserActivity extends AppCompatActivity {
     private String selectedProvince;
     private String selectedCity;
     private String selectedArea;
+    private String token;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,9 @@ public class UpdateUserActivity extends AppCompatActivity {
         mContext = getApplicationContext();
         ButterKnife.inject(this);
         InitUI();
+        SharedPreferences share = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        token = share.getString("token", "");
+        uid = share.getString("uid", "");
     }
 
     private void InitUI() {
@@ -92,7 +98,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.update_user_img_head,R.id.update_user_img_back,R.id.up_user_tv_birthday,R.id.up_user_tv_address})
+    @OnClick({R.id.update_user_img_head,R.id.update_user_img_back,R.id.up_user_tv_birthday,R.id.up_user_tv_address,R.id.update_user_tv_confirm})
     public void onViewClicked(View view){
         switch (view.getId()){
             case R.id.update_user_img_head:
@@ -145,7 +151,6 @@ public class UpdateUserActivity extends AppCompatActivity {
                 break;
             case R.id.up_user_tv_address:
                 checkType();
-
                 PopupU.showRegionView(UpdateUserActivity.this, mType, selectedProvince, selectedCity, selectedArea, new PopupU.OnRegionListener() {
                     @Override
                     public void onRegionListener(String province, String city, String area) {
@@ -158,6 +163,12 @@ public class UpdateUserActivity extends AppCompatActivity {
 
                     }
                 });
+                break;
+            case R.id.update_user_tv_confirm:
+                String userId= edt_userId.getText().toString();
+                String userName= edt_userName.getText().toString();
+                String vocation = edt_vocation.getText().toString();
+                String wechatNumber = edt_wechatNumber.getText().toString();
                 break;
                 default:
                     break;

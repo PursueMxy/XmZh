@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_high">
         <ImageView
-            android:id="@+id/coupon_detail_img_back"
+            android:id="@+id/update_mobile_img_back"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_centerVertical="true"
             android:src="@mipmap/icon_arrow_left"
@@ -18,7 +18,7 @@
             android:layout_height="@dimen/dp_18" />
         <TextView
             android:layout_centerHorizontal="true"
-            android:text="优惠券详情"
+            android:text="个人信息"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/sp_22"
             android:gravity="center"
@@ -75,15 +75,19 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <EditText
+                android:id="@+id/update_mobile_tv_phone"
                 android:layout_marginTop="@dimen/dp_77"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:textSize="@dimen/sp_14"
                 android:textColor="@color/text_black"
-                android:text="188*****8888"
+                android:text=""
+                android:background="@null"
+                android:hint="请输入手机号"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/update_mode_tv_mobile_code"
                 android:gravity="center"
                 android:background="@drawable/btn_yellow_white"
                 android:layout_marginTop="@dimen/dp_73"
@@ -105,6 +109,7 @@
             android:layout_height="0.3dp"/>
 
         <EditText
+            android:id="@+id/update_mobile_edt_mobile_code"
             android:background="@null"
             android:layout_marginRight="@dimen/dp_15"
             android:layout_marginLeft="@dimen/dp_15"
@@ -127,10 +132,7 @@
             android:layout_marginTop="@dimen/dp_50"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="温馨提示：\n
-                   \n
-                    \n
- 手机号码修改成功后需要使用新的手机号码进行登录"
+            android:text="温馨提示：\n\n\n手机号码修改成功后需要使用新的手机号码进行登录"
             android:textColor="#ffefb134"
             android:textSize="12sp"
             />
@@ -158,6 +160,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
+                    android:maxLength="11"
+                    android:inputType="number"
+                    android:id="@+id/update_mobile_new_edt_mobile"
                     android:background="@null"
                     android:layout_marginTop="@dimen/dp_77"
                     android:layout_marginLeft="@dimen/dp_15"
@@ -168,6 +173,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/update_mode_new_tv_mobile_code"
                     android:gravity="center"
                     android:background="@drawable/btn_yellow_white"
                     android:layout_marginTop="@dimen/dp_73"
@@ -211,10 +217,7 @@
                 android:layout_marginTop="@dimen/dp_50"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="温馨提示：\n
-                   \n
-                    \n
- 手机号码修改成功后需要使用新的手机号码进行登录"
+                android:text="温馨提示：\n\n\n手机号码修改成功后需要使用新的手机号码进行登录"
                 android:textColor="#ffefb134"
                 android:textSize="12sp"
                 />

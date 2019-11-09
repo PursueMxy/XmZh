@@ -47,6 +47,8 @@
             android:layout_marginLeft="@dimen/sp_15"
             android:textSize="14sp"
             android:textColor="#ff949397"
+            android:inputType="number"
+            android:maxLength="11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
@@ -77,6 +79,7 @@
                 android:layout_marginTop="@dimen/dp_13"
                 android:layout_marginLeft="@dimen/sp_15"
                 android:textSize="14sp"
+                android:inputType="number"
                 android:textColor="#ff949397"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
