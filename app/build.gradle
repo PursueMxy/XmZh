@@ -58,7 +58,7 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
 
     implementation 'com.jakewharton:butterknife:5.1.1'
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
 
     //图片选择框框
     implementation 'com.winfo.photoselector:PhotoSelector:1.2.1'
@@ -71,5 +71,8 @@ dependencies {
     implementation 'com.hjq:xxpermissions:6.0'
 
     implementation 'com.lzy.net:okgo:3.0.4'
+
+    //轮播图
+    implementation 'com.github.dongjunkun:BannerLayout:1.0.6'
 
 }

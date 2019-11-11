@@ -7,17 +7,21 @@ import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zhkj.syyj.Activitys.LoginActivity;
 import com.zhkj.syyj.Adapters.TaskListAdapter;
 import com.zhkj.syyj.R;
+import com.zhkj.syyj.Utils.ToastUtils;
 import com.zhouyou.recyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -31,15 +35,22 @@ public class TaskListFragment extends Fragment {
 
     private View inflate;
     private XRecyclerView tasklist_recyclerView;
-    private List<String> tasklist_item=new ArrayList<>();
     private Context mContext;
     private LinearLayoutManager mLayoutManager;
     private TaskListAdapter taskListAdapter;
+    public static final String TRANSFER_PAGE = "page";
+    private String mArgument;
 
     public TaskListFragment() {
         // Required empty public constructor
     }
-
+    public static Fragment getIntance(int page){
+        Bundle bundle = new Bundle();
+        bundle.putInt(TRANSFER_PAGE,page);
+        TaskListFragment pageFragment = new TaskListFragment();
+        pageFragment.setArguments(bundle);
+        return  pageFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +58,7 @@ public class TaskListFragment extends Fragment {
         // Inflate the layout for this fragment
         inflate = inflater.inflate(R.layout.fragment_task_list, container, false);
         mContext = getContext();
+        Log.e("执行了","第几次");
         InitUI();
         return inflate;
     }
@@ -57,12 +69,17 @@ public class TaskListFragment extends Fragment {
         return;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            mArgument = bundle.getString(TRANSFER_PAGE);
+            Log.e("mArgument",mArgument);
+       }
+    }
+
     private void InitUI() {
-        tasklist_item.add("112");
-        tasklist_item.add("112");
-        tasklist_item.add("112");
-        tasklist_item.add("112");
-        tasklist_item.add("112");
         tasklist_recyclerView = inflate.findViewById(R.id.fm_tasklist_recyclerView);
         mLayoutManager = new LinearLayoutManager(mContext);
         taskListAdapter = new TaskListAdapter(mContext);
@@ -90,7 +107,6 @@ public class TaskListFragment extends Fragment {
                 tasklist_recyclerView.setNoMore(true);//数据加载完成
             }
         });
-        taskListAdapter.setListAll(tasklist_item);
         tasklist_recyclerView.setAdapter(taskListAdapter);
     }
     /**

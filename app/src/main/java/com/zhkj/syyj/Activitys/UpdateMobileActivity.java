@@ -43,6 +43,8 @@ public class UpdateMobileActivity extends AppCompatActivity implements UpdateMob
     EditText new_edt_mobile;
     @InjectView(R.id.update_mobile_edt_mobile_code)
     EditText edt_mobile_code;
+    @InjectView(R.id.update_mobile_new_edt_mobile_code)
+    EditText new_edt_mobile_code;
     private Context mContext;
     private SharedPreferences share;
     private String mobile;
@@ -79,10 +81,10 @@ public class UpdateMobileActivity extends AppCompatActivity implements UpdateMob
                 break;
             case R.id.update_mobile_btn_confirm:
                 String mobiles = new_edt_mobile.getText().toString();
-                String mobile_code = new_tv_mobile_code.getText().toString();
+                String mobile_code = new_edt_mobile_code.getText().toString();
                 if (!mobiles.equals("")&&mobiles.length()==11){
                    if (!mobile_code.equals("")){
-                   updateMobilePresenter.GetUpdateMobile(uid,token,mobile,mobile_code);
+                   updateMobilePresenter.GetUpdateMobile(uid,token,mobiles,mobile_code);
                    }else {
                        ToastUtils.showToast(mContext,"验证码不能为空");
                    }
@@ -97,7 +99,7 @@ public class UpdateMobileActivity extends AppCompatActivity implements UpdateMob
                     tv_mobile_code.setClickable(false);
                     updateMobilePresenter.GetSendCode(mobile,6);
                 }else {
-                    ToastUtils.showToast(mContext,"密码不能为空");
+                    ToastUtils.showToast(mContext,"手机号码不能为空");
                 }
                 break;
             case R.id.update_mode_new_tv_mobile_code:
@@ -108,7 +110,7 @@ public class UpdateMobileActivity extends AppCompatActivity implements UpdateMob
                     new_tv_mobile_code.setClickable(false);
                     updateMobilePresenter.GetSendCode(mobile,1);
                 }else {
-                    ToastUtils.showToast(mContext,"密码不能为空");
+                    ToastUtils.showToast(mContext,"手机号码不能为空");
                 }
                 break;
                 default:
@@ -154,8 +156,12 @@ public class UpdateMobileActivity extends AppCompatActivity implements UpdateMob
                 tv_new.setBackgroundResource(R.drawable.myorder_choosed_color);
                 ll_primary.setVisibility(View.GONE);
                 ll_new.setVisibility(View.VISIBLE);
-             }else if(msg.equals("更改成功")){
-                 startActivity(new Intent(mContext,UpdateMobileActivity.class));
+                 timeHandler.removeCallbacks(timeRunnable);
+                 new_tv_mobile_code.setClickable(true);
+                 new_tv_mobile_code.setText("发送验证码");
+             }else if(msg.equals("修改成功")){
+                 startActivity(new Intent(mContext,PerSonalDataActivity.class));
+                 finish();
              }
         }
         ToastUtils.showToast(mContext,msg);

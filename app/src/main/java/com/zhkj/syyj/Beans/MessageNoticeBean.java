@@ -4,10 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class MessageNoticeBean {
 
+
     /**
      * code : 1
      * msg : 请求成功
-     * time : 1573283672
+     * time : 1573439354
      * data : {"1":{"rec_id":202,"is_see":0,"send_time_text":"00:00","send_time":1574956800,"message_title":"开奖咯","message_content":"哈哈哈，骗人的"},"0":{"rec_id":201,"is_see":0,"send_time_text":"2019-11-01 17:57:52","send_time":1572602272,"message_title":"啦啦啦","message_content":"啊啊啊啊"}}
      */
 

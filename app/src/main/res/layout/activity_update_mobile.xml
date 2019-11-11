@@ -195,6 +195,7 @@
                 android:layout_height="0.3dp"/>
 
             <EditText
+                android:id="@+id/update_mobile_new_edt_mobile_code"
                 android:background="@null"
                 android:layout_marginRight="@dimen/dp_15"
                 android:layout_marginLeft="@dimen/dp_15"

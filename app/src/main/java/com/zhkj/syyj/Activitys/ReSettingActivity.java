@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -30,6 +31,7 @@ public class ReSettingActivity extends AppCompatActivity implements View.OnClick
     private String password;
     private int Timesecond;
     private TextView send_verification_code;
+    private SharedPreferences share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +39,9 @@ public class ReSettingActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_re_setting);
         mContext = getApplicationContext();
         InitUI();
+        share = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        mobile = share.getString("mobile", "");
         reSettingPresenter = new ReSettingPresenter(this);
-
     }
 
     private void InitUI() {
@@ -49,6 +52,7 @@ public class ReSettingActivity extends AppCompatActivity implements View.OnClick
         edt_password = findViewById(R.id.re_setting_edt_password);
         edt_define_password = findViewById(R.id.re_setting_edt_define_password);
         edt_verification_code = findViewById(R.id.re_setting_edt_verification_code);
+        edt_mobile.setText(mobile);
     }
 
     @Override
@@ -107,7 +111,10 @@ public class ReSettingActivity extends AppCompatActivity implements View.OnClick
      */
     public void  UpdateUI(int code ,String msg){
         if (code==1){
-          if (msg.equals("修改成功")){
+          if (msg.equals("密码重置成功")){
+              SharedPreferences.Editor editor = share.edit();
+              editor.putString("password",password);
+              editor.commit();//提交
               startActivity(new Intent(mContext,LoginActivity.class));
           }
         }

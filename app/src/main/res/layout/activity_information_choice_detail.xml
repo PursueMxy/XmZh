@@ -39,7 +39,7 @@
             android:layout_marginTop="@dimen/dp_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="新闻标题新闻标题新闻标题"
+            android:text="新闻标题"
             android:textColor="#ff040000"
             android:textSize="17sp"
             />
@@ -61,7 +61,7 @@
             android:layout_marginTop="@dimen/dp_19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容图文编辑器编辑新闻内容"
+            android:text=""
             android:textColor="#ff040000"
             android:textSize="14sp"
             />

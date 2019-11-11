@@ -11,6 +11,7 @@
     <color name="e99415">#ffe99415</color>
     <color name="tab_normal_color">#4E4D52</color>
     <color name="tab_selected_color">#E0BD85</color>
+    <color name="tab_e6e6e6">#e6e6e6</color>
     <drawable name="cut_off_rule">#e6e6e6</drawable>
     <color name="bg_fafafa">#FFFAFAFA</color>
 

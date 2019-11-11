@@ -13,21 +13,25 @@ import android.view.View;
 
 import com.zhkj.syyj.Adapters.InformationChoiceAdapter;
 import com.zhkj.syyj.Adapters.ShopChoiceAdapter;
+import com.zhkj.syyj.Beans.NewsListBean;
 import com.zhkj.syyj.Beans.Products;
 import com.zhkj.syyj.R;
+import com.zhkj.syyj.contract.InformationChoiceContract;
+import com.zhkj.syyj.presenter.InformationChoicePresenter;
 import com.zhouyou.recyclerview.XRecyclerView;
 import com.zhouyou.recyclerview.adapter.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InformationChoiceActivity extends AppCompatActivity implements View.OnClickListener {
+public class InformationChoiceActivity extends AppCompatActivity implements View.OnClickListener, InformationChoiceContract.View {
 
     private XRecyclerView mRecyclerView;
     private Context mContext;
     private LinearLayoutManager mLayoutManager;
     private InformationChoiceAdapter informationChoiceAdapter;
-    private static List<Products> list= new ArrayList<>();
+    private  List<NewsListBean.DataBean> list= new ArrayList<>();
+    private InformationChoicePresenter informationChoicePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +39,12 @@ public class InformationChoiceActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_information_choice);
         mContext = getApplicationContext();
         InitUI();
+        informationChoicePresenter = new InformationChoicePresenter(this);
+        informationChoicePresenter.GetNewList();
     }
 
     private void InitUI() {
         findViewById(R.id.information_img_back).setOnClickListener(this);
-        Products products = new Products("1");
-        Products products2 = new Products("2");
-        Products products3 = new Products("3");
-        list.add(products);
-        list.add(products2);
-        list.add(products3);
         mRecyclerView = findViewById(R.id.information_XRecyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mLayoutManager = new LinearLayoutManager(mContext);
@@ -53,6 +53,7 @@ public class InformationChoiceActivity extends AppCompatActivity implements View
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
+                informationChoicePresenter.GetNewList();
                 mRecyclerView.refreshComplete();//刷新动画完成
             }
 
@@ -68,7 +69,9 @@ public class InformationChoiceActivity extends AppCompatActivity implements View
         informationChoiceAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Object item, int position) {
-                startActivity(new Intent(mContext,InformationChoiceDetailActivity.class));
+                Intent intent = new Intent(mContext, InformationChoiceDetailActivity.class);
+                intent.putExtra("id",list.get(position).getArticle_id()+"");
+                startActivity(intent);
             }
         });
     }
@@ -90,5 +93,17 @@ public class InformationChoiceActivity extends AppCompatActivity implements View
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    //更新列表
+    public void UpdateUI(List<NewsListBean.DataBean> data){
+        this.list=data;
+        informationChoiceAdapter.setListAll(data);
+        mRecyclerView.setAdapter(informationChoiceAdapter);
     }
 }

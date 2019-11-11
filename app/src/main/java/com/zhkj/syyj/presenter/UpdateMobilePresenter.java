@@ -8,6 +8,8 @@ import com.zhkj.syyj.Utils.RequstUrlUtils;
 import com.zhkj.syyj.contract.UpdateMobileContract;
 import com.zhkj.syyj.model.UpdateMobileModel;
 
+import java.lang.invoke.MutableCallSite;
+
 public class UpdateMobilePresenter implements UpdateMobileContract.Presenter {
 
     private UpdateMobileModel updateMobileModel;
@@ -27,6 +29,7 @@ public class UpdateMobilePresenter implements UpdateMobileContract.Presenter {
     public void SetSendCode(String content){
         Gson gson = new GsonBuilder().create();
         PublicResultBean publicResultBean = gson.fromJson(content, PublicResultBean.class);
+        mView.UpdateCode(publicResultBean.getCode(),publicResultBean.getMsg());
     }
 
     //更换手机号
@@ -37,6 +40,13 @@ public class UpdateMobilePresenter implements UpdateMobileContract.Presenter {
     //验证验证码
     public void GetCheckCode(String mobile,String code,String type){
         updateMobileModel.PostCheckCode(this,mobile,code,type);
+    }
+
+    //更换手机号成功
+    public void setUpdateMobileModel(String content){
+        Gson gson = new GsonBuilder().create();
+        PublicResultBean publicResultBean = gson.fromJson(content, PublicResultBean.class);
+        mView.UpdateCode(publicResultBean.getCode(),publicResultBean.getMsg());
     }
 
 }

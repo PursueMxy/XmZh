@@ -46,5 +46,23 @@ public class RequstUrlUtils {
 
         //修改个人信息
         public static String SaveUserInfo=HOST+"user/saveUserInfo";
+
+        //任务分类
+        public static String TaskCategory=HOST+"/task/taskCategory";
+
+        //任务列表
+        public static String TaskList=HOST+"/task/taskList";
+
+        //已完成任务
+        public static String DoneList=HOST+"/task/doneList";
+
+        //首页
+        public static  String HomeIndex=HOST+"/index/index";
+
+        //资讯精选
+        public static  String NewsList=HOST+"/index/newsList";
+
+        //资讯详情
+        public static String NewsDetail=HOST+"/index/newsDetail";
     }
 }

@@ -95,7 +95,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(mContext,EnrollActivity.class));
                 break;
             case R.id.login_btn_login:
-                ToastUtils.showToast(mContext,"执行");
                 password = edt_password.getText().toString();
                 mobile = edt_mobile.getText().toString();
                 if (!password.equals("")&&!mobile.equals(""))

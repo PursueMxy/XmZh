@@ -1,9 +1,12 @@
 package com.zhkj.syyj.Fragments;
 
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,7 +18,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.GsonBuilder;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.yyydjk.library.BannerLayout;
 import com.zhkj.syyj.Activitys.ForwardActivity;
 import com.zhkj.syyj.Activitys.GoodsDetailActivity;
 import com.zhkj.syyj.Activitys.HomeActivity;
@@ -23,10 +34,13 @@ import com.zhkj.syyj.Activitys.InformationChoiceActivity;
 import com.zhkj.syyj.Activitys.InformationChoiceDetailActivity;
 import com.zhkj.syyj.Activitys.ReMindActivity;
 import com.zhkj.syyj.Adapters.ShopChoiceAdapter;
+import com.zhkj.syyj.Beans.HomeIndexBean;
 import com.zhkj.syyj.Beans.Products;
+import com.zhkj.syyj.CustView.GlideImageLoader;
 import com.zhkj.syyj.CustView.NoScrollListView;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.MxyUtils;
+import com.zhkj.syyj.Utils.RequstUrlUtils;
 import com.zhouyou.recyclerview.XRecyclerView;
 import com.zhouyou.recyclerview.adapter.BaseRecyclerViewAdapter;
 
@@ -44,8 +58,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private XRecyclerView mRecyclerView;
     private GridLayoutManager mLayoutManager;
     private ShopChoiceAdapter shopChoiceAdapter;
-    private static List<Products> list= new ArrayList<>();
     private View home_top;
+    private ImageView home_choice_img;
+    private TextView home_choice_tv_title;
+    private TextView home_choice_tv_title_description;
+    private BannerLayout bannerLayout;
+    //轮播图
+    final List<String> urls = new ArrayList<>();
+    private NoScrollListView task_listv;
+    private TaskAdapter taskAdapter;
+    private List<HomeIndexBean.DataBean.TaskListBean> taskList=new ArrayList<>();
+    private List<HomeIndexBean.DataBean.GoodsBean> goodsList=new ArrayList<>();
+    private String article_id;
 
 
     public HomeFragment() {
@@ -59,7 +83,54 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         inflate = inflater.inflate(R.layout.fragment_home, container, false);
         mContext = getContext();
         InitUI();
+        InitData();
         return inflate;
+    }
+
+    private void InitData() {
+        OkGo.<String>get(RequstUrlUtils.URL.HomeIndex)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        HomeIndexBean homeIndexBean = new GsonBuilder().create().fromJson(response.body(), HomeIndexBean.class);
+                        if (homeIndexBean.getCode()==1){
+                            HomeIndexBean.DataBean data = homeIndexBean.getData();
+                            HomeIndexBean.DataBean.NewsBean news = data.getNews();
+                            List<HomeIndexBean.DataBean.BannerBean> banner = data.getBanner();
+                            if (banner!=null){
+                              for (int a=0;a<banner.size();a++){
+                                  String s = imageTranslateUri(R.mipmap.icon_home_top);
+                                  urls.add(s);
+                              }
+                                bannerLayout.setAutoPlay(true);
+                                bannerLayout.setImageLoader(new GlideImageLoader());
+                                bannerLayout.setViewUrls(urls);
+                                //添加点击监听
+                                bannerLayout.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+                                    @Override
+                                    public void onItemClick(int position) {
+                                    }
+                                });
+                            }
+                            if (news!=null) {
+                                Glide.with(mContext).load(RequstUrlUtils.URL.HOST + news.getThumb()).into(home_choice_img);
+                                home_choice_tv_title.setText(news.getTitle());
+                                home_choice_tv_title_description.setText(news.getDescription());
+                                article_id = news.getArticle_id()+"";
+                            }
+                            taskList = data.getTaskList();
+                            if (taskList.size()>0){
+                                taskAdapter = new TaskAdapter();
+                                task_listv.setAdapter(taskAdapter);
+                            }
+                            goodsList = data.getGoods();
+                            if (goodsList.size()>0){
+                                shopChoiceAdapter.setListAll(goodsList);
+                                mRecyclerView.setAdapter(shopChoiceAdapter);
+                            }
+                        }
+                    }
+                });
     }
 
     @Override
@@ -71,20 +142,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         home_top = getLayoutInflater().inflate(R.layout.fm_home_top, null);
         home_top.findViewById(R.id.fmhome_tv_information_choice).setOnClickListener(this);
         home_top.findViewById(R.id.fmhome_rl_information_choice).setOnClickListener(this);
-        NoScrollListView task_list = home_top.findViewById(R.id.home_task_list);
-        task_list.setAdapter(new TaskAdapter());
-        final Products products = new Products("1");
-        final Products products2 = new Products("2");
-        final Products products3 = new Products("3");
-        list.add(products);
-        list.add(products2);
-        list.add(products3);
-        list.add(products);
-        list.add(products2);
-        list.add(products3);
-        list.add(products);
-        list.add(products2);
-        list.add(products3);
+        home_top.findViewById(R.id.fmhome_rl_tv_task_lists).setOnClickListener(this);
+        home_choice_img = home_top.findViewById(R.id.home_choice_img);
+        home_choice_tv_title = home_top.findViewById(R.id.home_choice_tv_title);
+        home_choice_tv_title_description = home_top.findViewById(R.id.home_choice_tv_title_description);
+        bannerLayout = home_top.findViewById(R.id.fm_home_banner);
+        task_listv = home_top.findViewById(R.id.home_task_list);
         mRecyclerView = inflate.findViewById(R.id.fmhome_XRecyclerView);
         mRecyclerView.addHeaderView(home_top);
         mRecyclerView.setNestedScrollingEnabled(false);
@@ -96,14 +159,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onRefresh() {
                 mRecyclerView.refreshComplete();//刷新动画完成
             }
-
             @Override
             public void onLoadMore() {
-                list.add(products);
-                list.add(products2);
-                list.add(products3);
                 //加载更多
-                shopChoiceAdapter.addItemsToLast(list);
+                shopChoiceAdapter.addItemsToLast(goodsList);
                 shopChoiceAdapter.notifyDataSetChanged();
                 mRecyclerView.setNoMore(true);//数据加载完成
                 mRecyclerView.loadMoreComplete();//加载动画完成
@@ -119,7 +178,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         , MxyUtils.dpToPx(mContext, MxyUtils.getDimens(mContext, R.dimen.dp_5)));
             }
         });
-        shopChoiceAdapter.setListAll(list);
+        shopChoiceAdapter.setListAll(goodsList);
         mRecyclerView.setAdapter(shopChoiceAdapter);
         shopChoiceAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
             @Override
@@ -137,7 +196,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(mContext, InformationChoiceActivity.class));
                 break;
             case R.id.fmhome_rl_information_choice:
-                startActivity(new Intent(mContext, InformationChoiceDetailActivity.class));
+                Intent intent = new Intent(mContext, InformationChoiceDetailActivity.class);
+                intent.putExtra("id",article_id +"");
+                startActivity(intent);
+                break;
+            case R.id.fmhome_rl_tv_task_lists:
+               Intent intent1=new Intent(mContext,HomeActivity.class);
+               intent1.putExtra("currentItems","2");
+               startActivity(intent1);
                 break;
                 default:
                     break;
@@ -147,7 +213,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public class TaskAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return 3;
+            return taskList.size();
         }
 
         @Override
@@ -163,6 +229,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             View inflate = getLayoutInflater().inflate(R.layout.list_home_task, null);
+            TextView tv_content= inflate.findViewById(R.id.list_home_task_tv_content);
+            tv_content.setText(taskList.get(i).getShare_content());
+            TextView tv_rrp= inflate.findViewById(R.id.list_home_task_tv_rrp);
+            tv_rrp.setText(taskList.get(i).getMarket_price());
+            TextView tv_price = inflate.findViewById(R.id.list_home_task_tv_price);
+            tv_price.setText(taskList.get(i).getShop_price());
+            ImageView task_img = inflate.findViewById(R.id.list_home_task_img);
+            Glide.with(mContext).load(RequstUrlUtils.URL.HOST+taskList.get(i).getOriginal_img()).into(task_img);
             inflate.findViewById(R.id.list_home_task_btn_forward).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -175,7 +249,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     startActivity(new Intent(mContext, ReMindActivity.class));
                 }
             });
+
             return inflate;
         }
+    }
+
+    private String imageTranslateUri(int resId) {
+
+        Resources r = getResources();
+        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                + r.getResourcePackageName(resId) + "/"
+                + r.getResourceTypeName(resId) + "/"
+                + r.getResourceEntryName(resId));
+
+        return uri.toString();
     }
 }

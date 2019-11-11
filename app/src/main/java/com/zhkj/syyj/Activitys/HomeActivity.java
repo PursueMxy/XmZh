@@ -85,6 +85,10 @@ public class HomeActivity extends AppCompatActivity {
         mFragmentList.add(minFragment);
     }
 
+     public void SetCurrentItem(int items){
+         home_bottombarly.setCurrentItem(items);
+     }
+
     private void IintUI() {
         mVpContent = findViewById(R.id.vp_content);
         home_bottombarly = findViewById(R.id.home_bottombarly);
@@ -94,6 +98,7 @@ public class HomeActivity extends AppCompatActivity {
         home_bottombarly.setCurrentItem(currentItems);
 
     }
+
     class MyAdapter extends FragmentStatePagerAdapter {
 
         public MyAdapter(FragmentManager fm) {

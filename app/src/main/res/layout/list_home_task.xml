@@ -60,7 +60,7 @@
         android:layout_marginTop="@dimen/dp_9"
         android:layout_below="@id/list_home_task_rel_price"
         android:layout_marginLeft="@dimen/dp_10"
-        android:layout_width="47dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="¥9.90"
         android:textColor="#fffc295c"
