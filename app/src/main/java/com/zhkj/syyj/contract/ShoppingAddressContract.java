@@ -1,6 +1,9 @@
 package com.zhkj.syyj.contract;
 
+import com.zhkj.syyj.Beans.AddressListBean;
 import com.zhkj.syyj.presenter.ShoppingAddressPresenter;
+
+import java.util.List;
 
 public interface ShoppingAddressContract {
     interface Model {
@@ -8,6 +11,7 @@ public interface ShoppingAddressContract {
     }
 
     interface View {
+        void UpdateAddressList(int code, String msg, List<AddressListBean.DataBean> data);
     }
 
     interface Presenter {

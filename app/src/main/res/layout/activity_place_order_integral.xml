@@ -178,7 +178,6 @@
             android:layout_marginBottom="@dimen/dp_13"
             android:padding="@dimen/dp_2"
             android:layout_marginLeft="@dimen/dp_34"
-            android:layout_below="@+id/list_shopping_address_tv_default"
             android:text="XX省XX市XX县XX区XX街道"
             android:textSize="@dimen/sp_14"
             android:textColor="@color/text_black"

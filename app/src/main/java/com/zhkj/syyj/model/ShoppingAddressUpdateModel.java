@@ -4,15 +4,14 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.zhkj.syyj.Utils.RequstUrlUtils;
-import com.zhkj.syyj.contract.ShoppingAddressAddContract;
-import com.zhkj.syyj.presenter.ShoppingAddressAddPresenter;
-import com.zhkj.syyj.presenter.ShoppingAddressPresenter;
+import com.zhkj.syyj.contract.ShoppingAddressUpdateContract;
+import com.zhkj.syyj.presenter.ShoppingAddressUpdatePresenter;
 
-public class ShoppingAddressAddModel implements ShoppingAddressAddContract.Model {
-    /**
-     * 新增地址
-     * */
-    public void PostAddressAdd(final ShoppingAddressAddPresenter shoppingAddressAddPresenter, String uid, String token, String address_id, String mobile, String consignee, String province, String city, String district, String twon, String address, String zipcode, String is_default){
+public class ShoppingAddressUpdateModel implements ShoppingAddressUpdateContract.Model {
+
+    //更改收货地址
+    @Override
+    public void PostAddressUpdate(final ShoppingAddressUpdatePresenter addressUpdatePresenter, String uid, String token, String address_id, String mobile, String consignee, String province, String city, String district, String twon, String address, String zipcode, String is_default) {
         OkGo.<String>post(RequstUrlUtils.URL.SaveAddress)
                 .params("uid",uid)
                 .params("token",token)
@@ -29,9 +28,8 @@ public class ShoppingAddressAddModel implements ShoppingAddressAddContract.Model
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                       shoppingAddressAddPresenter.SetAddressAdd(response.body());
+                        addressUpdatePresenter.SetAddressUpdate(response.body());
                     }
                 });
-
     }
 }

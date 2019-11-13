@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.zhkj.syyj.Adapters.ShoppingAddressAdapter;
+import com.zhkj.syyj.Beans.AddressListBean;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.MxyUtils;
 import com.zhkj.syyj.contract.ShoppingAddressContract;
@@ -29,7 +30,7 @@ public class  ShoppingAddressActivity extends AppCompatActivity implements View.
     private LinearLayoutManager mLayoutManager;
     private Context mContext;
     private ShoppingAddressAdapter shoppingAddressAdapter;
-    private List<String> tasklist_item=new ArrayList<>();
+    private List<AddressListBean.DataBean> tasklist_item=new ArrayList<>();
     private ShoppingAddressPresenter shoppingAddressPresenter;
     private String uid;
     private String token;
@@ -47,12 +48,13 @@ public class  ShoppingAddressActivity extends AppCompatActivity implements View.
         shoppingAddressPresenter.GetAddressList(uid,token);
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        shoppingAddressPresenter.GetAddressList(uid,token);
+    }
+
     private void InitUI() {
-        tasklist_item.add("112");
-        tasklist_item.add("112");
-        tasklist_item.add("112");
-        tasklist_item.add("112");
-        tasklist_item.add("112");
         findViewById(R.id.shopping_address_tv_add).setOnClickListener(this);
         findViewById(R.id.shopping_address_img_back).setOnClickListener(this);
         mRecyclerView = findViewById(R.id.shopping_address_recyclerView);
@@ -87,6 +89,13 @@ public class  ShoppingAddressActivity extends AppCompatActivity implements View.
         });
     }
 
+    //获取收货列表
+    public void UpdateAddressList(int code,String msg,List<AddressListBean.DataBean> data){
+        this.tasklist_item=data;
+        shoppingAddressAdapter.setListAll(data);
+        mRecyclerView.setAdapter(shoppingAddressAdapter);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -113,5 +122,12 @@ public class  ShoppingAddressActivity extends AppCompatActivity implements View.
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    public String Token(){
+        return token;
+    }
+    public String Uid(){
+        return uid;
     }
 }

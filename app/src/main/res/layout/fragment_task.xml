@@ -57,7 +57,7 @@
             android:layout_height="match_parent">
             <androidx.recyclerview.widget.RecyclerView
                 android:background="@drawable/bg_white"
-                android:layout_marginLeft="@dimen/dp_24"
+                android:paddingLeft="@dimen/dp_24"
                 android:id="@+id/fm_task_table_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"

@@ -77,5 +77,11 @@ public class RequstUrlUtils {
         //收货地址列表
         public static String AddressList=HOST+"/user/addressList";
 
+        //新增收货地址
+        public static String SaveAddress=HOST+"/user/saveAddress";
+
+        //删除收货地址
+        public static String DelAddress=HOST+"/user/delAddress";
+
     }
 }
