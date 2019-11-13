@@ -94,6 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.3dp"></View>
         <RelativeLayout
+            android:id="@+id/personal_data_rl_change_psw"
             android:layout_marginTop="@dimen/dp_15"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginRight="@dimen/dp_15"
@@ -135,7 +136,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="#ff040000"
                 android:textSize="@dimen/sp_14"/>
-
+            <TextView
+                android:id="@+id/personal_data_tv_mobile"
+                android:layout_width="83dp"
+                android:layout_height="19dp"
+                android:text="180****1849"
+                android:textColor="#ff949397"
+                android:textSize="14sp"
+                />
             <ImageView
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_15"

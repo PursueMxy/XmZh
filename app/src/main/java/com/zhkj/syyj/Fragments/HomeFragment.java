@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TaskAdapter taskAdapter;
     private List<HomeIndexBean.DataBean.TaskListBean> taskList=new ArrayList<>();
     private List<HomeIndexBean.DataBean.GoodsBean> goodsList=new ArrayList<>();
-    private String article_id;
+    private String article_id="";
 
 
     public HomeFragment() {
@@ -196,9 +196,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(mContext, InformationChoiceActivity.class));
                 break;
             case R.id.fmhome_rl_information_choice:
-                Intent intent = new Intent(mContext, InformationChoiceDetailActivity.class);
-                intent.putExtra("id",article_id +"");
-                startActivity(intent);
+                if (!article_id.equals("")) {
+                    Intent intent = new Intent(mContext, InformationChoiceDetailActivity.class);
+                    intent.putExtra("id", article_id + "");
+                    startActivity(intent);
+                }
                 break;
             case R.id.fmhome_rl_tv_task_lists:
                Intent intent1=new Intent(mContext,HomeActivity.class);

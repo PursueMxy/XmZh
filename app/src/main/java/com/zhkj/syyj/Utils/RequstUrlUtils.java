@@ -32,6 +32,9 @@ public class RequstUrlUtils {
         //找回密码
         public static String ResetPass=HOST+"/user/resetPass";
 
+        //修改密码
+        public static String UpdatePass=HOST+"/user/updatePass";
+
         //更换手机号
         public static String updateMobile=HOST+"/user/updateMobile";
 
@@ -45,7 +48,7 @@ public class RequstUrlUtils {
         public static String Message_notice_info=HOST+"user/message_notice_info";
 
         //修改个人信息
-        public static String SaveUserInfo=HOST+"user/saveUserInfo";
+        public static String SaveUserInfo=HOST+"/user/saveUserInfo";
 
         //任务分类
         public static String TaskCategory=HOST+"/task/taskCategory";
@@ -64,5 +67,15 @@ public class RequstUrlUtils {
 
         //资讯详情
         public static String NewsDetail=HOST+"/index/newsDetail";
+
+        //我的余额
+        public static  String Balance=HOST+"/user/balance";
+
+        //我的会员
+        public static String UserLevel=HOST+"/user/level";
+
+        //收货地址列表
+        public static String AddressList=HOST+"/user/addressList";
+
     }
 }

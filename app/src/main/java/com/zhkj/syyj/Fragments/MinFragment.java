@@ -51,6 +51,7 @@ public class MinFragment extends Fragment implements View.OnClickListener {
     private TextView tv_hy;
     private TextView tv_user_money;
     private TextView tv_level;
+    private SharedPreferences share;
 
     public MinFragment() {
         // Required empty public constructor
@@ -62,7 +63,7 @@ public class MinFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         inflate = inflater.inflate(R.layout.fragment_min, container, false);
         mContext = getContext();
-        SharedPreferences share = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        share = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         token = share.getString("token", "");
         uid = share.getString("uid", "");
         InitUI();
@@ -88,6 +89,10 @@ public class MinFragment extends Fragment implements View.OnClickListener {
                                     tv_hy.setText(data.getLevelname());
                                     tv_user_money.setText("¥"+data.getUser_money());
                                     tv_level.setText(data.getLevel()+"");
+                                    SharedPreferences.Editor editor = share.edit();
+                                    editor.putString("headimg", RequstUrlUtils.URL.HOST+data.getHeadimg());
+                                    editor.putString("nickname",data.getNickname());
+                                    editor.commit();
                                 }
                             }
                         }catch (Exception e){
@@ -181,7 +186,8 @@ public class MinFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent4);
                 break;
             case R.id.fm_min_my_integral:
-                startActivity(new Intent(mContext, IntegralActivity.class));
+                Intent intent5 = new Intent(mContext, IntegralActivity.class);
+                startActivity(intent5);
                 break;
                 default:
                     break;

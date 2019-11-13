@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,9 +24,14 @@ import com.google.gson.GsonBuilder;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.winfo.photoselector.PhotoSelector;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.filter.Filter;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import com.zhkj.syyj.Beans.UploadBean;
 import com.zhkj.syyj.R;
+import com.zhkj.syyj.Utils.GifSizeFilter;
 import com.zhkj.syyj.Utils.RequstUrlUtils;
 import com.zhkj.syyj.Utils.ToastUtils;
 import com.zhkj.syyj.contract.EnrollContract;
@@ -94,16 +100,22 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
             case R.id.enroll_img_add:
-                PhotoSelector.builder()
-                        .setShowCamera(true)//显示拍照
-                        .setSingle(true)//单选，裁剪都是单选
-                        .setCrop(true)//是否裁剪
-                        .setCropMode(PhotoSelector.CROP_RECTANG)//设置裁剪模式 矩形还是圆形
-                        .setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent))
-                        .setToolBarColor(ContextCompat.getColor(this, R.color.colorAccent))
-                        .setBottomBarColor(ContextCompat.getColor(this, R.color.colorAccent))
-                        .setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent))
-                        .start(this,REQUEST_CODE);
+                Matisse.from(this)
+                        .choose(MimeType.ofImage(), false)
+                        .countable(true)
+                        .capture(true)
+                        .captureStrategy(new CaptureStrategy(true, "com.zhkj.syyj.fileprovider", "test"))
+                        .maxSelectable(1)
+                        .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                        .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.dp_110))
+                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                        .thumbnailScale(0.85f)
+                        .imageEngine(new GlideEngine())
+                        .showSingleMediaType(true)
+                        .originalEnable(true)
+                        .maxOriginalSize(10)
+                        .autoHideToolbarOnSingleTap(true)
+                        .forResult(REQUEST_CODE);
                 break;
                 default:
                     break;
@@ -146,7 +158,7 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
      /*
      * 注册返回事件
      * */
-     public void Enroll(int code,String msg,String data){
+     public void Enroll(int code,String msg){
          if (code==1){
              if (msg.equals("注册成功")) {
                  startActivity(new Intent(mContext, AuditingActivity.class));
@@ -169,10 +181,11 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
             switch (requestCode){
                 case REQUEST_CODE:
                     //获取到裁剪后的图片的Uri进行处理
-                    Uri resultUri = PhotoSelector.getCropImageUri(data);
-                    Glide.with(this).load(resultUri).into(img_add);
-                    File file = new File(resultUri.getPath());//实例化数据库文件
-                    OkGo.<String>post(RequstUrlUtils.URL.Upload)
+                    List<Uri> uris = Matisse.obtainResult(data);
+                    if (uris.size()>0){
+                        Glide.with(this).load(uris.get(0)).into(img_add);
+                        File file = new File(uris.get(0).getPath());//实例化数据库文件
+                       OkGo.<String>post(RequstUrlUtils.URL.Upload)
                             .params("image",file)
                             .params("type","app")
                             .execute(new StringCallback() {
@@ -191,6 +204,7 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
                                     }
                                 }
                             });
+                    }
                     break;
                 default:
                     break;
@@ -228,8 +242,4 @@ public class EnrollActivity extends AppCompatActivity implements View.OnClickLis
         }
     };
 
-    @Override
-    public void Enroll(int code, String msg) {
-
-    }
 }

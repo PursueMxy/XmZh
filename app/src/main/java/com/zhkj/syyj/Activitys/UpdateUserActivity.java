@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,23 +25,41 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.winfo.photoselector.PhotoSelector;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.filter.Filter;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
+import com.zhkj.syyj.Beans.UploadBean;
 import com.zhkj.syyj.CustView.Wheel.ScreenInfo;
 import com.zhkj.syyj.CustView.Wheel.WheelMain;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Region.Config;
 import com.zhkj.syyj.Region.PopupU;
+import com.zhkj.syyj.Utils.GifSizeFilter;
+import com.zhkj.syyj.Utils.RequstUrlUtils;
+import com.zhkj.syyj.Utils.ToastUtils;
+import com.zhkj.syyj.contract.UpdateMobileContract;
+import com.zhkj.syyj.contract.UpdateUserContract;
+import com.zhkj.syyj.presenter.UpdateMobilePresenter;
+import com.zhkj.syyj.presenter.UpdateUserPresenter;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.zip.ZipFile;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class UpdateUserActivity extends AppCompatActivity {
+public class UpdateUserActivity extends AppCompatActivity implements UpdateMobileContract.View, UpdateUserContract.View {
     private static final int REQUEST_CODE = 1024;
     @InjectView(R.id.update_user_img_head)
      ImageView img_head;
@@ -72,6 +91,8 @@ public class UpdateUserActivity extends AppCompatActivity {
     private String selectedArea;
     private String token;
     private String uid;
+    private UpdateUserPresenter updateUserPresenter;
+    private String headimg= RequstUrlUtils.URL.HOST+"/uploads/headimg.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +104,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         SharedPreferences share = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         token = share.getString("token", "");
         uid = share.getString("uid", "");
+        updateUserPresenter = new UpdateUserPresenter(this);
     }
 
     private void InitUI() {
@@ -102,17 +124,22 @@ public class UpdateUserActivity extends AppCompatActivity {
     public void onViewClicked(View view){
         switch (view.getId()){
             case R.id.update_user_img_head:
-                //单选后剪裁 裁剪的话都是针对一张图片所以要设置setSingle(true)
-                PhotoSelector.builder()
-                        .setShowCamera(true)//显示拍照
-                        .setSingle(true)//单选，裁剪都是单选
-                        .setCrop(true)//是否裁剪
-                        .setCropMode(PhotoSelector.CROP_RECTANG)//设置裁剪模式 矩形还是圆形
-                        .setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent))
-                        .setToolBarColor(ContextCompat.getColor(this, R.color.colorAccent))
-                        .setBottomBarColor(ContextCompat.getColor(this, R.color.colorAccent))
-                        .setStatusBarColor(ContextCompat.getColor(this, R.color.colorAccent))
-                        .start(this,REQUEST_CODE);
+                Matisse.from(this)
+                        .choose(MimeType.ofImage(), false)
+                        .countable(true)
+                        .capture(true)
+                        .captureStrategy(new CaptureStrategy(true, "com.zhkj.syyj.fileprovider", "test"))
+                        .maxSelectable(1)
+                        .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                        .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.dp_110))
+                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                        .thumbnailScale(0.85f)
+                        .imageEngine(new GlideEngine())
+                        .showSingleMediaType(true)
+                        .originalEnable(true)
+                        .maxOriginalSize(10)
+                        .autoHideToolbarOnSingleTap(true)
+                        .forResult(REQUEST_CODE);
                 break;
              case  R.id.update_user_img_back:
                  finish();
@@ -158,7 +185,6 @@ public class UpdateUserActivity extends AppCompatActivity {
                         selectedProvince = province;
                         selectedCity = city;
                         selectedArea = area;
-
                         tv_address.setText(selectedProvince + " " + selectedCity + " " + selectedArea);
 
                     }
@@ -167,8 +193,32 @@ public class UpdateUserActivity extends AppCompatActivity {
             case R.id.update_user_tv_confirm:
                 String userId= edt_userId.getText().toString();
                 String userName= edt_userName.getText().toString();
+                String birthday= tv_birthday.getText().toString();
                 String vocation = edt_vocation.getText().toString();
                 String wechatNumber = edt_wechatNumber.getText().toString();
+                if (!userName.equals("")){
+                  if (!birthday.equals("")){
+                      if (!vocation.equals("")){
+                           if (!selectedCity.equals("")){
+                               if (!wechatNumber.equals("")){
+                               updateUserPresenter.GetSaveUserInfo(userId,token,userName, headimg,"1",birthday,selectedProvince,selectedArea,selectedCity,vocation,wechatNumber);
+                               }else {
+                                   ToastUtils.showToast(mContext,"微信号不能为空");
+                               }
+                           }else {
+                               ToastUtils.showToast(mContext,"城市不能为空");
+                           }
+                      }else {
+                         ToastUtils.showToast(mContext,"职业不能为空");
+                      }
+                  }else {
+                      ToastUtils.showToast(mContext,"生日不能为空");
+                  }
+
+                }else {
+
+                    ToastUtils.showToast(mContext,"昵称不能为空");
+                }
                 break;
                 default:
                     break;
@@ -189,8 +239,31 @@ public class UpdateUserActivity extends AppCompatActivity {
             switch (requestCode){
                 case REQUEST_CODE:
                     //获取到裁剪后的图片的Uri进行处理
-                    Uri resultUri = PhotoSelector.getCropImageUri(data);
-                    Glide.with(this).load(resultUri).into(img_head);
+                    List<Uri> uris = Matisse.obtainResult(data);
+                    if (uris.size()>0){
+                        Glide.with(this).load(uris.get(0)).into(img_head);
+                        List<String> strings = Matisse.obtainPathResult(data);
+                        File file = new File(strings.get(0));//实例化数据库文件
+                        OkGo.<String>post(RequstUrlUtils.URL.Upload)
+                                .params("image",file)
+                                .params("type","headimg")
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        Gson gson = new GsonBuilder().create();
+                                        try {
+                                            UploadBean uploadBean = gson.fromJson(response.body(), UploadBean.class);
+                                            if (uploadBean.getCode() == 1) {
+                                                headimg = uploadBean.getData().getPath();
+                                            } else {
+                                                ToastUtils.showToast(mContext, "图片上传失败");
+                                            }
+                                        }catch (Exception e){
+                                            ToastUtils.showToast(mContext, "图片上传失败");
+                                        }
+                                    }
+                                });
+                    }
                     break;
                     default:
                         break;
@@ -205,5 +278,20 @@ public class UpdateUserActivity extends AppCompatActivity {
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void UpdateCode(int code, String msg) {
+      if (code==1){
+          if (msg.equals("修改成功")){
+           finish();
+          }
+      }
+      ToastUtils.showToast(mContext,msg);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

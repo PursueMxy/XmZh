@@ -21,7 +21,11 @@ public class InformationChoiceDetailPresenter implements InformationChoiceDetail
 
     //得到资讯详情
     public void  SetNewsDetail(String content){
-        NewsDetailBean newsDetailBean = new GsonBuilder().create().fromJson(content, NewsDetailBean.class);
-        mView.UpdateNewsDetail(newsDetailBean);
+        try {
+            NewsDetailBean newsDetailBean = new GsonBuilder().create().fromJson(content, NewsDetailBean.class);
+            mView.UpdateNewsDetail(newsDetailBean);
+        }catch (Exception e){
+
+        }
     }
 }

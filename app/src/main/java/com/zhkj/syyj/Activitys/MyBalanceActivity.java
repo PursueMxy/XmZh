@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,12 +15,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.zhkj.syyj.R;
+import com.zhkj.syyj.contract.MyBalanceContract;
+import com.zhkj.syyj.presenter.MyBalancePresenter;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class MyBalanceActivity extends AppCompatActivity implements View.OnClickListener {
+public class MyBalanceActivity extends AppCompatActivity implements View.OnClickListener, MyBalanceContract.View {
     @InjectView(R.id.my_balance_btn_recharge)
     Button btn_recharge;
     @InjectView(R.id.my_balance_btn_cash_out)
@@ -27,6 +30,10 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
     private Context mContext;
     private ListView balance_list;
     private MyAdapter myAdapter;
+    private MyBalancePresenter myBalancePresenter;
+    private SharedPreferences share;
+    private String token;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +43,12 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
         ButterKnife.inject(this);
         btn_recharge.setOnClickListener(this);
         btn_cash_out.setOnClickListener(this);
+        share = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        token = share.getString("token", "");
+        uid = share.getString("uid", "");
         InitUI();
+        myBalancePresenter = new MyBalancePresenter(this);
+        myBalancePresenter.GetBalance(uid,token);
     }
 
     private void InitUI() {
@@ -62,6 +74,11 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
                 default:
                     break;
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 
     public class MyAdapter extends BaseAdapter{

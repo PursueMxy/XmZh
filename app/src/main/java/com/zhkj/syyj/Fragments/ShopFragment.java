@@ -1,53 +1,37 @@
 package com.zhkj.syyj.Fragments;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.zhkj.syyj.Activitys.ShopFmSearchActivity;
-import com.zhkj.syyj.Adapters.FmShopSearchAdapter;
-import com.zhkj.syyj.Adapters.InformationChoiceAdapter;
 import com.zhkj.syyj.Adapters.OnItemClickListener;
 import com.zhkj.syyj.Adapters.RecyclerLeftAdapter;
 import com.zhkj.syyj.Adapters.RecyclerRightAdapter;
-import com.zhkj.syyj.Adapters.ScrollLeftAdapter;
-import com.zhkj.syyj.Adapters.ScrollRightAdapter;
 import com.zhkj.syyj.Beans.CategoryListBean;
-import com.zhkj.syyj.Beans.Products;
-import com.zhkj.syyj.Beans.ScrollBean;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.RequstUrlUtils;
 import com.zhkj.syyj.Utils.ToastUtils;
-import com.zhouyou.recyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;

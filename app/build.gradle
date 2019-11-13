@@ -53,15 +53,13 @@ dependencies {
     //recyclerview
     implementation 'com.zhouyou:easyrecyclerview:1.0.5'
 
-    //双列表联动
-
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     implementation 'com.jakewharton:butterknife:5.1.1'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
 
     //图片选择框框
-    implementation 'com.winfo.photoselector:PhotoSelector:1.2.1'
+    implementation 'com.zhihu.android:matisse:0.5.3-beta3'
 
     //bugly
     implementation 'com.tencent.bugly:crashreport:latest.release'

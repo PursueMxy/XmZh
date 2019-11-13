@@ -15,7 +15,7 @@ public class UpdateUserPresenter implements UpdateUserContract.Presenter {
     }
 
     public void  GetSaveUserInfo(String uid,String token,String nickname,String headimg,String sex,String birthday,String province,String city,String district,String career,String wechat){
-
+          updateUserModel.PostSaveUserInfo(this,uid,token,nickname,headimg,sex,birthday,province,city,district,career,wechat);
     }
 
 }
