@@ -5,35 +5,51 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zhkj.syyj.CustView.Wheel.ScreenInfo;
 import com.zhkj.syyj.CustView.Wheel.WheelMain;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.DateUtils;
+import com.zhkj.syyj.Utils.ToastUtils;
+import com.zhkj.syyj.contract.ReMindContract;
+import com.zhkj.syyj.presenter.ReMindPresenter;
 
 import java.text.ParseException;
 import java.util.Calendar;
 
-public class ReMindActivity extends AppCompatActivity implements View.OnClickListener {
+public class ReMindActivity extends AppCompatActivity implements View.OnClickListener, ReMindContract.View {
 
     private TextView tv_date;
     private Context mContext;
     private View timepickerview;
     private TextView tv_time;
-    private TextView tv_connect;
+    private EditText tv_connect;
+    private String uid;
+    private String token;
+    private ReMindPresenter reMindPresenter;
+    private String task_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_re_mind);
+        SharedPreferences share = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        uid = share.getString("uid", "");
+        token = share.getString("token", "");
         mContext = getApplicationContext();
+        Intent intent = getIntent();
+        task_id = intent.getStringExtra("task_id");
         InitUI();
+        reMindPresenter = new ReMindPresenter(this);
     }
 
     private void InitUI() {
@@ -115,7 +131,22 @@ public class ReMindActivity extends AppCompatActivity implements View.OnClickLis
                 dialog1.show();
                 break;
             case R.id.re_mind_btn_define:
-                finish();
+                String date = tv_date.getText().toString();
+                String time = tv_time.getText().toString();
+                String connect = tv_connect.getText().toString();
+                if (!date.equals("")){
+                    if (!time.equals("")){
+                          if (!connect.equals("")){
+                            reMindPresenter.GetRemind(uid,token,task_id,date,time,connect);
+                          }else {
+                              ToastUtils.showToast(mContext,"提醒内容不能为空");
+                          }
+                    }else {
+                        ToastUtils.showToast(mContext,"时间不能为空");
+                    }
+                }else {
+                    ToastUtils.showToast(mContext,"日期不能为空");
+                }
                 break;
                 default:
                     break;
@@ -128,5 +159,18 @@ public class ReMindActivity extends AppCompatActivity implements View.OnClickLis
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    public void UpdateUI(int code,String msg){
+        ToastUtils.showToast(mContext,msg);
+        if (code==1){
+          finish();
+          startActivity(new Intent(mContext,HomeActivity.class));
+        }
     }
 }

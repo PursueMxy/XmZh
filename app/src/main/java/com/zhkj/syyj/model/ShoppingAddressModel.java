@@ -16,7 +16,21 @@ public class ShoppingAddressModel implements ShoppingAddressContract.Model {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                    shoppingAddressPresenter.SetAddressList(response.body());
+                    shoppingAddressPresenter.SetAddressList(response.body(),"list");
+                    }
+                });
+    }
+
+    //删除收货地址
+    public void PostDelAddress(final ShoppingAddressPresenter addressPresenter, String uid, String token, String address_id){
+        OkGo.<String>post(RequstUrlUtils.URL.DelAddress)
+                .params("uid",uid)
+                .params("token",token)
+                .params("address_id",address_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        addressPresenter.SetAddressList(response.body(),"del");
                     }
                 });
     }

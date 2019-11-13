@@ -24,6 +24,7 @@ import com.google.gson.GsonBuilder;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.zhkj.syyj.Activitys.GoodsListActivity;
 import com.zhkj.syyj.Activitys.ShopFmSearchActivity;
 import com.zhkj.syyj.Adapters.OnItemClickListener;
 import com.zhkj.syyj.Adapters.RecyclerLeftAdapter;
@@ -94,6 +95,15 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
                                 recycler_right.setLayoutManager(gridLayoutManager);
                                 recyclerRightAdapter = new RecyclerRightAdapter(mContext, tmenu);
                                 recycler_right.setAdapter(recyclerRightAdapter);
+                                recyclerRightAdapter.setOnItemClickListener(new OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(View view, int position) {
+                                        Intent intent = new Intent(mContext, GoodsListActivity.class);
+                                        intent.putExtra("id",tmenu.get(position).getId()+"");
+                                        intent.putExtra("name",tmenu.get(position).getName());
+                                        startActivity(intent);
+                                    }
+                                });
                             }
                         }else {
                             ToastUtils.showToast(mContext,categoryListBean.getMsg());
@@ -119,6 +129,13 @@ public class ShopFragment extends Fragment implements View.OnClickListener {
                 recycler_right.setLayoutManager(gridLayoutManager);
                 recyclerRightAdapter = new RecyclerRightAdapter(mContext, tmenu);
                 recycler_right.setAdapter(recyclerRightAdapter);
+                recyclerRightAdapter.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(mContext, GoodsListActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }

@@ -83,5 +83,15 @@ public class RequstUrlUtils {
         //删除收货地址
         public static String DelAddress=HOST+"/user/delAddress";
 
+        //设置提醒
+        public static String TaskSetRemind=HOST+"/task/setRemind";
+
+        //商品详情
+        public static String GoodsInfo=HOST+"/goods/goodsInfo";
+
+        //商城列表
+        public static  String GoodsList=HOST+"/goods/goodsList";
+
+
     }
 }

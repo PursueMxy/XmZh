@@ -73,4 +73,6 @@ dependencies {
     //轮播图
     implementation 'com.github.dongjunkun:BannerLayout:1.0.6'
 
+    implementation 'org.sufficientlysecure:html-textview:3.8'
+
 }

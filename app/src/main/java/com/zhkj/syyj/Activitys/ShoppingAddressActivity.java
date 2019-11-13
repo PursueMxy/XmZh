@@ -1,14 +1,17 @@
 package com.zhkj.syyj.Activitys;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,6 +20,7 @@ import com.zhkj.syyj.Adapters.ShoppingAddressAdapter;
 import com.zhkj.syyj.Beans.AddressListBean;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.MxyUtils;
+import com.zhkj.syyj.Utils.ToastUtils;
 import com.zhkj.syyj.contract.ShoppingAddressContract;
 import com.zhkj.syyj.presenter.ShoppingAddressPresenter;
 import com.zhouyou.recyclerview.XRecyclerView;
@@ -34,6 +38,7 @@ public class  ShoppingAddressActivity extends AppCompatActivity implements View.
     private ShoppingAddressPresenter shoppingAddressPresenter;
     private String uid;
     private String token;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,10 +129,34 @@ public class  ShoppingAddressActivity extends AppCompatActivity implements View.
 
     }
 
-    public String Token(){
-        return token;
+   //删除收货地址
+    public void DleAddress(final String address_id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                shoppingAddressPresenter.GetDelAddress(uid,token,address_id);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        alertDialog = builder.setTitle("确认要删除")
+                .setMessage("确认要删除该收货地址么")
+                .create();
+        alertDialog.show();
     }
-    public String Uid(){
-        return uid;
+
+    //请求返回更新
+    public void UpdateUI(int code,String msg){
+        if (code==1){
+            shoppingAddressPresenter.GetAddressList(uid,token);
+        }
+        ToastUtils.showToast(mContext,msg);
     }
 }

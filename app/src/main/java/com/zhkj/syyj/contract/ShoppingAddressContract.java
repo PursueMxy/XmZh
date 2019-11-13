@@ -12,10 +12,11 @@ public interface ShoppingAddressContract {
 
     interface View {
         void UpdateAddressList(int code, String msg, List<AddressListBean.DataBean> data);
+        void UpdateUI(int code,String msg);
     }
 
     interface Presenter {
         void  GetAddressList(String uid,String token);
-        void SetAddressList(String content);
+        void SetAddressList(String content,String type);
     }
 }

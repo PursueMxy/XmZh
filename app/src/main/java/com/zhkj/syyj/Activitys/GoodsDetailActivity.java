@@ -4,30 +4,46 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhkj.syyj.Adapters.GridAdapter;
+import com.zhkj.syyj.Beans.GoodsDetailBean;
 import com.zhkj.syyj.CustView.BottomDialog;
 import com.zhkj.syyj.CustView.NoScrollListView;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.ToastUtils;
+import com.zhkj.syyj.contract.GoodsDetailContract;
+import com.zhkj.syyj.presenter.GoodsDetailPresenter;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipFile;
 
-public class GoodsDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class GoodsDetailActivity extends AppCompatActivity implements View.OnClickListener, GoodsDetailContract.View {
 
 
     private MyAdapter myAdapter;
@@ -43,18 +59,33 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     private TextView tv_goodsTitle;
     private TextView tv_goodsMoney;
     private TextView tv_goodsVolume;
+    private String goods_id;
+    private String uid;
+    private String token;
+    private HtmlTextView tv_goods_content;
+    private TextView tv_share;
+    private Button tv_forward;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_detail);
+        SharedPreferences share = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        uid = share.getString("uid", "");
+        token = share.getString("token", "");
+        Intent intent = getIntent();
+        goods_id = intent.getStringExtra("goods_id");
         mContext = getApplicationContext();
         InitUI();
+        GoodsDetailPresenter goodsDetailPresenter = new GoodsDetailPresenter(this);
+        goodsDetailPresenter.GetGoodsDetail(uid,token,goods_id);
     }
 
     private void InitUI() {
+        tv_goods_content = findViewById(R.id.goods_detail_tv_goods_content);
+        tv_forward = findViewById(R.id.goods_detail_tv_forward);
+        tv_forward.setOnClickListener(this);
         findViewById(R.id.goods_detail_img_back).setOnClickListener(this);
-        findViewById(R.id.goods_detail_tv_forward).setOnClickListener(this);
         findViewById(R.id.goods_img_call_center).setOnClickListener(this);
         findViewById(R.id.goods_detail_img_home).setOnClickListener(this);
         myAdapter = new MyAdapter();
@@ -69,6 +100,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         tv_goodsTitle = findViewById(R.id.goods_detail_tv_goodsTitle);
         tv_goodsMoney = findViewById(R.id.goods_detail_tv_goodsMoney);
         tv_goodsVolume = findViewById(R.id.goods_detail_tv_goodsVolume);
+        tv_share = findViewById(R.id.goods_detail_tv_share);
     }
 
     @Override
@@ -168,6 +200,42 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    public void UpdateUI(int code, String msg, String data){
+        parseJSONWithJSONObject(data);
+    }
+
+    private void parseJSONWithJSONObject(String jsonData){
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(jsonData);
+            int is_share = jsonObject.getInt("is_share");
+            String goods_content = jsonObject.getString("goods_content");
+            String goods_name = jsonObject.getString("goods_name");
+            String shop_price = jsonObject.getString("shop_price");
+            String sales_sum= jsonObject.getString("sales_sum");
+            tv_goods_content.setHtml(goods_content, new HtmlHttpImageGetter(tv_goods_content));
+            tv_goodsTitle.setText(goods_name);
+            tv_goodsMoney.setText(shop_price);
+            tv_goodsVolume.setText(sales_sum);
+            if (is_share==1){
+                tv_share.setText("该商品支持转发卖货");
+                tv_forward.setClickable(true);
+                String share_content = jsonObject.getString("share_content");
+                String goods_images = jsonObject.getString("goods_images");
+                tv_copywriting.setText(share_content);
+            }else {
+                tv_share.setText("该商品不支持转发卖货");
+                tv_forward.setClickable(false);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     public class MyAdapter extends BaseAdapter {
         @Override
         public int getCount() {

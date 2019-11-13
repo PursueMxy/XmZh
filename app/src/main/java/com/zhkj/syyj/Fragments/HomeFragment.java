@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             HomeIndexBean.DataBean.NewsBean news = data.getNews();
                             List<HomeIndexBean.DataBean.BannerBean> banner = data.getBanner();
                             if (banner!=null){
+                                urls.clear();
                               for (int a=0;a<banner.size();a++){
                                   String s = imageTranslateUri(R.mipmap.icon_home_top);
                                   urls.add(s);
@@ -162,8 +163,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onLoadMore() {
                 //加载更多
-                shopChoiceAdapter.addItemsToLast(goodsList);
-                shopChoiceAdapter.notifyDataSetChanged();
+//                shopChoiceAdapter.addItemsToLast(goodsList);
+//                shopChoiceAdapter.notifyDataSetChanged();
                 mRecyclerView.setNoMore(true);//数据加载完成
                 mRecyclerView.loadMoreComplete();//加载动画完成
             }
@@ -183,7 +184,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         shopChoiceAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Object item, int position) {
-                startActivity(new Intent(mContext, GoodsDetailActivity.class));
+                Intent intent = new Intent(mContext, GoodsDetailActivity.class);
+                 intent.putExtra("goods_id",goodsList.get(position).getGoods_id()+"");
+                startActivity(intent);
             }
         });
 
@@ -229,8 +232,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            View inflate = getLayoutInflater().inflate(R.layout.list_home_task, null);
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+            final View inflate = getLayoutInflater().inflate(R.layout.list_home_task, null);
             TextView tv_content= inflate.findViewById(R.id.list_home_task_tv_content);
             tv_content.setText(taskList.get(i).getShare_content());
             TextView tv_rrp= inflate.findViewById(R.id.list_home_task_tv_rrp);
@@ -242,13 +245,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             inflate.findViewById(R.id.list_home_task_btn_forward).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(mContext, ForwardActivity.class));
+                    Intent intent = new Intent(mContext, ForwardActivity.class);
+                    intent.putExtra("task_id",taskList.get(i).getId()+"");
+                    intent.putExtra("content",taskList.get(i).getShare_content());
+                    ArrayList<String> share_imgs = (ArrayList<String>) taskList.get(i).getShare_imgs();
+                    intent.putStringArrayListExtra("share_imgs",share_imgs);
+                    startActivity(intent);
                 }
             });
             inflate.findViewById(R.id.list_home_task_btn_setReMind).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(mContext, ReMindActivity.class));
+                    Intent intent = new Intent(mContext, ReMindActivity.class);
+                    intent.putExtra("task_id",taskList.get(i).getId()+"");
+                    startActivity(intent);
                 }
             });
 
@@ -257,13 +267,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private String imageTranslateUri(int resId) {
+       try {
+           Resources r = getResources();
+           Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                   + r.getResourcePackageName(resId) + "/"
+                   + r.getResourceTypeName(resId) + "/"
+                   + r.getResourceEntryName(resId));
 
-        Resources r = getResources();
-        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-                + r.getResourcePackageName(resId) + "/"
-                + r.getResourceTypeName(resId) + "/"
-                + r.getResourceEntryName(resId));
-
-        return uri.toString();
+           return uri.toString();
+       }catch (Exception e){
+           return "";
+       }
     }
 }

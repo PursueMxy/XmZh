@@ -11,6 +11,7 @@ import com.zhkj.syyj.Activitys.ShoppingAddressActivity;
 import com.zhkj.syyj.Activitys.ShoppingAddressUpdateActivity;
 import com.zhkj.syyj.Beans.AddressListBean;
 import com.zhkj.syyj.R;
+import com.zhkj.syyj.Utils.ToastUtils;
 import com.zhouyou.recyclerview.adapter.HelperRecyclerViewAdapter;
 import com.zhouyou.recyclerview.adapter.HelperRecyclerViewHolder;
 
@@ -22,7 +23,7 @@ public class ShoppingAddressAdapter extends HelperRecyclerViewAdapter<AddressLis
     public ShoppingAddressAdapter(Context context) {
         super(context, R.layout.list_shopping_address);
         this.context=context;
-        this.weak = new WeakReference<Activity>((ShoppingAddressActivity)context);
+        this.weak = new WeakReference<Activity>((Activity) context);
     }
 
 
@@ -49,6 +50,8 @@ public class ShoppingAddressAdapter extends HelperRecyclerViewAdapter<AddressLis
         viewHolder.getView(R.id.list_shopping_address_tv_delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ShoppingAddressActivity shoppingAddressActivity=(ShoppingAddressActivity)weak.get();
+                shoppingAddressActivity.DleAddress(data.getAddress_id()+"");
 
             }
         });

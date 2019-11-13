@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,9 +39,18 @@ public class RecyclerRightAdapter extends RecyclerView.Adapter<RecyclerRightAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        Glide.with(mContext).load(RequstUrlUtils.URL.HOST+dataList.get(position).getImage()).into(holder.right_img);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.right_text.setText(dataList.get(position).getName());
+        View itemView = ((RelativeLayout) holder.itemView).getChildAt(0);
+        if (mOnItemClickListener != null) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = holder.getLayoutPosition();
+                    mOnItemClickListener.onItemClick(holder.itemView, position);
+                }
+            });
+        }
     }
 
     @Override
@@ -60,5 +70,11 @@ public class RecyclerRightAdapter extends RecyclerView.Adapter<RecyclerRightAdap
              right_img = itemView.findViewById(R.id.shop_right_img);
              right_text = itemView.findViewById(R.id.right_text);
         }
+    }
+
+    private OnItemClickListener mOnItemClickListener;//声明接口
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 }

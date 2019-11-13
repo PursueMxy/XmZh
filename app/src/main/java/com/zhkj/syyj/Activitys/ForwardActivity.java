@@ -35,28 +35,25 @@ public class ForwardActivity extends AppCompatActivity implements View.OnClickLi
     private Context mContext;
     private GridLayoutManager mLayoutManager;
     private ForwardAdapter forwardAdapter;
-    private List<String> list=new ArrayList<>();
     private TextView tv_content;
+    private ArrayList<String> share_imgs;
+    private String content;
+    private String task_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forward);
         mContext = getApplicationContext();
+        Intent intent = getIntent();
+        task_id = intent.getStringExtra("task_id");
+        content = intent.getStringExtra("content");
+        share_imgs = intent.getStringArrayListExtra("share_imgs");
         InitUI();
 
     }
 
     private void InitUI() {
-        list.add("112");
-        list.add("112");
-        list.add("112");
-        list.add("112");
-        list.add("112");
-        list.add("112");
-        list.add("112");
-        list.add("112");
-        list.add("112");
         findViewById(R.id.forward_btn_define).setOnClickListener(this);
         findViewById(R.id.forward_img_back).setOnClickListener(this);
         tv_content = findViewById(R.id.forward_tv_content);
@@ -66,19 +63,6 @@ public class ForwardActivity extends AppCompatActivity implements View.OnClickLi
         forwardAdapter = new ForwardAdapter(mContext);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setEnabledScroll(false);
-//        mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
-//            @Override
-//            public void onRefresh() {
-//                mRecyclerView.refreshComplete();//刷新动画完成
-//            }
-//
-//            @Override
-//            public void onLoadMore() {
-//                //加载更多
-//                mRecyclerView.setNoMore(true);//数据加载完成
-//                mRecyclerView.loadMoreComplete();//加载动画完成
-//            }
-//        });
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
@@ -89,8 +73,9 @@ public class ForwardActivity extends AppCompatActivity implements View.OnClickLi
                         , MxyUtils.dpToPx(mContext, MxyUtils.getDimens(mContext, R.dimen.dp_5)));
             }
         });
-        forwardAdapter.setListAll(list);
+        forwardAdapter.setListAll(share_imgs);
         mRecyclerView.setAdapter(forwardAdapter);
+        tv_content.setText(content);
     }
 
     @Override
