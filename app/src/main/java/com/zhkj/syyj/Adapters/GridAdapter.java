@@ -8,29 +8,31 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zhkj.syyj.Beans.SpecGoodsPriceBean;
 import com.zhkj.syyj.R;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class GridAdapter extends BaseAdapter {
     private final LayoutInflater layoutInflater;
     private Context mContext;
-    ArrayList<Map<String, Object>> dataList;
+    List<SpecGoodsPriceBean> SpecGoodsPriceList;
 
-    public GridAdapter(Context context, ArrayList<Map<String, Object>> dataList){
-        this.dataList=dataList;
+    public GridAdapter(Context context,  List<SpecGoodsPriceBean> dataList){
+        this.SpecGoodsPriceList=dataList;
         this.mContext=context;
         layoutInflater = LayoutInflater.from(context);
     }
     @Override
     public int getCount() {
-        return dataList.size();
+        return SpecGoodsPriceList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return dataList.get(position);
+        return SpecGoodsPriceList.get(position);
     }
 
     @Override
@@ -49,7 +51,7 @@ public class GridAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        String text = (String) dataList.get(position).get("text");
+        String text = SpecGoodsPriceList.get(position).getKey_name();
         if (position==0){
             holder.text.setBackgroundResource(R.color.text_efb134);
         }else {

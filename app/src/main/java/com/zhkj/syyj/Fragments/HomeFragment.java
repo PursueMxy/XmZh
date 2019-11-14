@@ -185,7 +185,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemClick(View view, Object item, int position) {
                 Intent intent = new Intent(mContext, GoodsDetailActivity.class);
-                 intent.putExtra("goods_id",goodsList.get(position).getGoods_id()+"");
+                 intent.putExtra("goods_id","13");
                 startActivity(intent);
             }
         });

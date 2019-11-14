@@ -262,6 +262,7 @@
     </ScrollView>
 
     <RelativeLayout
+        android:id="@+id/place_order_rl_address"
         android:background="@drawable/bg_white"
         android:layout_marginTop="@dimen/dp_58"
         android:layout_marginLeft="@dimen/dp_15"
@@ -323,7 +324,7 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="合计"
+            android:text="商品合计"
             android:textColor="@color/text_black"
             android:textSize="@dimen/sp_16"
             />

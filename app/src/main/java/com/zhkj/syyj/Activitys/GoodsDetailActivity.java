@@ -23,13 +23,16 @@ import android.widget.TextView;
 
 import com.zhkj.syyj.Adapters.GridAdapter;
 import com.zhkj.syyj.Beans.GoodsDetailBean;
+import com.zhkj.syyj.Beans.SpecGoodsPriceBean;
 import com.zhkj.syyj.CustView.BottomDialog;
+import com.zhkj.syyj.CustView.LabelsView;
 import com.zhkj.syyj.CustView.NoScrollListView;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.ToastUtils;
 import com.zhkj.syyj.contract.GoodsDetailContract;
 import com.zhkj.syyj.presenter.GoodsDetailPresenter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
@@ -40,18 +43,16 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipFile;
 
 public class GoodsDetailActivity extends AppCompatActivity implements View.OnClickListener, GoodsDetailContract.View {
 
 
-    private MyAdapter myAdapter;
     private NoScrollListView noScrollListView;
     private Context mContext;
     public int SelectNum=1;
-    private ArrayList<Map<String, Object>> dataList=new ArrayList<>();
-    private GridView gridView;
     private ImageView img_appraise;
     private TextView tv_appraise_name;
     private TextView tv_appraise_content;
@@ -65,6 +66,19 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     private HtmlTextView tv_goods_content;
     private TextView tv_share;
     private Button tv_forward;
+    private String shop_price;
+    private String market_price;
+    private TextView tv_market_price;
+    private TextView tv_money;
+    private List<SpecGoodsPriceBean> SpecGoodsPriceList=new ArrayList<>();
+    private LabelsView  labelsView;
+    private String key_name;
+    private TextView tv_selectedNum;
+    private TextView tv_select_num;
+    private TextView tv_stock_num;
+    private int store_count=0;
+    private GoodsDetailPresenter goodsDetailPresenter;
+    private int item_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +91,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         goods_id = intent.getStringExtra("goods_id");
         mContext = getApplicationContext();
         InitUI();
-        GoodsDetailPresenter goodsDetailPresenter = new GoodsDetailPresenter(this);
+        goodsDetailPresenter = new GoodsDetailPresenter(this);
         goodsDetailPresenter.GetGoodsDetail(uid,token,goods_id);
     }
 
@@ -88,9 +102,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.goods_detail_img_back).setOnClickListener(this);
         findViewById(R.id.goods_img_call_center).setOnClickListener(this);
         findViewById(R.id.goods_detail_img_home).setOnClickListener(this);
-        myAdapter = new MyAdapter();
-        noScrollListView = findViewById(R.id.goods_detail_noScrollListView);
-        noScrollListView.setAdapter(myAdapter);
+        findViewById(R.id.integral_btn_redeem_now).setOnClickListener(this);
         findViewById(R.id.goods_detail_tv_view_all_appraise).setOnClickListener(this);
         findViewById(R.id.goods_detail_btn_buynow).setOnClickListener(this);
         img_appraise = findViewById(R.id.goods_detail_img_appraise);
@@ -116,6 +128,9 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
                 startActivity(new Intent(mContext,ForwardActivity.class));
                 break;
             case R.id.goods_detail_btn_buynow:
+                RedeemBuyNowDialog();
+                break;
+            case R.id.integral_btn_redeem_now:
                 RedeemNowDialog();
                 break;
             case R.id.goods_img_call_center:
@@ -131,17 +146,30 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    //立即购买弹出窗
-    public void  RedeemNowDialog(){
+    private void RedeemNowDialog() {
+        try{
+        item_id = SpecGoodsPriceList.get(0).getItem_id();
+        key_name = SpecGoodsPriceList.get(0).getKey_name();
+        store_count = SpecGoodsPriceList.get(0).getStore_count();
         final BottomDialog bottomDialog = new BottomDialog(this, R.style.ActionSheetDialogStyle);
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.dialog_bottom_integral_detail, null);
-        final TextView tv_select_num = inflate.findViewById(R.id.db_integral_dtl_tv_select_num);
-        final TextView tv_selectedNum = inflate.findViewById(R.id.db_integral_dtl_tv_selectedNum);
+        tv_select_num = inflate.findViewById(R.id.db_integral_dtl_tv_select_num);
+        tv_selectedNum = inflate.findViewById(R.id.db_integral_dtl_tv_selectedNum);
+        tv_stock_num = inflate.findViewById(R.id.db_integral_dtl_tv_stock_num);
+        labelsView = inflate.findViewById(R.id.db_integral_dtl_labels);
+        tv_money = inflate.findViewById(R.id.db_integral_dtl_tv_money);
+        tv_market_price = inflate.findViewById(R.id.db_integral_dtl_tv_market_price);
+        tv_market_price.setText("建议售价：¥ "+market_price);
+        tv_money.setText("¥ "+shop_price);
+        tv_selectedNum.setText("已选"+key_name+","+SelectNum+"件");
+        tv_stock_num.setText("库存："+store_count+"");
         inflate.findViewById(R.id.db_integral_dtl_btn_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomDialog.dismiss();
-                startActivity(new Intent(mContext,PlaceOrderActivity.class));
+                //加入购物车
+                goodsDetailPresenter.GetCartAdd(uid,token,goods_id,item_id+"",SelectNum+"");
+
             }
         });
         inflate.findViewById(R.id.db_integral_dtl_img_close).setOnClickListener(new View.OnClickListener() {
@@ -156,7 +184,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
                 if (SelectNum>1){
                     SelectNum=--SelectNum;
                     tv_select_num.setText(SelectNum+"");
-                    tv_selectedNum.setText("已选10ml"+SelectNum);
+                    tv_selectedNum.setText("已选"+key_name+","+SelectNum+"件");
                 }else {
                     ToastUtils.showToast(mContext,"换购数量不能小于1");
                 }
@@ -165,30 +193,141 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         inflate.findViewById(R.id.db_integral_dtl_tv_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SelectNum=++SelectNum;
-                tv_select_num.setText(SelectNum+"");
-                tv_selectedNum.setText("已选10ml,"+SelectNum);
+                if ( SelectNum<store_count) {
+                    SelectNum = ++SelectNum;
+                    tv_select_num.setText(SelectNum + "");
+                    tv_selectedNum.setText("已选" + key_name + "," + SelectNum + "件");
+                }else {
+                    ToastUtils.showToast(mContext,"库存不足");
+                }
             }
         });
-        dataList = new ArrayList<Map<String, Object>>();
-        String name[]={"10ml","20ml","30ml","40ml","50ml","60ml","70ml"};
-        for (int i = 0; i <name.length; i++) {
-            Map<String, Object> map=new HashMap<>();
-            map.put("text",name[i]);
-            dataList.add(map);
-        }
-        GridAdapter gridAdapter = new GridAdapter(mContext, dataList);
-        gridView = inflate.findViewById(R.id.db_integral_dtl_gridView);
-        gridView.setAdapter(gridAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        labelsView.setMaxLines(0);
+        labelsView.setLabels(SpecGoodsPriceList, new LabelsView.LabelTextProvider<SpecGoodsPriceBean>() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String text =(String) dataList.get(position).get("text");
-                tv_selectedNum.setText("已选"+text+","+SelectNum);
+            public CharSequence getLabelText(TextView label, int position, SpecGoodsPriceBean data) {
+                //根据data和position返回label需要显示的数据。
+                return data.getKey_name();
+            }
+        });
+        //标签的点击监听
+        labelsView.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
+            @Override
+            public void onLabelClick(TextView label, Object data, int position) {
+                store_count = SpecGoodsPriceList.get(position).getStore_count();
+                Log.e("store_count",store_count+"");
+                item_id = SpecGoodsPriceList.get(position).getItem_id();
+                if (store_count>0) {
+                    SelectNum = 1;
+                    tv_select_num.setText(SelectNum + "");
+                    key_name = SpecGoodsPriceList.get(position).getKey_name();
+                    //label是被点击的标签，data是标签所对应的数据，position是标签的位置。
+                    tv_selectedNum.setText("已选" + key_name + "," + SelectNum + "件");
+                    tv_stock_num.setText("库存："+store_count + "");
+                }else {
+                    SelectNum = 0;
+                    tv_select_num.setText(SelectNum + "");
+                    key_name = SpecGoodsPriceList.get(position).getKey_name();
+                    //label是被点击的标签，data是标签所对应的数据，position是标签的位置。
+                    tv_selectedNum.setText("已选" + key_name + "," + SelectNum + "件");
+                    tv_stock_num.setText("库存："+store_count + "");
+                }
             }
         });
         bottomDialog.setContentView(inflate);
         bottomDialog.show();
+    }catch (Exception e){}
+    }
+
+    //立即购买弹出窗
+    public void  RedeemBuyNowDialog(){
+        try {
+            item_id = SpecGoodsPriceList.get(0).getItem_id();
+            key_name = SpecGoodsPriceList.get(0).getKey_name();
+            store_count = SpecGoodsPriceList.get(0).getStore_count();
+            final BottomDialog bottomDialog = new BottomDialog(this, R.style.ActionSheetDialogStyle);
+            View inflate = LayoutInflater.from(mContext).inflate(R.layout.dialog_bottom_integral_detail, null);
+            tv_select_num = inflate.findViewById(R.id.db_integral_dtl_tv_select_num);
+            tv_selectedNum = inflate.findViewById(R.id.db_integral_dtl_tv_selectedNum);
+            tv_stock_num = inflate.findViewById(R.id.db_integral_dtl_tv_stock_num);
+            labelsView = inflate.findViewById(R.id.db_integral_dtl_labels);
+            tv_money = inflate.findViewById(R.id.db_integral_dtl_tv_money);
+            tv_market_price = inflate.findViewById(R.id.db_integral_dtl_tv_market_price);
+            tv_market_price.setText("建议售价：¥ " + market_price);
+            tv_money.setText("¥ " + shop_price);
+            tv_selectedNum.setText("已选" + key_name + "," + SelectNum + "件");
+            tv_stock_num.setText("库存：" + store_count + "");
+            inflate.findViewById(R.id.db_integral_dtl_btn_confirm).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    bottomDialog.dismiss();
+                    goodsDetailPresenter.GetCartAdd2(uid, token, goods_id, item_id + "", SelectNum + "", "buy_now");
+                }
+            });
+            inflate.findViewById(R.id.db_integral_dtl_img_close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    bottomDialog.dismiss();
+                }
+            });
+            inflate.findViewById(R.id.db_integral_dtl_tv_lesson).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (SelectNum > 1) {
+                        SelectNum = --SelectNum;
+                        tv_select_num.setText(SelectNum + "");
+                        tv_selectedNum.setText("已选" + key_name + "," + SelectNum + "件");
+                    } else {
+                        ToastUtils.showToast(mContext, "换购数量不能小于1");
+                    }
+                }
+            });
+            inflate.findViewById(R.id.db_integral_dtl_tv_next).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (SelectNum < store_count) {
+                        SelectNum = ++SelectNum;
+                        tv_select_num.setText(SelectNum + "");
+                        tv_selectedNum.setText("已选" + key_name + "," + SelectNum + "件");
+                    } else {
+                        ToastUtils.showToast(mContext, "库存不足");
+                    }
+                }
+            });
+            labelsView.setMaxLines(0);
+            labelsView.setLabels(SpecGoodsPriceList, new LabelsView.LabelTextProvider<SpecGoodsPriceBean>() {
+                @Override
+                public CharSequence getLabelText(TextView label, int position, SpecGoodsPriceBean data) {
+                    //根据data和position返回label需要显示的数据。
+                    return data.getKey_name();
+                }
+            });
+            //标签的点击监听
+            labelsView.setOnLabelClickListener(new LabelsView.OnLabelClickListener() {
+                @Override
+                public void onLabelClick(TextView label, Object data, int position) {
+                    store_count = SpecGoodsPriceList.get(position).getStore_count();
+                    item_id = SpecGoodsPriceList.get(position).getItem_id();
+                    if (store_count > 0) {
+                        SelectNum = 1;
+                        tv_select_num.setText(SelectNum + "");
+                        key_name = SpecGoodsPriceList.get(position).getKey_name();
+                        //label是被点击的标签，data是标签所对应的数据，position是标签的位置。
+                        tv_selectedNum.setText("已选" + key_name + "," + SelectNum + "件");
+                        tv_stock_num.setText("库存：" + store_count + "");
+                    } else {
+                        SelectNum = 0;
+                        tv_select_num.setText(SelectNum + "");
+                        key_name = SpecGoodsPriceList.get(position).getKey_name();
+                        //label是被点击的标签，data是标签所对应的数据，position是标签的位置。
+                        tv_selectedNum.setText("已选" + key_name + "," + SelectNum + "件");
+                        tv_stock_num.setText("库存：" + store_count + "");
+                    }
+                }
+            });
+            bottomDialog.setContentView(inflate);
+            bottomDialog.show();
+        }catch (Exception e){}
     }
 
     @Override
@@ -216,12 +355,15 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
             int is_share = jsonObject.getInt("is_share");
             String goods_content = jsonObject.getString("goods_content");
             String goods_name = jsonObject.getString("goods_name");
-            String shop_price = jsonObject.getString("shop_price");
+            shop_price = jsonObject.getString("shop_price");
+            market_price = jsonObject.getString("market_price");
             String sales_sum= jsonObject.getString("sales_sum");
+            String specGoodsPrice = jsonObject.getString("specGoodsPrice");
+            boolean b = JsonSpecGoodsPrice(specGoodsPrice);
             tv_goods_content.setHtml(goods_content, new HtmlHttpImageGetter(tv_goods_content));
             tv_goodsTitle.setText(goods_name);
-            tv_goodsMoney.setText(shop_price);
-            tv_goodsVolume.setText(sales_sum);
+            tv_goodsMoney.setText("¥ "+ shop_price);
+            tv_goodsVolume.setText("销量："+sales_sum);
             if (is_share==1){
                 tv_share.setText("该商品支持转发卖货");
                 tv_forward.setClickable(true);
@@ -236,26 +378,48 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         }
     }
-    public class MyAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            return 5;
-        }
 
-        @Override
-        public Object getItem(int position) {
-            return null;
+    //解析产品规格列表
+    public boolean JsonSpecGoodsPrice(String specGoodsPrice){
+        try {
+            SpecGoodsPriceList.clear();
+            JSONArray   jsonArray = new JSONArray(specGoodsPrice);
+            for (int i=0; i< jsonArray.length(); i++){
+                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                 int item_id = jsonObject.getInt("item_id");
+                int goods_id = jsonObject.getInt("goods_id");
+                String key = jsonObject.getString("key");
+                String key_name = jsonObject.getString("key_name");
+                String price = jsonObject.getString("price");
+                String  cost_price = jsonObject.getString("cost_price");
+                String commission = jsonObject.getString("commission");
+                int store_count = jsonObject.getInt("store_count");
+                String bar_code = jsonObject.getString("bar_code");
+                String sku = jsonObject.getString("sku");
+                String spec_img = jsonObject.getString("spec_img");
+                int prom_id = jsonObject.getInt("prom_id");
+                int prom_type = jsonObject.getInt("prom_type");
+                SpecGoodsPriceBean specGoodsPriceBean = new SpecGoodsPriceBean(item_id, goods_id, key, key_name, price, cost_price, commission, store_count, bar_code, sku, spec_img, prom_id, prom_type);
+                SpecGoodsPriceList.add(specGoodsPriceBean);
+            }
+             return true;
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View inflate = LayoutInflater.from(mContext).inflate(R.layout.list_integral_detail_img, null);
-            return inflate;
-        }
+        return false;
     }
+
+    //加入购物车返回事件
+    public void  UpdateCartAdd(int code,String msg){
+        ToastUtils.showToast(mContext,msg);
+    }
+
+    //立即购买返回事件
+    public void UpdateCartBuy(int code,String msg,String content){
+        Intent intent = new Intent(mContext, PlaceOrderActivity.class);
+        intent.putExtra("content",content);
+        intent.putExtra("item_id",item_id+"");
+        startActivity(intent);
+    }
+
 }

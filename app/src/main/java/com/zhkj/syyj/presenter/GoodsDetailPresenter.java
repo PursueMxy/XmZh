@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 import com.zhkj.syyj.Beans.GoodsDetailBean;
+import com.zhkj.syyj.Beans.PublicResultBean;
 import com.zhkj.syyj.contract.GoodsDetailContract;
 import com.zhkj.syyj.model.GoodsDetailModel;
 
@@ -28,12 +29,9 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
     }
 
     public void SetGoodsDetail(String content){
-        parseJSONWithJSONObject(content);
-    }
-    private void parseJSONWithJSONObject(String jsonData){
         JSONObject jsonObject = null;
         try {
-            jsonObject = new JSONObject(jsonData);
+            jsonObject = new JSONObject(content);
             int code = jsonObject.getInt("code");
             String msg = jsonObject.getString("msg");
             String data = jsonObject.getString("data");
@@ -41,6 +39,30 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        }
+    }
+
+    //加入购物车
+    public void  GetCartAdd(String uid,String token,String goods_id,String item_id,String goods_num){
+        goodsDetailModel.PostCardAdd(this,uid,token,goods_id,item_id,goods_num);
+    }
+
+    //立即购买
+    public void  GetCartAdd2(String uid,String token,String goods_id,String item_id,String goods_num,String action){
+        goodsDetailModel.PostCardAdd2(this,uid,token,goods_id,item_id,goods_num,action);
+    }
+
+    //加入购物车返回事件
+    public void SetCartAdd(String content){
+        PublicResultBean publicResultBean = new GsonBuilder().create().fromJson(content, PublicResultBean.class);
+        mView.UpdateCartAdd(publicResultBean.getCode(),publicResultBean.getMsg());
+    }
+
+    //立即购买返回
+    public void SetCartBuy(String content){
+        PublicResultBean publicResultBean = new GsonBuilder().create().fromJson(content, PublicResultBean.class);
+        mView.UpdateCartBuy(publicResultBean.getCode(),publicResultBean.getMsg(),content);
+
+    }
+
 
 }

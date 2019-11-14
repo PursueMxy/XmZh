@@ -6,6 +6,7 @@ import com.lzy.okgo.model.Response;
 import com.zhkj.syyj.Utils.RequstUrlUtils;
 import com.zhkj.syyj.contract.GoodsDetailContract;
 import com.zhkj.syyj.presenter.GoodsDetailPresenter;
+import com.zhkj.syyj.presenter.GoodsListPresenter;
 
 public class GoodsDetailModel implements GoodsDetailContract.Model {
 
@@ -24,4 +25,44 @@ public class GoodsDetailModel implements GoodsDetailContract.Model {
                     }
                 });
     }
+
+
+    /**
+     * 加入购物车
+     */
+    public void PostCardAdd(final GoodsDetailPresenter goodsDetailPresenter, String uid, String token, String goods_id, String item_id, String goods_num){
+      OkGo.<String>post(RequstUrlUtils.URL.CartAdd)
+              .params("uid",uid)
+              .params("token",token)
+              .params("goods_id",goods_id)
+              .params("item_id",item_id)
+              .params("goods_num",goods_num)
+              .execute(new StringCallback() {
+                  @Override
+                  public void onSuccess(Response<String> response) {
+                      goodsDetailPresenter.SetCartAdd(response.body());
+                  }
+              });
+    }
+
+
+    /**
+     * 立即购买
+     */
+    public void PostCardAdd2(final GoodsDetailPresenter goodsDetailPresenter, String uid, String token, String goods_id, String item_id, String goods_num, String action){
+        OkGo.<String>post(RequstUrlUtils.URL.CartAdd2)
+                .params("uid",uid)
+                .params("token",token)
+                .params("goods_id",goods_id)
+                .params("item_id",item_id)
+                .params("goods_num",goods_num)
+                .params("action",action)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        goodsDetailPresenter.SetCartBuy(response.body());
+                    }
+                });
+    }
+
 }

@@ -24,6 +24,7 @@ import com.zhkj.syyj.Utils.ToastUtils;
 import com.zhkj.syyj.contract.ShoppingAddressContract;
 import com.zhkj.syyj.presenter.ShoppingAddressPresenter;
 import com.zhouyou.recyclerview.XRecyclerView;
+import com.zhouyou.recyclerview.adapter.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +40,16 @@ public class  ShoppingAddressActivity extends AppCompatActivity implements View.
     private String uid;
     private String token;
     private AlertDialog alertDialog;
+    private String type;
+    private int ADDRESS_CODE=2001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_address);
         mContext = getApplicationContext();
+        Intent intent = getIntent();
+        type = intent.getStringExtra("type");
         SharedPreferences share = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         uid = share.getString("uid", "");
         token = share.getString("token", "");
@@ -90,6 +95,20 @@ public class  ShoppingAddressActivity extends AppCompatActivity implements View.
                         , 0
                         , 0
                         , MxyUtils.dpToPx(mContext, MxyUtils.getDimens(mContext, R.dimen.dp_10)));
+            }
+        });
+        shoppingAddressAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, Object item, int position) {
+                if (type.equals("select")){
+                    Intent intent = new Intent(mContext, PlaceOrderActivity.class);
+                    intent.putExtra("address_id",tasklist_item.get(position).getAddress_id()+"");
+                    intent.putExtra("address",tasklist_item.get(position).getProvince()+tasklist_item.get(position).getCity()+tasklist_item.get(position).getDistrict()
+                            +tasklist_item.get(position).getTwon()+tasklist_item.get(position).getAddress());
+                    intent.putExtra("contacts",tasklist_item.get(position).getConsignee()+"  "+tasklist_item.get(position).getMobile());
+                    setResult(ADDRESS_CODE,intent);
+                    finish();
+                }
             }
         });
     }

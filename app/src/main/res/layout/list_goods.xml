@@ -11,6 +11,7 @@
         android:layout_width="@dimen/dp_102"
         android:layout_height="@dimen/dp_87" />
     <TextView
+        android:id="@+id/list_goods_tv_title"
         android:layout_toRightOf="@+id/list_goods_img"
         android:lines="2"
         android:layout_marginTop="@dimen/dp_10"
@@ -22,6 +23,7 @@
         android:textSize="@dimen/sp_14"
         />
     <TextView
+        android:id="@+id/list_goods_tv_sn"
         android:layout_toRightOf="@+id/list_goods_img"
         android:layout_marginTop="@dimen/dp_56"
         android:layout_width="wrap_content"
@@ -32,6 +34,7 @@
         />
 
     <TextView
+        android:id="@+id/list_goods_tv_price"
         android:layout_toRightOf="@+id/list_goods_img"
         android:layout_marginTop="@dimen/dp_78"
         android:layout_width="wrap_content"
@@ -41,6 +44,7 @@
         android:textSize="@dimen/sp_14"
         />
     <TextView
+        android:id="@+id/list_goods_tv_num"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/dp_78"

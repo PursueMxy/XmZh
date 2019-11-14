@@ -83,6 +83,9 @@ public class RequstUrlUtils {
         //删除收货地址
         public static String DelAddress=HOST+"/user/delAddress";
 
+        //获取默认地址
+        public static String GetDefaultAddress=HOST+"/user/getDefaultAddress";
+
         //设置提醒
         public static String TaskSetRemind=HOST+"/task/setRemind";
 
@@ -92,6 +95,17 @@ public class RequstUrlUtils {
         //商城列表
         public static  String GoodsList=HOST+"/goods/goodsList";
 
+        //加入购物车
+        public static String CartAdd=HOST+"/cart/add";
+
+        //购物车/立即购买第二步确定页面
+        public static  String CartAdd2=HOST+"/cart/cart2";
+
+        //提交订单支付
+        public static String CartCart3=HOST+"/cart/cart3";
+
+        //获取订单列表
+        public static String OrderList=HOST+"order/orderList";
 
     }
 }

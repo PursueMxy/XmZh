@@ -15,6 +15,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.zhkj.syyj.Adapters.GridAdapter;
+import com.zhkj.syyj.Beans.SpecGoodsPriceBean;
 import com.zhkj.syyj.CustView.BottomDialog;
 import com.zhkj.syyj.CustView.NoScrollListView;
 import com.zhkj.syyj.R;
@@ -22,6 +23,7 @@ import com.zhkj.syyj.Utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
@@ -34,8 +36,7 @@ public class IntegralGoodsDetailActivity extends AppCompatActivity {
     NoScrollListView noScrollListView;
     private Context mContext;
     private MyAdapter myAdapter;
-    private GridView gridView;
-    private ArrayList<Map<String, Object>> dataList;
+    private List<SpecGoodsPriceBean> SpecGoodsPriceList=new ArrayList<>();
     public int SelectNum=1;
     private TextView tv_goodsTitle;
     private TextView tv_goodsMoney;
@@ -120,23 +121,6 @@ public class IntegralGoodsDetailActivity extends AppCompatActivity {
                 SelectNum=++SelectNum;
                 tv_select_num.setText(SelectNum+"");
                 tv_selectedNum.setText("已选10ml,"+SelectNum);
-            }
-        });
-        dataList = new ArrayList<Map<String, Object>>();
-        String name[]={"10ml","20ml","30ml","40ml","50ml","60ml","70ml"};
-        for (int i = 0; i <name.length; i++) {
-            Map<String, Object> map=new HashMap<>();
-            map.put("text",name[i]);
-            dataList.add(map);
-        }
-        GridAdapter gridAdapter = new GridAdapter(mContext, dataList);
-        gridView = inflate.findViewById(R.id.db_integral_dtl_gridView);
-        gridView.setAdapter(gridAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               String text =(String) dataList.get(position).get("text");
-                tv_selectedNum.setText("已选"+text+","+SelectNum);
             }
         });
         bottomDialog.setContentView(inflate);
