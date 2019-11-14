@@ -13,10 +13,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.zhkj.syyj.Beans.BalanceBean;
 import com.zhkj.syyj.R;
+import com.zhkj.syyj.Utils.DateUtils;
 import com.zhkj.syyj.contract.MyBalanceContract;
 import com.zhkj.syyj.presenter.MyBalancePresenter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -34,6 +40,9 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
     private SharedPreferences share;
     private String token;
     private String uid;
+    private List<BalanceBean.DataBean.LogBean> log=new ArrayList<>();
+    private String balance;
+    private TextView tv_pursue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,7 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
 
     private void InitUI() {
         findViewById(R.id.my_balance_img_back).setOnClickListener(this);
+        tv_pursue = findViewById(R.id.my_balance_tv_pursue);
         balance_list = findViewById(R.id.my_balance_list);
         myAdapter = new MyAdapter();
         balance_list.setAdapter(myAdapter);
@@ -84,7 +94,7 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
     public class MyAdapter extends BaseAdapter{
         @Override
         public int getCount() {
-            return 5;
+            return log.size();
         }
 
         @Override
@@ -100,6 +110,14 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View inflate = LayoutInflater.from(mContext).inflate(R.layout.list_balance, null);
+            TextView tv_dt = inflate.findViewById(R.id.list_balance_dt);
+            TextView tv_time = inflate.findViewById(R.id.list_balance_time);
+            TextView tv_type = inflate.findViewById(R.id.list_balance_type);
+            TextView tv_money = inflate.findViewById(R.id.list_balance_money);
+            tv_dt.setText(DateUtils.timeStamp2Date(log.get(position).getTime()+""));
+            tv_time.setText(DateUtils.timeStamp2Date3(log.get(position).getTime()+""));
+            tv_type.setText(log.get(position).getDesc());
+            tv_money.setText(log.get(position).getMoney());
             return inflate ;
         }
     }
@@ -109,5 +127,16 @@ public class MyBalanceActivity extends AppCompatActivity implements View.OnClick
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    //UI更新
+    public void  UpdateUI(int code, String msg, BalanceBean.DataBean data){
+        if (code==1){
+            balance = data.getBalance();
+            tv_pursue.setText(balance);
+            log = data.getLog();
+            myAdapter.notifyDataSetChanged();
+        }
     }
 }

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -14,6 +15,8 @@ import android.view.View;
 import com.zhkj.syyj.Adapters.IntegralDeatilAdapter;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.MxyUtils;
+import com.zhkj.syyj.contract.IntegralDetailContract;
+import com.zhkj.syyj.presenter.IntegralDetailPresenter;
 import com.zhouyou.recyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class IntegralDetailActivity extends AppCompatActivity{
+public class IntegralDetailActivity extends AppCompatActivity implements IntegralDetailContract.View {
 
     @InjectView(R.id.integral_detail_recyclerView)
     XRecyclerView mRecyclerView;
@@ -31,6 +34,10 @@ public class IntegralDetailActivity extends AppCompatActivity{
     private List<String> list=new ArrayList<>();
     private LinearLayoutManager mLayoutManager;
     private IntegralDeatilAdapter integralDeatilAdapter;
+    private IntegralDetailPresenter integralDetailPresenter;
+    private String token;
+    private String uid;
+    private int page=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,12 @@ public class IntegralDetailActivity extends AppCompatActivity{
         setContentView(R.layout.activity_integral_detail);
         mContext = getApplicationContext();
         ButterKnife.inject(this);
+        SharedPreferences share = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        token = share.getString("token", "");
+        uid = share.getString("uid", "");
         InitUI();
+        integralDetailPresenter = new IntegralDetailPresenter(this);
+        integralDetailPresenter.GetIntegralRecord(uid,token,page);
     }
 
     private void InitUI() {
@@ -101,4 +113,8 @@ public class IntegralDetailActivity extends AppCompatActivity{
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }

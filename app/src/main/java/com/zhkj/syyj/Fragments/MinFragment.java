@@ -52,6 +52,7 @@ public class MinFragment extends Fragment implements View.OnClickListener {
     private TextView tv_user_money;
     private TextView tv_level;
     private SharedPreferences share;
+    private int level=0;
 
     public MinFragment() {
         // Required empty public constructor
@@ -88,6 +89,7 @@ public class MinFragment extends Fragment implements View.OnClickListener {
                                     Glide.with(mContext).load(RequstUrlUtils.URL.HOST+data.getHeadimg()).into(img_head);
                                     tv_hy.setText(data.getLevelname());
                                     tv_user_money.setText("¥"+data.getUser_money());
+                                    level = data.getLevel();
                                     tv_level.setText(data.getLevel()+"");
                                     SharedPreferences.Editor editor = share.edit();
                                     editor.putString("headimg", RequstUrlUtils.URL.HOST+data.getHeadimg());
@@ -187,6 +189,7 @@ public class MinFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.fm_min_my_integral:
                 Intent intent5 = new Intent(mContext, IntegralActivity.class);
+                intent5.putExtra("level",level+"");
                 startActivity(intent5);
                 break;
                 default:

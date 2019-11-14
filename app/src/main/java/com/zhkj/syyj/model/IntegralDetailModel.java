@@ -1,23 +1,24 @@
 package com.zhkj.syyj.model;
 
+import com.google.gson.GsonBuilder;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.zhkj.syyj.Utils.RequstUrlUtils;
-import com.zhkj.syyj.contract.MyBalanceContract;
-import com.zhkj.syyj.presenter.MyBalancePresenter;
+import com.zhkj.syyj.contract.IntegralDetailContract;
+import com.zhkj.syyj.presenter.IntegralDetailPresenter;
 
-public class MyBalanceModel implements MyBalanceContract.Model {
+public class IntegralDetailModel implements IntegralDetailContract.Model {
 
-    //获取个人余额
-    public void  PostBalance(final MyBalancePresenter myBalancePresenter, String uid, String token){
-        OkGo.<String>get(RequstUrlUtils.URL.Balance)
+    public void PostIntegralRecord(IntegralDetailPresenter integralDetailPresenter, String uid, String token, int page){
+        OkGo.<String>get(RequstUrlUtils.URL.IntegralRecord)
                 .params("uid",uid)
                 .params("token",token)
+                .params("page",page)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                     myBalancePresenter.SetBalance(response.body());
+
                     }
                 });
     }

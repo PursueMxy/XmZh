@@ -36,11 +36,14 @@ public class IntegralActivity extends AppCompatActivity implements View.OnClickL
     private LinearLayoutManager mLayoutManager;
     private IntegralAdapter integralAdapter;
     private TextView tv_myintegral;
+    private String level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_integral);
+        Intent intent = getIntent();
+        level = intent.getStringExtra("level");
         mContext = getApplicationContext();
         InitUI();
     }
@@ -61,6 +64,7 @@ public class IntegralActivity extends AppCompatActivity implements View.OnClickL
         findViewById(R.id.integral_tv_exchange).setOnClickListener(this);
         top_recyclerView = findViewById(R.id.integral_top_recyclerView);
         tv_myintegral = findViewById(R.id.integral_tv_myintegral);
+        tv_myintegral.setText("我的积分："+level);
         intergralTopAdapter = new IntergralTopAdapter(this, list);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         top_recyclerView.setLayoutManager(manager);

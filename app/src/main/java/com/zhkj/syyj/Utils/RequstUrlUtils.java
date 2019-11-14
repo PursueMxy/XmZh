@@ -105,7 +105,10 @@ public class RequstUrlUtils {
         public static String CartCart3=HOST+"/cart/cart3";
 
         //获取订单列表
-        public static String OrderList=HOST+"order/orderList";
+        public static String OrderList=HOST+"/order/orderList";
+
+        //积分明细
+        public static String IntegralRecord=HOST+"/user/integralRecord";
 
     }
 }

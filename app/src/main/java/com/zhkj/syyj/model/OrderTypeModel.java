@@ -5,10 +5,11 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.zhkj.syyj.Utils.RequstUrlUtils;
 import com.zhkj.syyj.contract.OrderTypeContract;
+import com.zhkj.syyj.presenter.OrderTypePresenter;
 
 public class OrderTypeModel implements OrderTypeContract.Model {
 
-  public void PostOrderType(String uid,String token,String type,int  page,int order_type){
+  public void PostOrderType(final OrderTypePresenter orderTypePresenter, String uid, String token, String type, int  page, final int order_type){
       OkGo.<String>get(RequstUrlUtils.URL.OrderList)
               .params("uid",uid)
               .params("token",token)
@@ -18,7 +19,7 @@ public class OrderTypeModel implements OrderTypeContract.Model {
               .execute(new StringCallback() {
                   @Override
                   public void onSuccess(Response<String> response) {
-
+                      orderTypePresenter.SetOrderType(response.body());
                   }
               });
 

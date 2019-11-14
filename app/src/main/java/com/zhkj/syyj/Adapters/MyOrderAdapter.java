@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.zhkj.syyj.Activitys.OrderDetailActivity;
 import com.zhkj.syyj.Beans.OrderBean;
+import com.zhkj.syyj.Beans.OrderListBean;
 import com.zhkj.syyj.Beans.ShoppingCarDataBean;
 import com.zhkj.syyj.R;
 import com.zhouyou.recyclerview.adapter.HelperRecyclerViewAdapter;
@@ -28,7 +29,7 @@ import butterknife.InjectView;
 public class MyOrderAdapter extends BaseExpandableListAdapter {
 
     private final Context context;
-    private List<ShoppingCarDataBean.DatasBean> data;
+    private List<OrderListBean.DataBean> data;
     private boolean isSelectAll = false;
     private double total_price;
 
@@ -43,7 +44,7 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
      *
      * @param data 需要刷新的数据
      */
-    public void setData(List<ShoppingCarDataBean.DatasBean> data) {
+    public void setData(List<OrderListBean.DataBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -59,8 +60,8 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        if (data.get(groupPosition).getGoods() != null && data.get(groupPosition).getGoods().size() > 0) {
-            return data.get(groupPosition).getGoods().size();
+        if (data.get(groupPosition).getOrder_goods() != null && data.get(groupPosition).getOrder_goods() .size() > 0) {
+            return data.get(groupPosition).getOrder_goods() .size();
         } else {
             return 0;
         }
@@ -73,7 +74,7 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return data.get(groupPosition).getGoods().get(childPosition);
+        return data.get(groupPosition).getOrder_goods() .get(childPosition);
     }
 
     @Override
@@ -122,28 +123,30 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
         } else {
             childViewHolder = (ChildViewHolder) convertView.getTag();
         }
-        final ShoppingCarDataBean.DatasBean datasBean = data.get(groupPosition);
-        if (childPosition==(datasBean.getGoods().size()-1)){
+        final OrderListBean.DataBean datasBean = data.get(groupPosition);
+        if (childPosition==(datasBean.getOrder_goods().size()-1)){
             childViewHolder.myorder_item_bottom_rl.setVisibility(View.VISIBLE);
         }else {
             childViewHolder.myorder_item_bottom_rl.setVisibility(View.GONE);
         }
-        if (groupPosition==0){
-            childViewHolder.ll_obligation.setVisibility(View.GONE);
+        int receive_btn = datasBean.getReceive_btn();
+        int pay_btn = datasBean.getPay_btn();
+        int pay_status = datasBean.getPay_status();
+        int cancel_btn = datasBean.getCancel_btn();
+        int shipping_btn = datasBean.getShipping_btn();
+        int shipping_status = datasBean.getShipping_status();
+        int comment_btn = datasBean.getComment_btn();
+        if (pay_btn==1&& cancel_btn == 1){
             childViewHolder.ll_tobe_received.setVisibility(View.GONE);
             childViewHolder.ll_orderDone.setVisibility(View.GONE);
             childViewHolder.ll_cancel_order.setVisibility(View.GONE);
-        }else if (groupPosition==1){
             childViewHolder.ll_obligation.setVisibility(View.VISIBLE);
-            childViewHolder.ll_tobe_received.setVisibility(View.GONE);
-            childViewHolder.ll_orderDone.setVisibility(View.GONE);
-            childViewHolder.ll_cancel_order.setVisibility(View.GONE);
-        }else if (groupPosition==2){
+        }else if (receive_btn == 0 && pay_btn==0){
             childViewHolder.ll_obligation.setVisibility(View.GONE);
             childViewHolder.ll_orderDone.setVisibility(View.GONE);
             childViewHolder.ll_cancel_order.setVisibility(View.GONE);
             childViewHolder.ll_tobe_received.setVisibility(View.VISIBLE);
-        }else if (groupPosition==3){
+        }else if (comment_btn == 1){
             childViewHolder.ll_obligation.setVisibility(View.GONE);
             childViewHolder.ll_tobe_received.setVisibility(View.GONE);
             childViewHolder.ll_cancel_order.setVisibility(View.GONE);
@@ -153,6 +156,11 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
             childViewHolder.ll_tobe_received.setVisibility(View.GONE);
             childViewHolder.ll_orderDone.setVisibility(View.GONE);
             childViewHolder.ll_cancel_order.setVisibility(View.VISIBLE);
+        }else {
+            childViewHolder.ll_obligation.setVisibility(View.GONE);
+            childViewHolder.ll_tobe_received.setVisibility(View.GONE);
+            childViewHolder.ll_orderDone.setVisibility(View.GONE);
+            childViewHolder.ll_cancel_order.setVisibility(View.GONE);
         }
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -115,7 +115,7 @@ public class DateUtils {
 
 
     public static String timeStamp2Date(String time) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd");
         @SuppressWarnings("unused")
         long lcc = Long.valueOf(time);
         int i = Integer.parseInt(time);
@@ -137,7 +137,7 @@ public class DateUtils {
 
 
     public static String timeStamp2Date3(String time) {
-        SimpleDateFormat sdr = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat sdr = new SimpleDateFormat("HH:mm:ss");
         @SuppressWarnings("unused")
         long lcc = Long.valueOf(time);
         int i = Integer.parseInt(time);
