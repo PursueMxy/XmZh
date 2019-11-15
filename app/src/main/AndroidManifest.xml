@@ -29,8 +29,7 @@
             android:name=".Activitys.CallCenterActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".Activitys.PlaceOrderActivity"
-            android:launchMode="singleTask" />
+            android:name=".Activitys.PlaceOrderActivity" />
         <activity
             android:name=".Activitys.OrderTypeActivity"
             android:launchMode="singleTask" />
@@ -104,8 +103,7 @@
             android:name=".Activitys.PerSonalDataActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".Activitys.ShoppingAddressActivity"
-            android:launchMode="singleTask" />
+            android:name=".Activitys.ShoppingAddressActivity" />
         <activity
             android:name=".Activitys.MemberActivity"
             android:launchMode="singleTask" />
@@ -170,22 +168,6 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask" /> <!-- 注意这里的android:theme="@style/AppTheme" AppTheme一定要是NoActionbar类型的主题 -->
-        <activity
-            android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name="com.winfo.photoselector.ImageSelectorActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name="com.winfo.photoselector.PreviewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name="com.winfo.photoselector.RvPreviewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

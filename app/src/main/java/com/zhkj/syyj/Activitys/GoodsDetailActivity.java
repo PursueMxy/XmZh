@@ -19,13 +19,19 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.zhkj.syyj.Adapters.GridAdapter;
 import com.zhkj.syyj.Beans.GoodsDetailBean;
 import com.zhkj.syyj.Beans.SpecGoodsPriceBean;
 import com.zhkj.syyj.CustView.BottomDialog;
 import com.zhkj.syyj.CustView.LabelsView;
+import com.zhkj.syyj.CustView.MeasureRelativeLayout;
+import com.zhkj.syyj.CustView.MeasureTextView;
+import com.zhkj.syyj.CustView.MyScrollView;
 import com.zhkj.syyj.CustView.NoScrollListView;
 import com.zhkj.syyj.R;
 import com.zhkj.syyj.Utils.ToastUtils;
@@ -55,8 +61,8 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     public int SelectNum=1;
     private ImageView img_appraise;
     private TextView tv_appraise_name;
-    private TextView tv_appraise_content;
-    private TextView tv_copywriting;
+    private MeasureTextView tv_appraise_content;
+    private MeasureTextView tv_copywriting;
     private TextView tv_goodsTitle;
     private TextView tv_goodsMoney;
     private TextView tv_goodsVolume;
@@ -79,6 +85,13 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
     private int store_count=0;
     private GoodsDetailPresenter goodsDetailPresenter;
     private int item_id;
+    private MyScrollView scrollView;
+    private MeasureRelativeLayout rl_appraise;
+    private MeasureRelativeLayout rl_official;
+    private int rl_appraiseHeight;
+    private int rl_officialHeight;
+    private int appraiseContentHeight;
+    private int copywritingHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +115,11 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.goods_detail_img_back).setOnClickListener(this);
         findViewById(R.id.goods_img_call_center).setOnClickListener(this);
         findViewById(R.id.goods_detail_img_home).setOnClickListener(this);
-        findViewById(R.id.integral_btn_redeem_now).setOnClickListener(this);
+        findViewById(R.id.goods_detail_btn_redeem_now).setOnClickListener(this);
         findViewById(R.id.goods_detail_tv_view_all_appraise).setOnClickListener(this);
         findViewById(R.id.goods_detail_btn_buynow).setOnClickListener(this);
+        findViewById(R.id.goods_detail_img_collectGoods).setOnClickListener(this);
+        scrollView = findViewById(R.id.goods_detail_scrollView);
         img_appraise = findViewById(R.id.goods_detail_img_appraise);
         tv_appraise_name = findViewById(R.id.goods_detail_tv_appraise_name);
         tv_appraise_content = findViewById(R.id.goods_detail_tv_appraise_content);
@@ -113,6 +128,26 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         tv_goodsMoney = findViewById(R.id.goods_detail_tv_goodsMoney);
         tv_goodsVolume = findViewById(R.id.goods_detail_tv_goodsVolume);
         tv_share = findViewById(R.id.goods_detail_tv_share);
+        rl_appraise = findViewById(R.id.goods_detail_rl_appraise);
+        rl_official = findViewById(R.id.goods_detail_rl_official);
+        rl_appraiseHeight = rl_appraise.getViewHeight(rl_appraise);
+        rl_officialHeight = rl_official.getViewHeight(rl_official);
+        Log.e("高度",rl_appraiseHeight+"接"+rl_officialHeight);
+        appraiseContentHeight = tv_appraise_content.getViewHeight(tv_appraise_content);
+        copywritingHeight = tv_copywriting.getViewHeight(tv_copywriting);
+        tv_appraise_content.setText("sfsadgfdg\ngdhsdha");
+        tv_copywriting.setText("dfbhsdfds\nsdvasgvvvGYYYGB\n海景房和接电话发送到分工表计划的关键还是\n恒大华府更舒服");
+        scrollView.setOnScrollListener(new MyScrollView.OnScrollListener() {
+            @Override
+            public void onScroll(int scrollY) {
+                int viewHeight = tv_appraise_content.getViewHeight(tv_appraise_content);
+                int viewHeight1 = tv_copywriting.getViewHeight(tv_copywriting);
+                int oneHeight=rl_appraiseHeight+(viewHeight-appraiseContentHeight);
+                int TwoHeight=rl_officialHeight+(viewHeight1-copywritingHeight);
+                Log.e("滑动距离",scrollY+"和"+oneHeight+"加"+rl_appraiseHeight);
+                Log.e("滑动距离ssss",scrollY+"和"+TwoHeight+"加"+rl_officialHeight);
+            }
+        });
     }
 
     @Override
@@ -120,6 +155,9 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()){
             case R.id.goods_detail_img_back:
                 finish();
+                break;
+            case R.id.goods_detail_img_collectGoods:
+                goodsDetailPresenter.GetCollectGoods(uid,token,goods_id);
                 break;
             case R.id.goods_detail_tv_view_all_appraise:
                 startActivity(new Intent(mContext,AppraiseActivity.class));
@@ -130,7 +168,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
             case R.id.goods_detail_btn_buynow:
                 RedeemBuyNowDialog();
                 break;
-            case R.id.integral_btn_redeem_now:
+            case R.id.goods_detail_btn_redeem_now:
                 RedeemNowDialog();
                 break;
             case R.id.goods_img_call_center:
@@ -358,8 +396,8 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
             shop_price = jsonObject.getString("shop_price");
             market_price = jsonObject.getString("market_price");
             String sales_sum= jsonObject.getString("sales_sum");
-            String specGoodsPrice = jsonObject.getString("specGoodsPrice");
-            boolean b = JsonSpecGoodsPrice(specGoodsPrice);
+//            String specGoodsPrice = jsonObject.getString("spec_goods_price");
+//            JsonSpecGoodsPrice(specGoodsPrice);
             tv_goods_content.setHtml(goods_content, new HtmlHttpImageGetter(tv_goods_content));
             tv_goodsTitle.setText(goods_name);
             tv_goodsMoney.setText("¥ "+ shop_price);
@@ -421,5 +459,12 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         intent.putExtra("item_id",item_id+"");
         startActivity(intent);
     }
+
+   //返回通知
+    public void UpdateUI(int code,String msg){
+        ToastUtils.showToast(mContext,msg);
+    }
+
+
 
 }

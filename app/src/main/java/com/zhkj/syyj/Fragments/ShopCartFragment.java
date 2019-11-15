@@ -82,11 +82,6 @@ public class ShopCartFragment extends Fragment {
 
             @Override
             public void onLoadMore() {
-//                list.add(products);
-//                list.add(products2);
-//                list.add(products3);
-//                shopCartAdapter.setListAll(list);
-                //加载更多
                 mRecyclerView.loadMoreComplete();//加载动画完成
                 mRecyclerView.setNoMore(true);//数据加载完成
             }

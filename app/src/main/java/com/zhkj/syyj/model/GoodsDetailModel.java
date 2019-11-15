@@ -65,4 +65,20 @@ public class GoodsDetailModel implements GoodsDetailContract.Model {
                 });
     }
 
+
+    /**
+     * 收藏/取消收藏
+     */
+    public void PostCollectGoods(final GoodsDetailPresenter goodsDetailPresenter, String uid,String token,String goods_id){
+        OkGo.<String>get(RequstUrlUtils.URL.GoodsCollectGoods)
+                .params("uid",uid)
+                .params("token",token)
+                .params("goods_id",goods_id)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                 goodsDetailPresenter.SetPublicContent(response.body());
+                    }
+                });
+    }
 }

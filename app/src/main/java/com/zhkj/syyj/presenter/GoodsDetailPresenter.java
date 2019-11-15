@@ -3,8 +3,10 @@ package com.zhkj.syyj.presenter;
 import android.util.Log;
 
 import com.google.gson.GsonBuilder;
+import com.lzy.okgo.OkGo;
 import com.zhkj.syyj.Beans.GoodsDetailBean;
 import com.zhkj.syyj.Beans.PublicResultBean;
+import com.zhkj.syyj.Utils.RequstUrlUtils;
 import com.zhkj.syyj.contract.GoodsDetailContract;
 import com.zhkj.syyj.model.GoodsDetailModel;
 
@@ -24,6 +26,7 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
         goodsDetailModel=new GoodsDetailModel();
     }
 
+    //获取产品详情
     public void GetGoodsDetail(String uid, String token, String goods_id){
       goodsDetailModel.PsotGoodsDetail(this,uid,token,goods_id);
     }
@@ -62,6 +65,16 @@ public class GoodsDetailPresenter implements GoodsDetailContract.Presenter {
         PublicResultBean publicResultBean = new GsonBuilder().create().fromJson(content, PublicResultBean.class);
         mView.UpdateCartBuy(publicResultBean.getCode(),publicResultBean.getMsg(),content);
 
+    }
+
+    //收藏/取消收藏
+    public void GetCollectGoods(String uid,String token,String goods_id){
+       goodsDetailModel.PostCollectGoods(this,uid,token,goods_id);
+    }
+
+    public void SetPublicContent(String content){
+        PublicResultBean publicResultBean = new GsonBuilder().create().fromJson(content, PublicResultBean.class);
+        mView.UpdateUI(publicResultBean.getCode(),publicResultBean.getMsg());
     }
 
 

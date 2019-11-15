@@ -136,25 +136,27 @@ public class MinFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.fm_min_rel_my_order:
-                startActivity(new Intent(mContext, MyOrderActivity.class));
+                Intent intent6 = new Intent(mContext, MyOrderActivity.class);
+                intent6.putExtra("title","全部");
+                startActivity(intent6);
                 break;
             case R.id.fm_min_rel_obligation:
-                Intent intent = new Intent(mContext, OrderTypeActivity.class);
+                Intent intent = new Intent(mContext, MyOrderActivity.class);
                 intent.putExtra("title","待付款");
                 startActivity(intent);
                 break;
             case R.id.fm_min_rel_tobe_shipped:
-                Intent intent1 = new Intent(mContext, OrderTypeActivity.class);
+                Intent intent1 = new Intent(mContext, MyOrderActivity.class);
                 intent1.putExtra("title","待发货");
                 startActivity(intent1);
                 break;
             case R.id.fm_min_rel_tobe_received:
-                Intent intent2 = new Intent(mContext, OrderTypeActivity.class);
+                Intent intent2 = new Intent(mContext, MyOrderActivity.class);
                 intent2.putExtra("title","待收货");
                 startActivity(intent2);
                 break;
             case R.id.fm_min_rel_orderDone:
-                Intent intent3 = new Intent(mContext, OrderTypeActivity.class);
+                Intent intent3 = new Intent(mContext, MyOrderActivity.class);
                 intent3.putExtra("title","已完成");
                 startActivity(intent3);
                 break;

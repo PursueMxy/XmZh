@@ -4,28 +4,27 @@
     android:background="@color/white"
     android:layout_height="match_parent">
     <ImageView
-        android:id="@+id/list_fm_shopcart_img"
-        android:layout_toRightOf="@+id/list_fm_shopcart_cb"
+        android:id="@+id/myorder_item_detail_img"
         android:layout_margin="@dimen/dp_10"
         android:src="@mipmap/icon_home_rel"
         android:layout_width="@dimen/dp_104"
         android:layout_height="@dimen/dp_87" />
     <TextView
-        android:layout_alignTop="@+id/list_fm_shopcart_img"
-        android:layout_toRightOf="@+id/list_fm_shopcart_img"
+        android:layout_alignTop="@+id/myorder_item_detail_img"
+        android:layout_toRightOf="@+id/myorder_item_detail_img"
         android:text="商品名称商品名称商品名称商品名称商品名称商品名称......"
         android:textColor="#ff040000"
         android:textSize="14sp"
         android:lines="2"
         android:ellipsize="end"
-        android:id="@+id/list_fm_shopcart_tv_content"
+        android:id="@+id/myorder_item_detail_tv_title"
         android:layout_width="@dimen/dp_192"
         android:layout_height="@dimen/dp_44" />
 
     <TextView
-        android:layout_below="@+id/list_fm_shopcart_tv_content"
-        android:id="@+id/ist_fm_shopcart_tv_nature"
-        android:layout_toRightOf="@+id/list_fm_shopcart_img"
+        android:layout_below="@+id/myorder_item_detail_tv_title"
+        android:id="@+id/myorder_item_detail_tv_model"
+        android:layout_toRightOf="@+id/myorder_item_detail_img"
         android:layout_marginTop="@dimen/dp_2"
         android:layout_width="match_parent"
         android:layout_height="16dp"
@@ -34,9 +33,9 @@
         android:textSize="12sp"
         />
     <TextView
-        android:id="@+id/myorder_item_pursue"
-        android:layout_toRightOf="@+id/list_fm_shopcart_img"
-        android:layout_alignBottom="@+id/list_fm_shopcart_img"
+        android:id="@+id/myorder_item_detail_tv_price"
+        android:layout_toRightOf="@+id/myorder_item_detail_img"
+        android:layout_alignBottom="@+id/myorder_item_detail_img"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:text="¥ 23.00"
@@ -45,12 +44,13 @@
         />
 
      <TextView
+         android:id="@+id/myorder_item_detail_tv_num"
          android:layout_marginRight="@dimen/dp_10"
          android:text="X1"
          android:textSize="@dimen/sp_16"
          android:textColor="@color/text_black"
-         android:layout_alignBottom="@+id/myorder_item_pursue"
-         android:layout_alignTop="@+id/myorder_item_pursue"
+         android:layout_alignBottom="@+id/myorder_item_detail_tv_price"
+         android:layout_alignTop="@+id/myorder_item_detail_tv_price"
          android:layout_alignParentRight="true"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content" />
@@ -58,7 +58,7 @@
      <TextView
          android:id="@+id/myorder_item_detail_fgx"
          android:layout_marginTop="@dimen/dp_21"
-         android:layout_below="@+id/list_fm_shopcart_img"
+         android:layout_below="@+id/myorder_item_detail_img"
          android:background="#ffe6e6e6"
          android:layout_width="match_parent"
          android:layout_height="0.5dp" />
@@ -72,14 +72,23 @@
         android:layout_height="wrap_content">
         <TextView
             android:layout_marginLeft="@dimen/dp_10"
-            android:id="@+id/item_shopping_tv_goods"
-            android:text="共2件商品,合计180元"
+            android:id="@+id/item_shopping_tv_goods_num"
+            android:text="共0件商品"
             android:textSize="@dimen/sp_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toRightOf="@+id/item_shopping_tv_goods_num"
+            android:layout_marginLeft="@dimen/dp_2"
+            android:id="@+id/item_shopping_tv_goods_total_amount"
+            android:text="¥ 0.00"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/text_efb134"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <RelativeLayout
             android:id="@+id/item_shopping_type"
-            android:layout_below="@+id/item_shopping_tv_goods"
+            android:layout_below="@+id/item_shopping_tv_goods_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         <LinearLayout

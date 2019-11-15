@@ -49,10 +49,20 @@ public class OrderTypeActivity extends AppCompatActivity implements View.OnClick
         SharedPreferences share = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         uid = share.getString("uid", "");
         token = share.getString("token", "");
+        orderTypePresenter = new OrderTypePresenter(this);
         Intent intent = getIntent();
         titleName = intent.getStringExtra("title");
-        orderTypePresenter = new OrderTypePresenter(this);
-        orderTypePresenter.GetOrderType(uid,token,"WAITSEND",0,0);
+       if (titleName.equals("待付款")){
+            orderTypePresenter.GetOrderType(uid, token, "WAITPAY", 0, 0);
+        }else if (titleName.equals("待发货")) {
+           orderTypePresenter.GetOrderType(uid, token, "WAITSEND", 0, 0);
+       } else if (titleName.equals("待收货")){
+            orderTypePresenter.GetOrderType(uid, token, "WAITRECEIVE", 0, 0);
+        }else if (titleName.equals("已完成")){
+            orderTypePresenter.GetOrderType(uid, token, "FINISH", 0, 0);
+        }else {
+            orderTypePresenter.GetOrderType(uid, token, "", 0, 0);
+        }
         InitUI();
         initExpandableListView();
         initData();
@@ -65,8 +75,6 @@ public class OrderTypeActivity extends AppCompatActivity implements View.OnClick
         rlNoContant = findViewById(R.id.order_type_no_contant);
         findViewById(R.id.order_type_img_back).setOnClickListener(this);
         order_type_elv = findViewById(R.id.order_type_elv);
-
-
     }
 
     /**
@@ -82,7 +90,6 @@ public class OrderTypeActivity extends AppCompatActivity implements View.OnClick
      */
     private void initExpandableListView() {
         myOrderAdapter = new MyOrderAdapter(mContext);
-
         order_type_elv.setAdapter(myOrderAdapter);
         order_type_elv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -159,7 +166,6 @@ public class OrderTypeActivity extends AppCompatActivity implements View.OnClick
                 OrderListBean orderListBean = new GsonBuilder().create().fromJson(data, OrderListBean.class);
                 datas= orderListBean.getData();
                 initExpandableListViewData(datas);
-                Log.e("执行了",data);
             }catch (Exception e){
                 initExpandableListViewData(datas);
             }

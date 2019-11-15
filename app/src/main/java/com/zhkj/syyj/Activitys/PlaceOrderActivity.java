@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,8 +99,6 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
         cb_aliPay.setOnClickListener(this);
         cb_balancePay.setOnClickListener(this);
         cb_wechatPay.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -152,7 +151,7 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
                 pay_type="weixin";
                 break;
             case R.id.place_order_rl_address:
-                Intent intent = new Intent(mContext, ShoppingAddressActivity.class);
+                Intent intent = new Intent(mContext,ShoppingAddressActivity.class);
                 intent.putExtra("type","select");
                 startActivityForResult(intent,ADDRESS_CODE);
                 break;
@@ -198,7 +197,7 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
             TextView tv_price = inflate.findViewById(R.id.list_goods_tv_price);
             TextView tv_num = inflate.findViewById(R.id.list_goods_tv_num);
             tv_title.setText(cartList.get(position).getGoods_name());
-            tv_sn.setText(cartList.get(position).getGoods_sn());
+            tv_sn.setText(cartList.get(position).getSpec_key_name());
             tv_price.setText("¥"+cartList.get(position).getGoods_price());
             tv_num.setText("x"+cartList.get(position).getGoods_num());
             return inflate;
@@ -217,13 +216,12 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ADDRESS_CODE&& resultCode == RESULT_OK) {
-             address_id = data.getStringExtra("address_id");
+        if (requestCode == ADDRESS_CODE&&resultCode==ADDRESS_CODE) {
+            address_id = data.getStringExtra("address_id");
             String address = data.getStringExtra("address");
             String contacts= data.getStringExtra("contacts");
             tv_address.setText(address);
             tv_contacts.setText(contacts);
-
         }
     }
 

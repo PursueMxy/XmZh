@@ -79,7 +79,7 @@
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/home_bottomitem_shopcart" />
 
             <TextView
                 android:layout_width="200dp"
@@ -87,7 +87,7 @@
                 android:layout_below="@+id/order_type_img_no_contant"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="购物车竟然是空的，快去购买书籍充实自己吧！"
+                android:text="订单竟然是空的，快去购买充实自己吧！"
                 android:textColor="#808080"
                 android:textSize="16dp" />
         </RelativeLayout>

@@ -110,5 +110,14 @@ public class RequstUrlUtils {
         //积分明细
         public static String IntegralRecord=HOST+"/user/integralRecord";
 
+        //订单详情
+        public static String OrderDetail=HOST+"/order/orderDetail";
+
+        //我的收藏
+        public static String GoodsCollectGoods=HOST+"/goods/collectGoods";
+
+        //购物车列表
+        public static String CartIndex=HOST+"/cart/index";
+
     }
 }

@@ -21,6 +21,7 @@ import com.zhkj.syyj.R;
 import com.zhouyou.recyclerview.adapter.HelperRecyclerViewAdapter;
 import com.zhouyou.recyclerview.adapter.HelperRecyclerViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -28,13 +29,13 @@ import butterknife.InjectView;
 
 public class MyOrderAdapter extends BaseExpandableListAdapter {
 
-    private final Context context;
-    private List<OrderListBean.DataBean> data;
+    private final Context mContext;
+    private List<OrderListBean.DataBean> data=new ArrayList<>();
     private boolean isSelectAll = false;
     private double total_price;
 
     public MyOrderAdapter(Context context) {
-        this.context = context;
+        this.mContext = context;
 
     }
 
@@ -96,18 +97,21 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         GroupViewHolder groupViewHolder;
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.myorder_item_top, null);
-
+            convertView = View.inflate(mContext, R.layout.myorder_item_top, null);
             groupViewHolder = new GroupViewHolder(convertView);
             convertView.setTag(groupViewHolder);
         } else {
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
+        groupViewHolder.tv_typename.setText(data.get(groupPosition).getOrder_status_detail());
+        groupViewHolder.tv_orderNumeber.setText(data.get(groupPosition).getOrder_sn());
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("点击事件",groupPosition+"");
-                context.startActivity(new Intent(context,OrderDetailActivity.class));
+                Intent intent = new Intent(mContext, OrderDetailActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("order_id",data.get(groupPosition).getOrder_id()+"");
+                mContext.startActivity(intent);
             }
         });
         return convertView;
@@ -117,7 +121,7 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ChildViewHolder childViewHolder;
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.myorder_item_detail, null);
+            convertView = View.inflate(mContext, R.layout.myorder_item_detail, null);
             childViewHolder = new ChildViewHolder(convertView);
             convertView.setTag(childViewHolder);
         } else {
@@ -136,40 +140,42 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
         int shipping_btn = datasBean.getShipping_btn();
         int shipping_status = datasBean.getShipping_status();
         int comment_btn = datasBean.getComment_btn();
-        if (pay_btn==1&& cancel_btn == 1){
+        if (datasBean.getOrder_status_detail().equals("待支付")){
             childViewHolder.ll_tobe_received.setVisibility(View.GONE);
             childViewHolder.ll_orderDone.setVisibility(View.GONE);
             childViewHolder.ll_cancel_order.setVisibility(View.GONE);
             childViewHolder.ll_obligation.setVisibility(View.VISIBLE);
-        }else if (receive_btn == 0 && pay_btn==0){
+        }else if(datasBean.getOrder_status_detail().equals("待发货")){
             childViewHolder.ll_obligation.setVisibility(View.GONE);
             childViewHolder.ll_orderDone.setVisibility(View.GONE);
             childViewHolder.ll_cancel_order.setVisibility(View.GONE);
+            childViewHolder.ll_tobe_received.setVisibility(View.GONE);
+        }else if(datasBean.getOrder_status_detail().equals("待收货")){
+            childViewHolder.ll_obligation.setVisibility(View.GONE);
+            childViewHolder.ll_cancel_order.setVisibility(View.GONE);
+            childViewHolder.ll_orderDone.setVisibility(View.GONE);
             childViewHolder.ll_tobe_received.setVisibility(View.VISIBLE);
-        }else if (comment_btn == 1){
+        }else if (datasBean.getOrder_status_detail().equals("已完成")){
             childViewHolder.ll_obligation.setVisibility(View.GONE);
             childViewHolder.ll_tobe_received.setVisibility(View.GONE);
             childViewHolder.ll_cancel_order.setVisibility(View.GONE);
             childViewHolder.ll_orderDone.setVisibility(View.VISIBLE);
-        }else if (groupPosition==4){
-            childViewHolder.ll_obligation.setVisibility(View.GONE);
-            childViewHolder.ll_tobe_received.setVisibility(View.GONE);
-            childViewHolder.ll_orderDone.setVisibility(View.GONE);
-            childViewHolder.ll_cancel_order.setVisibility(View.VISIBLE);
-        }else {
-            childViewHolder.ll_obligation.setVisibility(View.GONE);
-            childViewHolder.ll_tobe_received.setVisibility(View.GONE);
-            childViewHolder.ll_orderDone.setVisibility(View.GONE);
-            childViewHolder.ll_cancel_order.setVisibility(View.GONE);
         }
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, OrderDetailActivity.class);
+                Intent intent = new Intent(mContext, OrderDetailActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+                intent.putExtra("order_id",data.get(groupPosition).getOrder_id()+"");
+                mContext.startActivity(intent);
             }
         });
+        childViewHolder.tv_title.setText(datasBean.getOrder_goods().get(childPosition).getGoods_name());
+        childViewHolder.tv_num.setText("X"+datasBean.getOrder_goods().get(childPosition).getGoods_num());
+        childViewHolder.tv_model.setText(datasBean.getOrder_goods().get(childPosition).getSpec_key_name());
+        childViewHolder.tv_price.setText("¥ "+datasBean.getOrder_goods().get(childPosition).getPrice());
+        childViewHolder.tv_goods_num.setText("共"+datasBean.getCount_goods_num()+"件商品，");
+        childViewHolder.tv_total_amount.setText("¥"+datasBean.getTotal_amount());
         return convertView;
     }
 
@@ -179,14 +185,31 @@ public class MyOrderAdapter extends BaseExpandableListAdapter {
     }
 
     static class GroupViewHolder {
+        @InjectView(R.id.myorder_item_top_tv_typename)
+                TextView tv_typename;
+        @InjectView(R.id.myorder_item_orderNumber)
+                TextView tv_orderNumeber;
         GroupViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
     }
 
     static class ChildViewHolder {
-        @InjectView(R.id.list_fm_shopcart_img)
-        ImageView list_fm_shopcart_img;
+        //产品图片
+        @InjectView(R.id.myorder_item_detail_img)
+        ImageView img_item;
+        @InjectView(R.id.myorder_item_detail_tv_title)
+        TextView tv_title;
+        @InjectView(R.id.myorder_item_detail_tv_price)
+        TextView tv_price;
+        @InjectView(R.id.myorder_item_detail_tv_model)
+        TextView tv_model;
+        @InjectView(R.id.myorder_item_detail_tv_num)
+        TextView tv_num;
+         @InjectView(R.id.item_shopping_tv_goods_num)
+         TextView tv_goods_num;
+         @InjectView(R.id.item_shopping_tv_goods_total_amount)
+         TextView tv_total_amount;
         @InjectView(R.id.myorder_item_bottom_rl)
          RelativeLayout myorder_item_bottom_rl;
         @InjectView(R.id.item_shopping_ll_obligation)

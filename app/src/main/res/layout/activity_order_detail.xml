@@ -105,7 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_88">
         <TextView
-            android:id="@+id/order_detail_Name"
+            android:id="@+id/order_detail_tv_consignee"
             android:text="XXXXX"
             android:drawableLeft="@mipmap/icon_min_location"
             android:drawablePadding="@dimen/dp_10"
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/order_detail_address"
+            android:id="@+id/order_detail_tv_address"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/dp_13"
             android:layout_marginLeft="@dimen/dp_34"
@@ -268,7 +268,7 @@
                          android:layout_marginLeft="@dimen/dp_81"
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
-                         android:text="￥00.00"
+                         android:text=""
                          android:textColor="#ff949397"
                          android:textSize="12sp"
                          />
@@ -294,7 +294,7 @@
                     android:textSize="14sp"
                     />
                 <TextView
-                    android:id="@+id/order_detail_goodsPrice"
+                    android:id="@+id/order_detail_tv_goodsPrice"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/order_detail_sphj"
